@@ -1,0 +1,34 @@
+﻿using BlueSwitch.Base.Components.Base;
+using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.Processing;
+
+//using IntTrader.API.Base.Exchange;
+//using IntTrader.API.Currency;
+//using IntTrader.API.Exchange.Kraken;
+//using IntTrader.API.ExchangeLoader;
+
+namespace BlueSwitch.Base.Components.Switches.IO
+{
+    public class RequestSwitch : SwitchBase
+    {
+        protected override void OnInitialize(RenderingEngine engine)
+        {
+            AddOutput(typeof (decimal));
+            Name = "Request";
+        }
+
+        public override GroupBase OnSetGroup()
+        {
+            return GroupBase.IO;
+        }
+
+        protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)
+        {
+            //KrakenExchange kraken = new KrakenExchange(new ExchangeManager());
+
+            //var price = kraken.RequestTicker(kraken.PairManager.GetPair(PairBase.BTCEUR));
+
+            //SetData(0,new DataContainer((double)price.LastPrice));
+        }
+    }
+}

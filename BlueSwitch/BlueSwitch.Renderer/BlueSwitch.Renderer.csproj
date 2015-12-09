@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlueSwitch.Renderer</RootNamespace>
+    <AssemblyName>BlueSwitch.Renderer</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Hammock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=3.2.1.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.3.2.1\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\TweetSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.2.9.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Base\DataContainer.cs" />
+    <Compile Include="Components\UI\UIComponent.cs" />
+    <Compile Include="Components\UI\TextEdit.cs" />
+    <Compile Include="Components\Switches\Base\MouseClickSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\DoubleToStringSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\FloatToStringSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\BooleanToStringSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\Int32ToStringSwitch.cs" />
+    <Compile Include="Drawing.Extended\ExtendedGraphics.cs" />
+    <Compile Include="Services\KeyboardService.cs" />
+    <Compile Include="Trigger\EventManager.cs" />
+    <Compile Include="Trigger\Types\EventBase.cs" />
+    <Compile Include="Trigger\Types\EventTypeBase.cs" />
+    <Compile Include="Components\Base\GroupBase.cs" />
+    <Compile Include="Components\Event\EventBaseArgs.cs" />
+    <Compile Include="Components\Event\TriggerEventArgs.cs" />
+    <Compile Include="Components\Switches\Base\CalculationSwitch.cs" />
+    <Compile Include="Components\Switches\Base\DelaySwitch.cs" />
+    <Compile Include="Components\Switches\Base\RedrawSwitch.cs" />
+    <Compile Include="Components\Switches\Base\RestartSwitch.cs" />
+    <Compile Include="Components\Switches\Base\StartSwitch.cs" />
+    <Compile Include="Components\Switches\CodeFlow\BranchSwitch.cs" />
+    <Compile Include="Components\Switches\IO\CalculationDisplay.cs" />
+    <Compile Include="Components\Switches\IO\ConsoleReadLine.cs" />
+    <Compile Include="Components\Switches\IO\ConsoleWriteLine.cs" />
+    <Compile Include="Components\Switches\IO\StringSwitch.cs" />
+    <Compile Include="Components\Switches\Base\ReplicatorSwitch.cs" />
+    <Compile Include="Components\Switches\IO\RequestSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\Double\LessThanSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\IncrementSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\AndSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\EqualsSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\Int32\LessThanSwitch.cs" />
+    <Compile Include="Components\Switches\Prototype\TwitterSwitch.cs" />
+    <Compile Include="Components\Types\ActionSignature.cs" />
+    <Compile Include="Components\Types\AnySignature.cs" />
+    <Compile Include="Components\Types\Signature.cs" />
+    <Compile Include="Components\Types\SignatureList.cs" />
+    <Compile Include="Components\Types\SignatureSingle.cs" />
+    <Compile Include="Controls\Docking\PropertiesEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\PropertiesEditor.Designer.cs">
+      <DependentUpon>PropertiesEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Docking\RendererBase.Designer.cs">
+      <DependentUpon>RendererBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Docking\SwitchesTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\SwitchesTree.Designer.cs">
+      <DependentUpon>SwitchesTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Processor.cs" />
+    <Compile Include="Components\Switches\IO\ToggleSwitch.cs" />
+    <Compile Include="Components\Switches\Base\DateTimeSwitch.cs" />
+    <Compile Include="Components\Base\Connection.cs" />
+    <Compile Include="Components\Base\DrawableBase.cs" />
+    <Compile Include="Components\Base\InputBase.cs" />
+    <Compile Include="Components\Base\InputOutputBase.cs" />
+    <Compile Include="Components\Base\OutputBase.cs" />
+    <Compile Include="Components\Base\RenderingEngine.cs" />
+    <Compile Include="Components\Switches\Base\SwitchBase.cs" />
+    <Compile Include="Components\Switches\IO\DisplaySwitch.cs" />
+    <Compile Include="Controls\Docking\RendererBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IO\BlueSwitchProject.cs" />
+    <Compile Include="Processing\IProcessor.cs" />
+    <Compile Include="Processing\ProcessingNode.cs" />
+    <Compile Include="Processing\ProcessingTree.cs" />
+    <Compile Include="Processing\ProcessorCompiler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\InputOutputSelector.cs" />
+    <Compile Include="Services\MouseService.cs" />
+    <Compile Include="Services\ReflectionService.cs" />
+    <Compile Include="Services\SelectionService.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\XnaGeometry\XnaGeometry.csproj">
+      <Project>{A4398650-10F4-450F-8E4F-FB3F30A39683}</Project>
+      <Name>XnaGeometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Zicore.Settings.Json\Zicore.Settings.Json.csproj">
+      <Project>{831D83A0-7348-4D8C-9857-7B336F7D91EA}</Project>
+      <Name>Zicore.Settings.Json</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="license.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Docking\PropertiesEditor.resx">
+      <DependentUpon>PropertiesEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\RendererBase.resx">
+      <DependentUpon>RendererBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\SwitchesTree.resx">
+      <DependentUpon>SwitchesTree.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
