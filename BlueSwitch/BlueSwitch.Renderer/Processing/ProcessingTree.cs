@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
@@ -9,11 +10,31 @@ namespace BlueSwitch.Base.Processing
     public class ProcessingTree<T> where T : SwitchBase
     {
         private CancellationTokenSource _cancellationTokenSource;
+        private volatile bool _isActive = false;
 
         public CancellationTokenSource CancellationTokenSource
         {
             get { return _cancellationTokenSource; }
             set { _cancellationTokenSource = value; }
+        }
+
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; }
+        }
+
+        public event EventHandler Started;
+        public event EventHandler Finished;
+
+        public virtual void OnStarted()
+        {
+            Started?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual void OnFinished()
+        {
+            Finished?.Invoke(this, EventArgs.Empty);
         }
 
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();

@@ -23,6 +23,8 @@ namespace BlueSwitch.Base.Processing
         public event EventHandler Started;
         public event EventHandler Finished;
 
+
+
         public RenderingEngine RenderingEngine { get; }
 
         private List<ProcessingTree<SwitchBase>> _items = new List<ProcessingTree<SwitchBase>>();
@@ -152,9 +154,16 @@ namespace BlueSwitch.Base.Processing
 
             Task.Run(() =>
             {
-                OnStarted();
                 try
                 {
+                    processingTree.Started -= ProcessingTreeOnStarted;
+                    processingTree.Finished -= ProcessingTreeOnFinished;
+
+                    processingTree.Started += ProcessingTreeOnStarted;
+                    processingTree.Finished += ProcessingTreeOnFinished;
+
+                    processingTree.IsActive = true;
+                    processingTree.OnStarted();
                     Processor processor;
                     do
                     {
@@ -163,14 +172,36 @@ namespace BlueSwitch.Base.Processing
                 }
                 catch (TaskCanceledException)
                 {
-
+                    processingTree.IsActive = false;
+                    processingTree.OnFinished();
                 }
                 finally
                 {
-                    OnFinished();
+                    processingTree.IsActive = false;
+                    processingTree.OnFinished();
                 }
 
             }, tokenSource.Token);
+        }
+
+        private void ProcessingTreeOnFinished(object sender, EventArgs eventArgs)
+        {
+            OnFinished(sender);
+        }
+
+        private void ProcessingTreeOnStarted(object sender, EventArgs eventArgs)
+        {
+            OnStarted(sender);
+        }
+
+        public virtual void OnStarted(object sender)
+        {
+            Started?.Invoke(sender, EventArgs.Empty);
+        }
+
+        public virtual void OnFinished(object sender)
+        {
+            Finished?.Invoke(sender, EventArgs.Empty);
         }
 
         protected virtual void OnCompileStart()
@@ -181,16 +212,6 @@ namespace BlueSwitch.Base.Processing
         protected virtual void OnCompileFinished()
         {
             CompileFinished?.Invoke(this, EventArgs.Empty);
-        }
-
-        protected virtual void OnStarted()
-        {
-            Started?.Invoke(this, EventArgs.Empty);
-        }
-
-        protected virtual void OnFinished()
-        {
-            Finished?.Invoke(this, EventArgs.Empty);
         }
     }
 }

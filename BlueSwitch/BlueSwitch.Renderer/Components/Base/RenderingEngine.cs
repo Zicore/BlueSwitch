@@ -20,8 +20,8 @@ namespace BlueSwitch.Base.Components.Base
 {
     public class RenderingEngine
     {
-        Timer _tickerProvider = new Timer { Interval = 100, Enabled = true};
-        
+        Timer _tickerProvider = new Timer { Interval = 100, Enabled = true };
+
         private Logger _log = LogManager.GetCurrentClassLogger();
 
         [JsonIgnore]
@@ -38,8 +38,10 @@ namespace BlueSwitch.Base.Components.Base
             }
         }
 
+        private static Brush _selectionRectangleBrush = new SolidBrush(Color.FromArgb(150, 10,30, 200));
+
         [JsonIgnore]
-        public bool PreventContextMenu { get; set; } = false;
+        public bool PreventContextMenu { get; private set; } = false;
 
         [JsonIgnore]
         public bool DesignMode { get; set; } = true;
@@ -49,7 +51,7 @@ namespace BlueSwitch.Base.Components.Base
 
 
         [JsonIgnore]
-        public TimeSpan DebugTime { get; set; } = new TimeSpan(0,0,0,0,300);
+        public TimeSpan DebugTime { get; set; } = new TimeSpan(0, 0, 0, 0, 300);
 
         public BlueSwitchProject CurrentProject { get; set; } = new BlueSwitchProject(); // empty
 
@@ -57,9 +59,9 @@ namespace BlueSwitch.Base.Components.Base
         [JsonIgnore]
         public PointF TranslatedMousePosition
         {
-            get {  return new PointF(MouseService.Position.X / CurrentProject.Zoom - CurrentProject.Translation.X, MouseService.Position.Y/ CurrentProject.Zoom - CurrentProject.Translation.Y );}
+            get { return new PointF(MouseService.Position.X / CurrentProject.Zoom - CurrentProject.Translation.X, MouseService.Position.Y / CurrentProject.Zoom - CurrentProject.Translation.Y); }
         }
-        
+
         public PointF TranslatePoint(PointF mouse)
         {
             return new PointF(mouse.X / CurrentProject.Zoom - CurrentProject.Translation.X, mouse.Y / CurrentProject.Zoom - CurrentProject.Translation.Y);
@@ -73,7 +75,7 @@ namespace BlueSwitch.Base.Components.Base
         public readonly List<SwitchBase> AvailableSwitches;
         private bool _debugMode = true;
 
-        static Pen _linePen = new Pen(Color.FromArgb(200,30,30,30), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round};
+        static Pen _linePen = new Pen(Color.FromArgb(200, 30, 30, 30), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
 
         public EventManager EventManager { get; }
         public ProcessorCompiler ProcessorCompiler { get; }
@@ -106,7 +108,10 @@ namespace BlueSwitch.Base.Components.Base
 
         private void ProcessorCompilerOnFinished(object sender, EventArgs eventArgs)
         {
-            DesignMode = true;
+            if (ProcessorCompiler.Items.Count(x => x.IsActive) == 0)
+            {
+                DesignMode = true;
+            }
         }
 
         private void ProcessorCompilerOnCompileStart(object sender, EventArgs eventArgs)
@@ -147,21 +152,21 @@ namespace BlueSwitch.Base.Components.Base
         {
             if (DesignMode)
             {
-            var selected = SelectionService.SelectedInputOutput;
-            if (selected != null)
-            {
-                var selector =
-                    CurrentProject.Connections.FirstOrDefault(
-                        x =>
-                            x.FromInputOutput.InputOutput == selected.InputOutput ||
-                            x.ToInputOutput.InputOutput == selected.InputOutput);
-                if (selector != null)
+                var selected = SelectionService.SelectedInputOutput;
+                if (selected != null)
                 {
-                    CurrentProject.RemoveConnection(selector);
+                    var selector =
+                        CurrentProject.Connections.FirstOrDefault(
+                            x =>
+                                x.FromInputOutput.InputOutput == selected.InputOutput ||
+                                x.ToInputOutput.InputOutput == selected.InputOutput);
+                    if (selector != null)
+                    {
+                        CurrentProject.RemoveConnection(selector);
+                    }
                 }
             }
         }
-    }
 
         private void AddOrReplaceConnection()
         {
@@ -184,7 +189,7 @@ namespace BlueSwitch.Base.Components.Base
         {
             AddOrReplaceConnection();
         }
-        
+
         public void Draw(Graphics g, RectangleF viewport)
         {
             var transform = g.Transform;
@@ -230,21 +235,32 @@ namespace BlueSwitch.Base.Components.Base
                 }
             }
 
+            // Translated Rectangle Debug Modus
+            //if (MouseService.LeftMouseDown)
+            //{
+            //    var rect = SelectionService.SelectionRectangleTranslated;
+            //    g.DrawRectangle(Pens.DimGray, rect.X, rect.Y, rect.Width, rect.Height);
+            //    g.FillRectangle(Brushes.PaleVioletRed, rect);
+            //}
+
             g.Transform = transform;
+
+            // Selection nach Rückgängig machen der Transformation, so ist die Box wieder an der richtigen Position
+            DrawSelectionRectangle(g);
         }
 
         public void DrawGrid(Graphics g, RectangleF viewport)
         {
-            int maxGrid = (int)((CurrentProject.Zoom/500)*1000);
+            int maxGrid = (int)((CurrentProject.Zoom / 500) * 1000);
 
-            float stepX = viewport.Width/maxGrid;
+            float stepX = viewport.Width / maxGrid;
             float stepY = viewport.Height / maxGrid;
 
             for (int i = 1; i < maxGrid; i++)
             {
                 var x = i * stepX;
 
-                g.DrawLine(Pens.Black,x,viewport.Top, x, viewport.Bottom);
+                g.DrawLine(Pens.Black, x, viewport.Top, x, viewport.Bottom);
             }
 
             for (int i = 1; i < maxGrid; i++)
@@ -259,17 +275,17 @@ namespace BlueSwitch.Base.Components.Base
         {
             if (DesignMode)
             {
-                var p = new PointF(viewport.Width - 152, 4);
-                var p2 = new PointF(viewport.Width - 150, 5);
-                g.DrawString("DESIGN", FontInfo, Brushes.CornflowerBlue, p2);
-                g.DrawString("DESIGN", FontInfo, Brushes.Black, p);
+                var p = new PointF(viewport.Width - 196, 4);
+                var p2 = new PointF(viewport.Width - 194, 5);
+                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.CornflowerBlue, p2);
+                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.Black, p);
             }
             else
             {
-                var p = new PointF(viewport.Width - 236, 4);
-                var p2 = new PointF(viewport.Width - 234, 5);
-                g.DrawString("SIMULATION", FontInfo, Brushes.OrangeRed, p2);
-                g.DrawString("SIMULATION", FontInfo, Brushes.Black, p);
+                var p = new PointF(viewport.Width - 286, 4);
+                var p2 = new PointF(viewport.Width - 284, 5);
+                g.DrawString("SIMULATION ▶", FontInfo, Brushes.OrangeRed, p2);
+                g.DrawString("SIMULATION ▶", FontInfo, Brushes.Black, p);
             }
         }
 
@@ -310,6 +326,18 @@ namespace BlueSwitch.Base.Components.Base
             Start();
         }
 
+
+        public void DrawSelectionRectangle(Graphics g)
+        {
+            if (MouseService.LeftMouseDown && SelectionService.StartSelectionRectangle)
+            {
+                var rect = SelectionService.SelectionRectangle;
+                g.DrawRectangle(Pens.DimGray, rect.X,rect.Y, rect.Width, rect.Height);
+                g.FillRectangle(_selectionRectangleBrush, rect);
+
+            }
+        }
+
         // Mittelpunkt
         //public void DrawConnection(Graphics g, Pen pen, Pen pen2, PointF p1, PointF p2)
         //{
@@ -347,7 +375,7 @@ namespace BlueSwitch.Base.Components.Base
             Vector2 v2 = new Vector2(p2.X, p2.Y);
 
             float overhangX = (Math.Max(p1.X, p2.X) - Math.Min(p1.X, p2.X)) * 0.85f;
-            
+
             overhangX = Math.Min(overhangX, 100);
             overhangX = Math.Max(30, overhangX);
 
@@ -358,14 +386,14 @@ namespace BlueSwitch.Base.Components.Base
 
             PointF b1 = new PointF(p1.X - overhangX, p1.Y - overhangY);
             PointF b2 = new PointF(p2.X + overhangX, p2.Y + overhangY);
-            
-            g.DrawBezier(pen2,p1,b1,b2,p2);
+
+            g.DrawBezier(pen2, p1, b1, b2, p2);
             g.DrawBezier(pen, p1, b1, b2, p2);
         }
 
-        public static void DrawRect(Graphics g,PointF p)
+        public static void DrawRect(Graphics g, PointF p)
         {
-            g.FillRectangle(Brushes.Red, new RectangleF(new PointF(p.X - 1f,p.Y - 1f), new SizeF(3,3)));
+            g.FillRectangle(Brushes.Red, new RectangleF(new PointF(p.X - 1f, p.Y - 1f), new SizeF(3, 3)));
         }
 
         public static Vector2 Perpendicular(Vector2 vector)
@@ -399,15 +427,20 @@ namespace BlueSwitch.Base.Components.Base
         {
             if (CurrentProject.Ready)
             {
-                foreach (var item in CurrentProject.Items)
+                if (!SelectionService.StartSelectionRectangle && MouseService.LeftMouseDown)
                 {
-                    item.UpdateMouseMove(this, null, null);
+                    foreach (var item in CurrentProject.Items)
+                    {
+                        item.UpdateMouseMove(this, null, null);
+                    }
+
+                    SelectionService.MouseLeftDownMovePositionLast = TranslatedMousePosition;
                 }
             }
 
             TranslateViewPort();
         }
-
+        
         public void TranslateViewPort()
         {
             if (MouseService.RightMouseDown)
@@ -415,15 +448,15 @@ namespace BlueSwitch.Base.Components.Base
                 var translation = CurrentProject.Translation;
                 var mouse = MouseService.Position;
 
-                PointF shift = new PointF(mouse.X - SelectionService.MouseRightDownMoveTranslationPositionLast.X, mouse.Y  - SelectionService.MouseRightDownMoveTranslationPositionLast.Y);
+                PointF shift = new PointF(mouse.X - SelectionService.MouseRightDownMoveTranslationPositionLast.X, mouse.Y - SelectionService.MouseRightDownMoveTranslationPositionLast.Y);
 
                 PointF newTranslation = new PointF(translation.X + shift.X / CurrentProject.Zoom, translation.Y + shift.Y / CurrentProject.Zoom);
 
                 var distance = Vector2.Distance(new Vector2(newTranslation.X, newTranslation.Y), new Vector2(CurrentProject.Translation.X, CurrentProject.Translation.Y));
-                
+
                 CurrentProject.Translation = newTranslation;
 
-                PreventContextMenu = distance > 0.005f; // Wenn die Distanz beider Punkte > also angegeben ist, soll kein Kontext Menü angezeigt werden.
+                PreventContextMenu = distance > 0.005f || !SelectionService.SelectedItemsAvailable; // Wenn die Distanz beider Punkte > als angegeben ist, soll kein Kontext Menü angezeigt werden.
 
                 Cursor.Current = Cursors.Hand;
 
@@ -452,10 +485,10 @@ namespace BlueSwitch.Base.Components.Base
                 }
             }
         }
-        
+
         public PointF GetTranslation(PointF p)
         {
-            return new PointF(p.X - CurrentProject.Translation.X , p.Y - CurrentProject.Translation.Y);
+            return new PointF(p.X - CurrentProject.Translation.X, p.Y - CurrentProject.Translation.Y);
         }
 
         protected virtual void OnDebugModeChanged()

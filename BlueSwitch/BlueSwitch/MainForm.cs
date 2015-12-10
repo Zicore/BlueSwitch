@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Processing;
 using BlueSwitch.Base.Services;
@@ -64,7 +65,7 @@ namespace BlueSwitch
 
         private void ProcessorCompilerOnCompileFinished(object sender, EventArgs eventArgs)
         {
-            labelBuildProgress.Text = $"Finished";
+            labelBuildProgress.Text = "Finished";
         }
 
         private void ProcessorCompilerOnCompileStart(object sender, EventArgs eventArgs)
@@ -232,6 +233,19 @@ namespace BlueSwitch
         private void tradeFairModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _switchesTree.TradeFairMode = tradeFairModeToolStripMenuItem.Checked;
+        }
+
+        private void performanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var sw = new ReplicatorSwitch();
+            Random rnd = new Random();
+            for (int i = 0; i < 125; i++)
+            {
+                var x = rnd.Next(2, Renderer.ClientRectangle.Width);
+                var y = rnd.Next(2, Renderer.ClientRectangle.Height);
+                
+                Renderer.AddComponent(sw, new PointF(x, y));
+            }
         }
     }
 }

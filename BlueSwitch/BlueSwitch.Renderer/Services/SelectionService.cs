@@ -4,18 +4,85 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
+using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.Utils;
+using XnaGeometry;
 
 namespace BlueSwitch.Base.Services
 {
     public class SelectionService
     {
-        public bool SelectedItemsAvailable { get; private set; } = false;
+        public bool SelectedItemsAvailable
+        {
+            get { return CurrentSelection.Count > 0; }
+        }
 
         public RenderingEngine RenderingEngine { get; set; }
 
         public PointF MouseRightDownMoveTranslationPositionLast { get; set; } = new PointF(0, 0);
         public PointF MouseLeftDownMovePositionLast { get; set; } = new PointF(0, 0);
+        public PointF MouseLeftDownPositionLast { get; set; } = new PointF(0, 0);
         public PointF MouseMiddleDownMovePositionLast { get; set; } = new PointF(0, 0);
+
+        public PointF SelectionRectangleStart { get; set; } = new PointF();
+        public PointF SelectionRectangleEnd { get; set; } = new PointF();
+
+        IList<SwitchBase> CurrentSelection { get; set; } = new List<SwitchBase>();
+
+        public RectangleF SelectionRectangle
+        {
+            get
+            {
+                PointF topLeft = new PointF(
+                    Math.Min(SelectionRectangleStart.X, SelectionRectangleEnd.X),
+                    Math.Min(SelectionRectangleStart.Y, SelectionRectangleEnd.Y));
+
+                PointF bottomRight = new PointF(
+                    Math.Max(SelectionRectangleStart.X, SelectionRectangleEnd.X),
+                    Math.Max(SelectionRectangleStart.Y, SelectionRectangleEnd.Y));
+
+                SizeF size = new SizeF(bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
+
+                return new RectangleF(topLeft, size);
+            }
+        }
+
+        public RectangleF SelectionRectangleTranslated
+        {
+            get
+            {
+                var project = RenderingEngine.CurrentProject;
+                var r = SelectionRectangle;
+                return new RectangleF(
+                    r.X / project.Zoom - project.Translation.X,
+                    r.Y / project.Zoom - project.Translation.Y,
+                    r.Width / project.Zoom,
+                    r.Height / project.Zoom
+                    );
+            }
+        }
+
+        public bool IsSelectionMoving
+        {
+            get
+            {
+                Vector2 a = new Vector2(MouseLeftDownPositionLast.X, MouseLeftDownPositionLast.Y);
+                Vector2 b = new Vector2(MouseLeftDownMovePositionLast.X, MouseLeftDownMovePositionLast.Y);
+
+                return SelectedItemsAvailable && Vector2.Distance(a, b) > 0.001f;
+            }
+        }
+
+        //[JsonIgnore]
+        //public PointF TranslatedMousePosition
+        //{
+        //    get { return new PointF(MouseService.Position.X / CurrentProject.Zoom - CurrentProject.Translation.X, MouseService.Position.Y / CurrentProject.Zoom - CurrentProject.Translation.Y); }
+        //}
+
+        //public PointF TranslatePoint(PointF mouse)
+        //{
+        //    return new PointF(mouse.X / CurrentProject.Zoom - CurrentProject.Translation.X, mouse.Y / CurrentProject.Zoom - CurrentProject.Translation.Y);
+        //}
 
         public SelectionService(RenderingEngine renderingEngine)
         {
@@ -27,9 +94,13 @@ namespace BlueSwitch.Base.Services
 
         private void MouseService_MouseMove(object sender, MouseEventArgs e)
         {
-            
+            if (StartSelectionRectangle && RenderingEngine.MouseService.LeftMouseDown)
+            {
+                SelectionRectangleEnd = e.Location;
+            }
         }
 
+        public bool StartSelectionRectangle { get; set; } = false;
         public bool StartDrag { get; set; } = false;
         public InputOutputSelector Input { get; set; }
         public InputOutputSelector Output { get; set; }
@@ -95,56 +166,71 @@ namespace BlueSwitch.Base.Services
         {
             if (e.Button == MouseButtons.Left)
             {
-                var mouseOverItems = RenderingEngine.CurrentProject.Items.Where(x => x.IsMouseOver);
-
-                foreach (var selectedItem in mouseOverItems)
+                if (!StartSelectionRectangle)
                 {
-                    selectedItem.IsSelected = true;
+                    var mouseOverItems = RenderingEngine.CurrentProject.Items.Where(x => x.IsMouseOver);
 
-                    List<InputOutputBase> inputOutputs = new List<InputOutputBase>();
-
-                    inputOutputs.AddRange(selectedItem.Inputs);
-                    inputOutputs.AddRange(selectedItem.Outputs);
-
-                    var mouseOverInputOutput = inputOutputs.FirstOrDefault(x => x.IsMouseOver);
-
-                    if (mouseOverInputOutput != null)
+                    foreach (var selectedItem in mouseOverItems)
                     {
-                        var selector = new InputOutputSelector(selectedItem, mouseOverInputOutput);
+                        selectedItem.IsSelected = true;
 
-                        if (Input?.InputOutput is InputBase && mouseOverInputOutput is OutputBase)
-                        {
-                            Output = selector;
-                        }
+                        List<InputOutputBase> inputOutputs = new List<InputOutputBase>();
 
-                        if (Input?.InputOutput is OutputBase && mouseOverInputOutput is InputBase)
-                        {
-                            Output = selector;
-                        }
+                        inputOutputs.AddRange(selectedItem.Inputs);
+                        inputOutputs.AddRange(selectedItem.Outputs);
 
-                        if (Output?.InputOutput is InputBase && mouseOverInputOutput is OutputBase)
-                        {
-                            Input = selector;
-                        }
+                        var mouseOverInputOutput = inputOutputs.FirstOrDefault(x => x.IsMouseOver);
 
-                        if (Output?.InputOutput is OutputBase && mouseOverInputOutput is InputBase)
+                        if (mouseOverInputOutput != null)
                         {
-                            Input = selector;
+                            var selector = new InputOutputSelector(selectedItem, mouseOverInputOutput);
+
+                            if (Input?.InputOutput is InputBase && mouseOverInputOutput is OutputBase)
+                            {
+                                Output = selector;
+                            }
+
+                            if (Input?.InputOutput is OutputBase && mouseOverInputOutput is InputBase)
+                            {
+                                Output = selector;
+                            }
+
+                            if (Output?.InputOutput is InputBase && mouseOverInputOutput is OutputBase)
+                            {
+                                Input = selector;
+                            }
+
+                            if (Output?.InputOutput is OutputBase && mouseOverInputOutput is InputBase)
+                            {
+                                Input = selector;
+                            }
                         }
                     }
-                }
 
-                if (NotComplete || !SignatureMatching)
-                {
-                    OnInComplete();
+                    if (NotComplete || !SignatureMatching)
+                    {
+                        OnInComplete();
+                    }
+                    else
+                    {
+                        OnCompleted();
+                    }
+
+                    Input = null;
+                    Output = null;
+
                 }
                 else
                 {
-                    OnCompleted();
-                }
+                    var selectedItems = RenderingEngine.CurrentProject.Items.Where(
+                        x => RectangleF.Intersect(x.Rectangle, SelectionRectangleTranslated) != RectangleF.Empty);
 
-                Input = null;
-                Output = null;
+                    foreach (var selectedItem in selectedItems)
+                    {
+                        selectedItem.IsSelected = true;
+                        CurrentSelection.Add(selectedItem);
+                    }
+                }
 
                 StartDrag = false;
             }
@@ -159,26 +245,31 @@ namespace BlueSwitch.Base.Services
 
             if (e.Button == MouseButtons.Left)
             {
-                SelectedItemsAvailable = false;
+                StartSelectionRectangle = false;
                 MouseLeftDownMovePositionLast = RenderingEngine.TranslatedMousePosition;
+                MouseLeftDownPositionLast = RenderingEngine.TranslatedMousePosition;
 
                 if (!StartDrag)
                 {
                     Input = null;
                     Output = null;
-
-                    foreach (var item in RenderingEngine.CurrentProject.Items)
-                    {
-                        item.IsSelected = false;
-                    }
-
+                    
                     var mouseOverItems = RenderingEngine.CurrentProject.Items.Where(x => x.IsMouseOver).ToList();
+
+                    if (mouseOverItems.Count == 0)
+                    {
+                        DeselectAll();
+                    }
 
                     if (mouseOverItems.Count > 0)
                     {
-                        SelectedItemsAvailable = true;
                         foreach (var selectedItem in mouseOverItems)
                         {
+                            if (!CurrentSelection.Contains(selectedItem))
+                            {
+                                DeselectAll();
+                                CurrentSelection.Add(selectedItem);
+                            }
                             selectedItem.IsSelected = true;
 
                             List<InputOutputBase> inputOutputs = new List<InputOutputBase>();
@@ -192,7 +283,6 @@ namespace BlueSwitch.Base.Services
                             {
                                 if (mouseOverInputOutput is InputBase)
                                 {
-
                                     Input = new InputOutputSelector(selectedItem, mouseOverInputOutput);
                                 }
                                 if (mouseOverInputOutput is OutputBase)
@@ -203,6 +293,12 @@ namespace BlueSwitch.Base.Services
                         }
                     }
                 }
+
+                if (!SelectedItemsAvailable)
+                {
+                    StartSelectionRectangle = true;
+                    SelectionRectangleStart = e.Location;
+                }
                 StartDrag = true;
             }
 
@@ -210,6 +306,15 @@ namespace BlueSwitch.Base.Services
             {
                 MouseMiddleDownMovePositionLast = e.Location;
             }
+        }
+
+        public void DeselectAll()
+        {
+            foreach (var item in RenderingEngine.CurrentProject.Items)
+            {
+                item.IsSelected = false;
+            }
+            CurrentSelection.Clear();
         }
 
         public void RemoveSelected()

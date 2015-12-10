@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
@@ -29,31 +30,39 @@ namespace BlueSwitch.Controls.Docking
 
         private void ProcessorCompilerOnFinished(object sender, EventArgs eventArgs)
         {
-            if (InvokeRequired)
+            if (RenderingEngine.ProcessorCompiler.Items.Count(x => x.IsActive) == 0)
             {
-                BeginInvoke((Action) (() =>
+                if (InvokeRequired)
+                {
+                    BeginInvoke((Action) (() =>
+                    {
+                        this.AllowDrop = true;
+                        Invalidate();
+                    }));
+                }
+                else
                 {
                     this.AllowDrop = true;
-                }));
-            }
-            else
-            {
-                this.AllowDrop = true;
+                    Invalidate();
+                }
             }
         }
 
         private void ProcessorCompilerOnCompileStart(object sender, EventArgs eventArgs)
         {
-            if (InvokeRequired)
+            if (RenderingEngine.ProcessorCompiler.Items.Count(x => x.IsActive) > 0)
             {
-                BeginInvoke((Action)(() =>
+                if (InvokeRequired)
+                {
+                    BeginInvoke((Action) (() =>
+                    {
+                        this.AllowDrop = false;
+                    }));
+                }
+                else
                 {
                     this.AllowDrop = false;
-                }));
-            }
-            else
-            {
-                this.AllowDrop = false;
+                }
             }
         }
 
@@ -214,7 +223,7 @@ namespace BlueSwitch.Controls.Docking
 
         public void Zoom(float zoom)
         {
-            Point m = PointToClient(Cursor.Position);
+            PointF m = RenderingEngine.TranslatedMousePosition;
 
             if (RenderingEngine.CurrentProject.Zoom + zoom > 0.2)
             {
@@ -259,8 +268,12 @@ namespace BlueSwitch.Controls.Docking
 
         public void AddComponent(SwitchBase sourceComponent)
         {
+            AddComponent(sourceComponent, RenderingEngine.TranslatePoint(PointToClient(MousePosition)));
+        }
+
+        public void AddComponent(SwitchBase sourceComponent, PointF pt)
+        {
             SwitchBase switchBase = Activator.CreateInstance(sourceComponent.GetType()) as SwitchBase;
-            PointF pt = RenderingEngine.TranslatePoint(PointToClient(MousePosition)); // this.PointToClient(new Point(Cursor.Position.X, Cursor.Position.Y)); //.Divide(CurrentProject.Zoom, CurrentProject.Zoom).Add(-CurrentProject.Translation.X, -CurrentProject.Translation.Y);
 
             if (switchBase != null)
             {

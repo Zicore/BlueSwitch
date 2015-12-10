@@ -128,11 +128,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         [JsonIgnore]
         public static Pen DescriptionPen { get; set; } = new Pen(Color.FromArgb(180,30,30,30), 0.5f);
-
-        //[JsonIgnore]
-        //public Brush Brush { get; set; } 
         
-
         [JsonIgnore]
         public static Pen MouseOverPen { get; set; } = new Pen(Color.LightCoral, 2.0f);
 
@@ -402,9 +398,6 @@ namespace BlueSwitch.Base.Components.Switches.Base
             float radius = 4;
             
             extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
-            
-
-            //DrawRectangleF(g, Pen, r);
             extendedGraphics.DrawRoundRectangle(Pen,r.X, r.Y, r.Width, r.Height, radius);
         }
 
@@ -595,7 +588,6 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             Cursor.Current = Cursors.SizeAll;
 
-            e.SelectionService.MouseLeftDownMovePositionLast = m;
         }
 
         public void DrawSelection(Graphics g, RenderingEngine e, DrawableBase parent, Pen pen)
