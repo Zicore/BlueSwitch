@@ -19,6 +19,7 @@ namespace BlueSwitch.Controls.Docking
             TabText = "Renderer";
             DoubleBuffered = true;
             Load += OnLoad;
+            RenderingEngine.LoadAddons();
             RenderingEngine.Redraw += RenderingEngineOnRedraw;
             this.MouseWheel += renderView_MouseWheel;
             GotFocus += OnGotFocus;
@@ -124,10 +125,10 @@ namespace BlueSwitch.Controls.Docking
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            //if (!Focused)
-            //{
-            //    this.Activate();
-            //}
+            //RenderingEngine.UpdateValue("TranslationX", RenderingEngine.CurrentProject.Translation.X);
+            //RenderingEngine.UpdateValue("TranslationY", RenderingEngine.CurrentProject.Translation.Y);
+
+            //RenderingEngine.UpdateValue("Zoom", RenderingEngine.CurrentProject.Zoom);
 
             RenderingEngine.MouseService.UpdateMouseMove(e);
             base.OnMouseMove(e);
@@ -223,7 +224,7 @@ namespace BlueSwitch.Controls.Docking
 
         public void Zoom(float zoom)
         {
-            PointF m = RenderingEngine.TranslatedMousePosition;
+            PointF m = RenderingEngine.MouseService.Position;
 
             if (RenderingEngine.CurrentProject.Zoom + zoom > 0.2)
             {
@@ -231,14 +232,15 @@ namespace BlueSwitch.Controls.Docking
                 Vector2 maus = new Vector2(m.X, m.Y);
                 Vector2 abweichung = center - maus;
 
-                abweichung = (abweichung * zoom * 0.3);
+                
 
                 RenderingEngine.CurrentProject.Zoom += zoom;
 
+                abweichung = (abweichung * zoom * 0.4f);
+
                 RenderingEngine.CurrentProject.Translation = new PointF(RenderingEngine.CurrentProject.Translation.X + (float)abweichung.X, RenderingEngine.CurrentProject.Translation.Y + (float)abweichung.Y);
             }
-
-            //renderModel.Zoom(zoom);
+            
             Invalidate();
         }
 

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch", "BlueSwitch\BlueSwitch.csproj", "{6E73821E-6E16-417B-B6E0-6362B9A88A01}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Base", "BlueSwitch.Renderer\BlueSwitch.Base.csproj", "{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XnaGeometry", "..\XnaGeometry\XnaGeometry.csproj", "{A4398650-10F4-450F-8E4F-FB3F30A39683}"
 EndProject
@@ -19,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Outlook", "BlueS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Addons", "BlueSwitch.Addons\BlueSwitch.Addons.csproj", "{23B23940-30FA-4992-8CE6-7DF22E6C2139}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Base", "BlueSwitch.Base\BlueSwitch.Base.csproj", "{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +29,6 @@ Global
 		{6E73821E-6E16-417B-B6E0-6362B9A88A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E73821E-6E16-417B-B6E0-6362B9A88A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E73821E-6E16-417B-B6E0-6362B9A88A01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4398650-10F4-450F-8E4F-FB3F30A39683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A4398650-10F4-450F-8E4F-FB3F30A39683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4398650-10F4-450F-8E4F-FB3F30A39683}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{23B23940-30FA-4992-8CE6-7DF22E6C2139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23B23940-30FA-4992-8CE6-7DF22E6C2139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23B23940-30FA-4992-8CE6-7DF22E6C2139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9AD3F2-6B7B-43AA-84E2-E0D53DB7F2D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

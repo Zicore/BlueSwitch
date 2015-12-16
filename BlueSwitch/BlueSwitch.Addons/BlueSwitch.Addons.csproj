@@ -53,12 +53,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlueSwitch.Renderer\BlueSwitch.Base.csproj">
-      <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
-      <Name>BlueSwitch.Base</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="license.txt" />
   </ItemGroup>
   <ItemGroup>

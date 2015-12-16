@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.Components.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace BlueSwitch.Controls.Docking
@@ -14,50 +17,69 @@ namespace BlueSwitch.Controls.Docking
         public PropertiesEditor(RenderingEngine renderingEngine)
         {
             RenderingEngine = renderingEngine;
+            RenderingEngine.DebugValueUpdated += RenderingEngineOnDebugValueUpdated;
+            
             InitializeComponent();
-            RenderingEngine.MouseService.MouseUp += MouseServiceOnMouseUp;   
         }
 
-        private void MouseServiceOnMouseUp(object sender, MouseEventArgs e)
+        private void RenderingEngineOnDebugValueUpdated(object sender, EventArgs eventArgs)
         {
-            var items = RenderingEngine.CurrentProject.Items.Where(x => x.IsSelected).ToList();
-
-            comboBoxSwitches.DisplayMember = "DisplayName";
-            comboBoxSwitches.DataSource = items;
+            UpdateValues();
+            Invalidate();
         }
+        
+        float scale = 1.5f;
 
-        private void comboBoxSwitches_SelectedIndexChanged(object sender, EventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            var selectedItem = comboBoxSwitches.SelectedItem as SwitchBase;
-            if (selectedItem != null)
+            base.OnPaint(e);
+
+            e.Graphics.TranslateTransform(2,0);
+            e.Graphics.ScaleTransform(scale, scale);
+            
+            int count = 0;
+
+            foreach (var keyValue in availableValues)
             {
-                comboBoxInputs.DisplayMember = "DisplayName";
-                comboBoxInputs.DataSource = selectedItem.Inputs;
+                var item = keyValue.Value;
+                item.Text = ToValue(keyValue.Key,RenderingEngine.DebugValues[item.Key]);
+                item.Position = new PointF(item.Position.X,count * 14);
+                item.Size = new SizeF(Size.Width / scale - 2, item.Size.Height);
+                item.Draw(e.Graphics, RenderingEngine, null);
+                count++;
             }
         }
 
-        private void btSetValue_Click(object sender, EventArgs e)
-        {
-            var selectedInput = comboBoxInputs.SelectedItem as InputOutputBase;
+        private Dictionary<string, DebugTextEdit> availableValues = new Dictionary<string, DebugTextEdit>();
 
-            if (selectedInput != null)
+        public void UpdateValues()
+        {
+            foreach (var debugValue in RenderingEngine.DebugValues)
             {
-                selectedInput.Data = new DataContainer(Convert.ChangeType(textBoxValue.Text, selectedInput.Signature.BaseType));
+                if (!availableValues.ContainsKey(debugValue.Key))
+                {
+                    var item = new DebugTextEdit
+                    {
+                        Text = ToValue(debugValue.Key, debugValue.Value),
+                        Size = new SizeF(20, 14),
+                        Key = debugValue.Key
+                    };
+                    item.Initialize(RenderingEngine, null);
+                    availableValues.Add(item.Key, item);
+                }
             }
         }
 
-        private void comboBoxInputs_SelectedIndexChanged(object sender, EventArgs e)
+        public string ToValue(String key, object value)
         {
-            var selectedInput = comboBoxInputs.SelectedItem as InputOutputBase;
+            return $"{key}: {value}";
+        }
 
-            if (selectedInput?.Data != null)
-            {
-                textBoxValue.Text = selectedInput.Data.Value.ToString();
-            }
-            else
-            {
-                textBoxValue.Text = "";
-            }
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            Invalidate();
         }
     }
 }

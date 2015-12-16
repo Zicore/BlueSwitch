@@ -134,6 +134,10 @@
       <Project>{831D83A0-7348-4D8C-9857-7B336F7D91EA}</Project>
       <Name>Zicore.Settings.Json</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Base\BlueSwitch.Base.csproj">
+      <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
+      <Name>BlueSwitch.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
       <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
       <Name>BlueSwitch.OpcUa</Name>
@@ -141,10 +145,6 @@
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
       <Name>BlueSwitch.Outlook</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.Renderer\BlueSwitch.Base.csproj">
-      <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
-      <Name>BlueSwitch.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Twitter\BlueSwitch.Twitter.csproj">
       <Project>{9b1bce96-df71-435d-b8f4-1dcdd38d4d3e}</Project>

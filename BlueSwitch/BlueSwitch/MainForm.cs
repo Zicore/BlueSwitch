@@ -99,7 +99,7 @@ namespace BlueSwitch
 
             _properties = new PropertiesEditor(Renderer.RenderingEngine);
             _properties.HideOnClose = true;
-            
+
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;
 
