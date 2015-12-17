@@ -23,7 +23,6 @@ namespace BlueSwitch.Base.Components.Switches.IO
             AddOutput(new ActionSignature());
             AddOutput(new OutputBase(new AnySignature()));
             Name = "Display";
-            
         }
 
         public override GroupBase OnSetGroup()
@@ -34,6 +33,9 @@ namespace BlueSwitch.Base.Components.Switches.IO
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)
         {
             RenderingEngine.RequestRedraw();
+
+            SetData(1, new DataContainer(GetData(1)?.Value));
+
             base.OnProcess(p, node);
         }
 
@@ -45,8 +47,6 @@ namespace BlueSwitch.Base.Components.Switches.IO
             {
                 DrawDescriptionText(g, e, parent, data.Value.ToString());
             }
-
-            SetData(1,GetData(1));
             
 
             base.DrawText(g, e, parent);

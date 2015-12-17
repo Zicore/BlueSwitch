@@ -1,4 +1,5 @@
-﻿using BlueSwitch.Base.Components.Base;
+﻿using System;
+using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.Components.Types;
 using BlueSwitch.Base.Processing;
@@ -23,7 +24,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
         {
             var a = GetData(0);
             var b = GetData(1);
-
+            
             if (a != null && b != null)
             {
                 SetData(0, new DataContainer(a.Value.Equals(b.Value)));

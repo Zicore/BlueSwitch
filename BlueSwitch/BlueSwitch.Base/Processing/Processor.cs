@@ -14,6 +14,9 @@ namespace BlueSwitch.Base.Processing
             RenderingEngine = renderingEngine;
         }
 
+        public ProcessingNode<SwitchBase> CurrentNode { get; set; }
+        public ProcessingNode<SwitchBase> CurrentDataNode { get; set; }
+
         private int _step;
 
         public int Step

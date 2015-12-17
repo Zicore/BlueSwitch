@@ -80,6 +80,8 @@ namespace BlueSwitch
 
         private PropertiesEditor _properties;
 
+        private ErrorList _errorList;
+
         private void InitializeDockingControls()
         {
             dockPanel.SuspendLayout();
@@ -99,6 +101,10 @@ namespace BlueSwitch
 
             _properties = new PropertiesEditor(Renderer.RenderingEngine);
             _properties.HideOnClose = true;
+
+            _errorList = new ErrorList(Renderer.RenderingEngine);
+            _errorList.HideOnClose = true;
+            _errorList.Show(dockPanel, DockState.DockBottomAutoHide);
 
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;

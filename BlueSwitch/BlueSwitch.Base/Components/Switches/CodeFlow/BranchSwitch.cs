@@ -18,7 +18,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
             Name = "Branch";
 
             AddInput(new ActionSignature());
-            AddInput(typeof(bool), new TextEdit { ReadOnly = true, Text = "Condition", AutoStoreValue = false, IsDescription = true});
+            AddInput(typeof(bool), new CheckBox { AutoStoreValue = false} );
 
             AddOutput(new ActionSignature());
             AddOutput(new ActionSignature());
@@ -32,9 +32,9 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)
         {
-            var data = GetData(1);
+            var data = GetDataValueOrDefault<bool>(1);
 
-            if (data?.Value == null || !(bool) data.Value)
+            if (!data)
             {
                 node.Skip = new SkipNode(0);
             }

@@ -727,6 +727,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public void Process<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase
         {
+            p.CurrentNode = node as ProcessingNode<SwitchBase>;
+            p.Step++;
+
             if (p.RenderingEngine.DebugMode)
             {
                 OnProcessDebug(p, node);
@@ -737,6 +740,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public void ProcessData<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase
         {
+            p.CurrentNode = node as ProcessingNode<SwitchBase>;
+            p.Step++;
+
             if (p.RenderingEngine.DebugMode)
             {
                 OnProcessDataDebug(p, node);

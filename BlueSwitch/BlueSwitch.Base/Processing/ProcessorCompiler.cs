@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.Components.Types;
+using BlueSwitch.Base.Diagnostics;
 using BlueSwitch.Base.IO;
 
 namespace BlueSwitch.Base.Processing
@@ -23,7 +24,10 @@ namespace BlueSwitch.Base.Processing
         public event EventHandler Started;
         public event EventHandler Finished;
 
+        public List<ExceptionEntry> Errors { get; } = new List<ExceptionEntry>();
 
+        public event EventHandler<ExceptionEntryEventArgs> ErrorAdded;
+        public event EventHandler ErrorCleared;
 
         public Engine RenderingEngine { get; }
 
@@ -48,6 +52,8 @@ namespace BlueSwitch.Base.Processing
 
         public void Compile(BlueSwitchProject project)
         {
+            Errors.Clear();
+
             OnCompileStart();
             RenderingEngine.EventManager.Items.Clear();
             Items.Clear();
@@ -67,7 +73,6 @@ namespace BlueSwitch.Base.Processing
                 Items.Add(tree);
             }
             OnCompileFinished();
-            //ResolveEvents(starts, project);
         }
         
         private void ResolveTree(ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node, BlueSwitchProject project)
@@ -123,7 +128,6 @@ namespace BlueSwitch.Base.Processing
             }
         }
 
-
         private void BacktrackData(ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node, Engine renderingEngine, int layer)
         {
             layer++;
@@ -154,8 +158,10 @@ namespace BlueSwitch.Base.Processing
 
             Task.Run(() =>
             {
+                Processor processor = null;
                 try
                 {
+                    processor = new Processor(renderingEngine, tokenSource);
                     processingTree.Started -= ProcessingTreeOnStarted;
                     processingTree.Finished -= ProcessingTreeOnFinished;
 
@@ -164,16 +170,25 @@ namespace BlueSwitch.Base.Processing
 
                     processingTree.IsActive = true;
                     processingTree.OnStarted();
-                    Processor processor;
+                    
                     do
                     {
-                        processor = processingTree.Process(renderingEngine, tokenSource);
+                        processingTree.Process(processor ,renderingEngine);
                     } while (processor.Restarting && !tokenSource.IsCancellationRequested);
                 }
                 catch (TaskCanceledException)
                 {
                     processingTree.IsActive = false;
                     processingTree.OnFinished();
+                }
+                catch (Exception ex)
+                {
+                    if (processor != null)
+                    {
+                        ExceptionEntry entry = new ExceptionEntry { Exception = ex, Step = processor.Step, Node = processor.CurrentNode, Tree = processingTree};
+                        Errors.Add(entry);
+                        OnErrorAdded(new ExceptionEntryEventArgs { ExceptionEntry = entry});
+                    }
                 }
                 finally
                 {
@@ -212,6 +227,16 @@ namespace BlueSwitch.Base.Processing
         protected virtual void OnCompileFinished()
         {
             CompileFinished?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnErrorAdded(ExceptionEntryEventArgs e)
+        {
+            ErrorAdded?.Invoke(this, e);
+        }
+
+        protected virtual void OnErrorCleared()
+        {
+            ErrorCleared?.Invoke(this, EventArgs.Empty);
         }
     }
 }

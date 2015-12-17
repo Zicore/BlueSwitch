@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A660075-42D4-453C-A302-D54ED17AC62A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlueSwitch.Runtime</RootNamespace>
+    <AssemblyName>BlueSwitch.Runtime</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.2.2\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OPDOPCConnector, Version=1.15.513.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompiledAssemblies\OPDOPCConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="Softing.Opc.Ua.Toolkit, Version=1.26.0.4101, Culture=neutral, PublicKeyToken=19132d4dfa11b90e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompiledAssemblies\Softing.OpcUaNetToolkit\1.26\Net40\Softing.Opc.Ua.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\XnaGeometry\XnaGeometry.csproj">
+      <Project>{a4398650-10f4-450f-8e4f-fb3f30a39683}</Project>
+      <Name>XnaGeometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Zicore.Settings.Json\Zicore.Settings.Json.csproj">
+      <Project>{831d83a0-7348-4d8c-9857-7b336f7d91ea}</Project>
+      <Name>Zicore.Settings.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Base\BlueSwitch.Base.csproj">
+      <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
+      <Name>BlueSwitch.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
+      <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
+      <Name>BlueSwitch.OpcUa</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
+      <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
+      <Name>BlueSwitch.Outlook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Twitter\BlueSwitch.Twitter.csproj">
+      <Project>{9b1bce96-df71-435d-b8f4-1dcdd38d4d3e}</Project>
+      <Name>BlueSwitch.Twitter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

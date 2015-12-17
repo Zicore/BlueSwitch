@@ -41,13 +41,10 @@ namespace BlueSwitch.Base.Processing
 
         public ProcessingNode<T> Root { get; set; }
 
-        public Processor Process(Engine renderingEngine, CancellationTokenSource cancellationTokenSource)
+        public void Process(Processor processor, Engine renderingEngine)
         {
-            CancellationTokenSource = cancellationTokenSource;
-
-            Processor = new Processor(renderingEngine, CancellationTokenSource);
-            Process(Root, renderingEngine);
-            return Processor;
+            Processor = processor;
+            Process(Root, renderingEngine); ;
         }
 
         public Processor Processor { protected set; get; }
@@ -60,6 +57,8 @@ namespace BlueSwitch.Base.Processing
             {
                 Log.Warn("Processing: {0}", node.Value.Name);
             }
+
+            
             node.Value.Process(Processor, node);
             node.Value.ProcessData(Processor, node);
 
@@ -90,9 +89,7 @@ namespace BlueSwitch.Base.Processing
         {
             var dataNodes = node.BacktrackData;
 
-            //Backtrack(node, node, RenderingEngine, dataNodes, 0);
-
-            foreach (var layer in dataNodes.OrderByDescending(x=>x.Key))
+            foreach (var layer in dataNodes.OrderByDescending(x => x.Key))
             {
                 foreach (var dataNode in layer.Value)
                 {
@@ -100,7 +97,8 @@ namespace BlueSwitch.Base.Processing
                     {
                         Log.Debug("Processing: {0}", dataNode.Value.Name);
                     }
-                    dataNode.Value.ProcessData(Processor, node);
+
+                    dataNode.Value.ProcessData(Processor, dataNode);
                     RelayOutput(Processor, dataNode, renderingEngine);
                 }
             }
