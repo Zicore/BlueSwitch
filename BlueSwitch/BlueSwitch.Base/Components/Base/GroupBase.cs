@@ -20,6 +20,8 @@ namespace BlueSwitch.Base.Components.Base
 
         public readonly static GroupBase Math = new GroupBase { Name = "Math", DisplayName = "Math" };
 
+        public readonly static GroupBase Debug = new GroupBase { Name = "Debug", DisplayName = "Debug" };
+
         public readonly static GroupBase IO = new GroupBase { Name = "IO", DisplayName = "IO" };
 
         public readonly static GroupBase OpcUa = new GroupBase { Name = "OpcUa", DisplayName = "OPC UA" };

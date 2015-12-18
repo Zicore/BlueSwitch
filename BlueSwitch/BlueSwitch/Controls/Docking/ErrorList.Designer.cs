@@ -30,11 +30,11 @@
         {
             this.listErrors = new System.Windows.Forms.ListView();
             this.columnNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnStep = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnNode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnException = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnStep = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listErrors
@@ -60,30 +60,30 @@
             this.columnNumber.Text = "#";
             this.columnNumber.Width = 29;
             // 
+            // columnStep
+            // 
+            this.columnStep.Text = "Step";
+            this.columnStep.Width = 66;
+            // 
             // columnName
             // 
-            this.columnName.Text = "Name";
-            this.columnName.Width = 104;
+            this.columnName.Text = "Switch Name";
+            this.columnName.Width = 117;
             // 
             // columnNode
             // 
-            this.columnNode.Text = "Node";
-            this.columnNode.Width = 127;
+            this.columnNode.Text = "Switch Description";
+            this.columnNode.Width = 164;
             // 
             // columnException
             // 
             this.columnException.Text = "Exception";
-            this.columnException.Width = 282;
+            this.columnException.Width = 94;
             // 
             // columnDescription
             // 
             this.columnDescription.Text = "Description";
             this.columnDescription.Width = 800;
-            // 
-            // columnStep
-            // 
-            this.columnStep.Text = "Step";
-            this.columnStep.Width = 66;
             // 
             // ErrorList
             // 

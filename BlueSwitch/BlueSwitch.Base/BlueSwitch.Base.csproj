@@ -70,6 +70,7 @@
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\BooleanToObjectSwitch.cs" />
+    <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
     <Compile Include="Components\Switches\Logic\EitherSwitch.cs" />
@@ -167,9 +168,7 @@
   <ItemGroup>
     <Content Include="license.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Switches\Debug\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
