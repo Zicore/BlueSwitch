@@ -8,30 +8,30 @@ namespace BlueSwitch.Base.Components.Base
         public String DisplayName { get; set; }
         public String Description { get; set; }
 
-        public readonly static GroupBase Logic = new GroupBase { Name = "Logic", DisplayName = "Logic"};
+        public static readonly GroupBase Logic = new GroupBase { Name = "Logic", DisplayName = "Logic"};
 
-        public readonly static GroupBase CodeFlow = new GroupBase { Name = "CodeFlow", DisplayName = "CodeFlow" };
+        public static readonly GroupBase CodeFlow = new GroupBase { Name = "CodeFlow", DisplayName = "CodeFlow" };
 
-        public readonly static GroupBase LogicInt32 = new GroupBase { Name = "Logic.Int32", DisplayName = "Logic.Int32" };
-        public readonly static GroupBase LogicDouble = new GroupBase { Name = "Logic.Double", DisplayName = "Logic.Double" };
+        public static readonly GroupBase LogicInt32 = new GroupBase { Name = "Logic.Int32", DisplayName = "Logic.Int32" };
+        public static readonly GroupBase LogicDouble = new GroupBase { Name = "Logic.Double", DisplayName = "Logic.Double" };
 
 
-        public readonly static GroupBase Base = new GroupBase { Name = "Base", DisplayName = "Base" };
+        public static readonly GroupBase Base = new GroupBase { Name = "Base", DisplayName = "Base" };
 
-        public readonly static GroupBase Math = new GroupBase { Name = "Math", DisplayName = "Math" };
+        public static readonly GroupBase Math = new GroupBase { Name = "Math", DisplayName = "Math" };
 
-        public readonly static GroupBase Debug = new GroupBase { Name = "Debug", DisplayName = "Debug" };
+        public static readonly GroupBase Debug = new GroupBase { Name = "Debug", DisplayName = "Debug" };
 
-        public readonly static GroupBase IO = new GroupBase { Name = "IO", DisplayName = "IO" };
+        public static readonly GroupBase IO = new GroupBase { Name = "IO", DisplayName = "IO" };
 
-        public readonly static GroupBase OpcUa = new GroupBase { Name = "OpcUa", DisplayName = "OPC UA" };
+        public static readonly GroupBase OpcUa = new GroupBase { Name = "OpcUa", DisplayName = "OPC UA" };
 
-        public readonly static GroupBase SocialMedia = new GroupBase { Name = "SocialMedia", DisplayName = "Social Media" };
+        public static readonly GroupBase SocialMedia = new GroupBase { Name = "SocialMedia", DisplayName = "Social Media" };
 
-        public readonly static GroupBase Variable = new GroupBase { Name = "Variable", DisplayName = "Variable" };
+        public static readonly GroupBase Variable = new GroupBase { Name = "Variable", DisplayName = "Variable" };
 
-        public readonly static GroupBase Converter = new GroupBase { Name = "Converter", DisplayName = "Converter" };
+        public static readonly GroupBase Converter = new GroupBase { Name = "Converter", DisplayName = "Converter" };
 
-        public readonly static GroupBase Trigger = new GroupBase { Name = "Trigger", DisplayName = "Trigger" };
+        public static readonly GroupBase Trigger = new GroupBase { Name = "Trigger", DisplayName = "Trigger" };
     }
 }
