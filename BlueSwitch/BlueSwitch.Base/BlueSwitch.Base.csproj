@@ -70,6 +70,8 @@
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\BooleanToObjectSwitch.cs" />
+    <Compile Include="Components\Switches\Debug\DownloadInfo.cs" />
+    <Compile Include="Components\Switches\Debug\DownloadSimulatorSwitch.cs" />
     <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
