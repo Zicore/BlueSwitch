@@ -23,8 +23,8 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Int32
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)
         {
-            var a = GetData(0);
-            var b = GetData(1);
+            var a = GetData<int>(0);
+            var b = GetData<int>(1);
 
             if (a != null && b != null)
             {

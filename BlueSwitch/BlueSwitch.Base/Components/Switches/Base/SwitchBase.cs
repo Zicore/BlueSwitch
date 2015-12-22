@@ -35,11 +35,15 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public bool DebugDataMode { get; set; } = false;
 
+        [JsonIgnore]
         public int ExtraRows { get; set; } = 0;
+
+        [JsonIgnore]
         public int MinRows { get; set; } = 1;
+
+        [JsonIgnore]
         public float RowHeight = 18.0f;
-
-
+        
         [JsonIgnore]
         public bool IsStart { get; set; }
 
@@ -60,8 +64,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get { return ExtraVariableOutputs + MinVariableOutputs; }
         }
-
+        
         public int ExtraVariableInputs { get; set; } = 0;
+        
         public int ExtraVariableOutputs { get; set; } = 0;
 
         [JsonIgnore]
@@ -140,6 +145,18 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
 
             return input.Data;
+        }
+
+        public DataContainer GetData<T>(int index)
+        {
+            var data = GetData(index);
+
+            if (data != null)
+            {
+                data.Value = (T) Convert.ChangeType(data.Value, typeof (T));
+            }
+
+            return data;
         }
 
         public T GetDataValueOrDefault<T>(int index)

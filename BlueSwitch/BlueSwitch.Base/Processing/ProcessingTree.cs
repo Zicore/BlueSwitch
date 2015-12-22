@@ -57,7 +57,6 @@ namespace BlueSwitch.Base.Processing
             {
                 Log.Warn("Processing: {0}", node.Value.Name);
             }
-
             
             node.Value.Process(Processor, node);
             node.Value.ProcessData(Processor, node);
@@ -66,8 +65,9 @@ namespace BlueSwitch.Base.Processing
 
             if (node.Next != null && node.Next.Count > 0)
             {
-                foreach (var n in node.Next)
+                for (int i = 0; i < node.Next.Count; i++)
                 {
+                    var n = node.Next[i];
                     if (node.Skip == null)
                     {
                         Process(n, renderingEngine);
@@ -75,13 +75,19 @@ namespace BlueSwitch.Base.Processing
                     else
                     {
                         //TODO: IF Verzweigung hier realisieren connection finden mit entsprechender origin
-                        var connection = renderingEngine.CurrentProject.Connections.Find(x => x.FromInputOutput.Origin == node.Value);
+                        //var connection = renderingEngine.CurrentProject.Connections.Find(x => x.FromInputOutput.Origin == node.Value);
                         if (n.Connection.ToInputOutput.InputOutputId != node.Skip.OutputIndex)
                         {
                             Process(n, renderingEngine);
                         }
                     }
                 }
+            }
+            
+            if (node.Repeat)
+            {
+                node.Repeat = false;
+                Process(node, renderingEngine);
             }
         }
 

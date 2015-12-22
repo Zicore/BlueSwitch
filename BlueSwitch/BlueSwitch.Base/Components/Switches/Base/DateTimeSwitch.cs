@@ -6,7 +6,7 @@ using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Base.Components.Switches.Base
 {
-    public class DateTimeSwitch : VariableSwitch
+    public class DateTimeSwitch : TextEditBaseSwitch
     {
         protected override void OnInitialize(Engine renderingEngine)
         {

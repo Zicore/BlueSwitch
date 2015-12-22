@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using BlueSwitch.Base.Components.Base;
@@ -30,6 +31,18 @@ namespace BlueSwitch.Base.IO
 
         [JsonProperty("Connections")]
         public List<Connection> Connections { get; set; } = new List<Connection>();
+
+        [JsonProperty("Variables")]
+        public Dictionary<string, Variable> Variables { get; } = new Dictionary<string, Variable>();
+
+        public Variable GetVariable(string key)
+        {
+            if (!String.IsNullOrEmpty(key) && Variables.ContainsKey(key))
+            {
+                return Variables[key];
+            }
+            return null;
+        }
 
         private string _name;
         private string _description;
@@ -178,6 +191,11 @@ namespace BlueSwitch.Base.IO
 
             Ready = true;
             renderingEngine.RequestRedraw();
+
+            Variables["MeineVariable"] = new Variable
+            {
+                Name = "MeineVariable" , StructureType = StructureType.Scalar, ValueType = typeof(int), Value = 100
+            };
         }
 
         private void UpdateSwitches(Engine renderingEngine)

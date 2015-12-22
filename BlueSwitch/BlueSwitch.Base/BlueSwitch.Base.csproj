@@ -66,8 +66,12 @@
     <Compile Include="Components\Base\DataContainer.cs" />
     <Compile Include="Components\Base\Engine.cs" />
     <Compile Include="Components\Base\RuntimeEngine.cs" />
+    <Compile Include="Components\Switches\Base\GetterSwitch.cs" />
+    <Compile Include="Components\Switches\Base\SetterSwitch.cs" />
     <Compile Include="Components\Switches\Base\TickSwitch.cs" />
+    <Compile Include="Components\Switches\Base\VariableSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
+    <Compile Include="Components\Switches\CodeFlow\WhileLoopSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\BooleanToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Debug\DownloadInfo.cs" />
@@ -83,7 +87,7 @@
     <Compile Include="Components\Switches\SwitchMath\Int32\MaxSwitch.cs" />
     <Compile Include="Components\Switches\Variables\BooleanSwitch.cs" />
     <Compile Include="Components\Switches\Variables\Int32Switch.cs" />
-    <Compile Include="Components\Switches\Variables\VariableSwitch.cs" />
+    <Compile Include="Components\Switches\Variables\TextEditBaseSwitch.cs" />
     <Compile Include="Components\Switches\Variables\DoubleSwitch.cs" />
     <Compile Include="Components\Types\ComplexSignature.cs" />
     <Compile Include="Components\UI\AddPinComponent.cs" />
@@ -103,6 +107,7 @@
     <Compile Include="Diagnostics\ExceptionEntryEventArgs.cs" />
     <Compile Include="Drawing.Extended\ExtendedGraphics.cs" />
     <Compile Include="IO\ValueStore.cs" />
+    <Compile Include="IO\Variable.cs" />
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
     <Compile Include="Trigger\EventManager.cs" />

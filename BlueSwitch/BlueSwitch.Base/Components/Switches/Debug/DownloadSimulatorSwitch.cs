@@ -25,6 +25,7 @@ namespace BlueSwitch.Base.Components.Switches.Debug
             Name = "DownloadTest";
 
             AddInput(new ActionSignature());
+            AddInput(new ActionSignature());
             AddOutput(new ActionSignature());
 
             AddOutput(typeof(int));
@@ -34,30 +35,33 @@ namespace BlueSwitch.Base.Components.Switches.Debug
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)
         {
-            if (info == null)
+            if (node.InputIndex == 0)
             {
-                info = new DownloadInfo();
-            }
-
-            if (!info.IsDownloading)
-            {
-                info.IsDownloading = true;
-
-                Task.Factory.StartNew(() =>
+                if (info == null)
                 {
-                    while (info.IsDownloading)
-                    {
-                        Thread.Sleep(500);
-                        info.Status++;
-                        if (info.Status >= 100)
-                        {
-                            info.Status = 100;
-                            info.IsDownloading = false;
-                        }
+                    info = new DownloadInfo();
+                }
 
-                    }
-                });
+                if (!info.IsDownloading)
+                {
+                    info.IsDownloading = true;
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        while (info.IsDownloading)
+                        {
+                            Thread.Sleep(500);
+                            info.Status++;
+                            if (info.Status >= 100)
+                            {
+                                info.Status = 100;
+                                info.IsDownloading = false;
+                            }
+                        }
+                    });
+                }
             }
+
             base.OnProcess(p, node);
         }
 

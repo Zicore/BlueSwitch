@@ -37,6 +37,11 @@ namespace BlueSwitch.Base.Processing
             set { _outputIndex = value; }
         }
 
+        public int InputIndex
+        {
+            get { return Connection.FromInputOutput.InputOutputId; }
+        }
+
         public override string ToString()
         {
             return $"{Value.Name}";
@@ -49,6 +54,8 @@ namespace BlueSwitch.Base.Processing
             get { return _connection; }
             set { _connection = value; }
         }
+
+        public bool Repeat { get; set; }
     }
 
     public class SkipNode

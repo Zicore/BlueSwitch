@@ -3,7 +3,7 @@ using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Base.Components.Switches.Variables
 {
-    public class StringSwitch : VariableSwitch
+    public class StringSwitch : TextEditBaseSwitch
     {
         protected override void OnInitialize(Engine renderingEngine)
         {

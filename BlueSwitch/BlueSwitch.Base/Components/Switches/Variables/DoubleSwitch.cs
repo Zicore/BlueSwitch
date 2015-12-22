@@ -4,7 +4,7 @@ using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Base.Components.Switches.Variables
 {
-    public class DoubleSwitch : VariableSwitch
+    public class DoubleSwitch : TextEditBaseSwitch
     {
         protected override void OnInitialize(Engine renderingEngine)
         {

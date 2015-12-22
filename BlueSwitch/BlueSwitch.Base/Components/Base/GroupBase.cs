@@ -30,6 +30,10 @@ namespace BlueSwitch.Base.Components.Base
 
         public static readonly GroupBase Variable = new GroupBase { Name = "Variable", DisplayName = "Variable" };
 
+        public static readonly GroupBase Setter = new GroupBase { Name = "Setter", DisplayName = "Setter" };
+
+        public static readonly GroupBase Getter = new GroupBase { Name = "Getter", DisplayName = "Getter" };
+
         public static readonly GroupBase Converter = new GroupBase { Name = "Converter", DisplayName = "Converter" };
 
         public static readonly GroupBase Trigger = new GroupBase { Name = "Trigger", DisplayName = "Trigger" };

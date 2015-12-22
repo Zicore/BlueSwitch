@@ -6,7 +6,7 @@ using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Base.Components.Switches.Description
 {
-    public class DescriptionSwitch : VariableSwitch
+    public class DescriptionSwitch : TextEditBaseSwitch
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
