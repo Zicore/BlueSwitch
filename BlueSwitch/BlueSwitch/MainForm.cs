@@ -82,6 +82,8 @@ namespace BlueSwitch
 
         private ErrorList _errorList;
 
+        private VariableEditor _variableEditor;
+
         private void InitializeDockingControls()
         {
             dockPanel.SuspendLayout();
@@ -104,7 +106,13 @@ namespace BlueSwitch
 
             _errorList = new ErrorList(Renderer.RenderingEngine);
             _errorList.HideOnClose = true;
-            _errorList.Show(dockPanel, DockState.DockBottomAutoHide);
+            _errorList.Show(Renderer.Pane, DockAlignment.Bottom, 0.3);
+
+
+            _variableEditor = new VariableEditor(Renderer.RenderingEngine);
+            _variableEditor.HideOnClose = true;
+
+            _variableEditor.Show(_switchesTree.Pane, DockAlignment.Bottom, 0.4);
 
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;

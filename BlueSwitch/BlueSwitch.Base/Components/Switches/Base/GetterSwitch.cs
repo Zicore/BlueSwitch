@@ -27,7 +27,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
             else
             {
-                AddOutput(Variable.ValueType);
+                AddOutput(Variable.NetValueType);
             }
 
             if (Variable != null)

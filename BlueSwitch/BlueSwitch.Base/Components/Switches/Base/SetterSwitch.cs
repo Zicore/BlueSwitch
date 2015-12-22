@@ -28,7 +28,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
             else
             {
-                AddInput(Variable.ValueType);
+                AddInput(Variable.NetValueType);
             }
             AddOutput(new ActionSignature());
 

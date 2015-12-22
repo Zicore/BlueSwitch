@@ -44,6 +44,34 @@ namespace BlueSwitch.Base.IO
             return null;
         }
 
+        public string GetFreeVariablename(string key, int iterator)
+        {
+            if (!Variables.ContainsKey(key + iterator))
+            {
+                return key + iterator;
+            }
+            iterator++;
+            return GetFreeVariablename(key , iterator);
+        }
+
+        public bool RenameVariable(string oldName,string newName)
+        {
+            if (Variables.ContainsKey(newName))
+            {
+                return false;
+            }
+
+            var variable = GetVariable(oldName);
+            if (variable != null)
+            {
+                Variables.Remove(oldName);
+                variable.Name = newName;
+                Variables.Add(variable.Name, variable);
+                return true;
+            }
+            return false;
+        }
+
         private string _name;
         private string _description;
 
@@ -191,11 +219,6 @@ namespace BlueSwitch.Base.IO
 
             Ready = true;
             renderingEngine.RequestRedraw();
-
-            Variables["MeineVariable"] = new Variable
-            {
-                Name = "MeineVariable" , StructureType = StructureType.Scalar, ValueType = typeof(int), Value = 100
-            };
         }
 
         private void UpdateSwitches(Engine renderingEngine)

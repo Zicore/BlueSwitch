@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.IO;
 using WeifenLuo.WinFormsUI.Docking;
 using XnaGeometry;
 using Point = System.Drawing.Point;
@@ -201,7 +202,10 @@ namespace BlueSwitch.Controls.Docking
             {
                 e.Effect = DragDropEffects.Move;
             }
-
+            else if (e.Data.GetDataPresent(typeof (ListViewItem)))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
             base.OnDragEnter(e);
 
         }
@@ -215,6 +219,22 @@ namespace BlueSwitch.Controls.Docking
                 if (sourceComponent != null)
                 {
                     AddComponent(sourceComponent);
+                }
+            }
+            else if (e.Data.GetDataPresent(typeof (ListViewItem)))
+            {
+                ListViewItem item = (ListViewItem)e.Data.GetData(typeof(ListViewItem));
+                Variable variable = item.Tag as Variable;
+                if (variable != null)
+                {
+                    if (ModifierKeys == Keys.Control)
+                    {
+                        AddComponent(new SetterSwitch { VariableKey = variable.Name });
+                    }
+                    else
+                    {
+                        AddComponent(new GetterSwitch { VariableKey = variable.Name });
+                    }
                 }
             }
 
@@ -276,6 +296,12 @@ namespace BlueSwitch.Controls.Docking
         public void AddComponent(SwitchBase sourceComponent, PointF pt)
         {
             SwitchBase switchBase = Activator.CreateInstance(sourceComponent.GetType()) as SwitchBase;
+            
+            if (sourceComponent is VariableSwitch && switchBase is VariableSwitch)
+            {
+                var variableComponent = switchBase as VariableSwitch;
+                variableComponent.VariableKey = ((VariableSwitch)sourceComponent).VariableKey;
+            }
 
             if (switchBase != null)
             {
@@ -283,6 +309,17 @@ namespace BlueSwitch.Controls.Docking
                 RenderingEngine.CurrentProject.Add(RenderingEngine, switchBase);
             }
         }
+
+        //public void AddGetterOrSetter(SwitchBase sourceComponent, PointF pt)
+        //{
+        //    SwitchBase switchBase = Activator.CreateInstance(sourceComponent.GetType()) as SwitchBase;
+
+        //    if (switchBase != null)
+        //    {
+        //        switchBase.Position = pt;
+        //        RenderingEngine.CurrentProject.Add(RenderingEngine, switchBase);
+        //    }
+        //}
 
         protected override void OnResize(EventArgs e)
         {
