@@ -44,51 +44,48 @@ namespace BlueSwitch.Base.Processing
         public void Process(Processor processor, Engine renderingEngine)
         {
             Processor = processor;
-            Process(Root, renderingEngine); ;
+            Process(Root, renderingEngine);
         }
 
         public Processor Processor { protected set; get; }
 
         private void Process(ProcessingNode<T> node, Engine renderingEngine)
         {
-            ProcessDataRoot(node, renderingEngine);
-
-            if (renderingEngine.DebugMode)
+            do
             {
-                Log.Warn("Processing: {0}", node.Value.Name);
-            }
-            
-            node.Value.Process(Processor, node);
-            node.Value.ProcessData(Processor, node);
+                node.Repeat = false;
+                ProcessDataRoot(node, renderingEngine);
 
-            RelayOutput(Processor, node, renderingEngine);
-
-            if (node.Next != null && node.Next.Count > 0)
-            {
-                for (int i = 0; i < node.Next.Count; i++)
+                if (renderingEngine.DebugMode)
                 {
-                    var n = node.Next[i];
-                    if (node.Skip == null)
+                    Log.Warn("Processing: {0}", node.Value.Name);
+                }
+
+                node.Value.Process(Processor, node);
+                node.Value.ProcessData(Processor, node);
+
+                RelayOutput(Processor, node, renderingEngine);
+
+                if (node.Next != null && node.Next.Count > 0)
+                {
+                    for (int i = 0; i < node.Next.Count; i++)
                     {
-                        Process(n, renderingEngine);
-                    }
-                    else
-                    {
-                        //TODO: IF Verzweigung hier realisieren connection finden mit entsprechender origin
-                        //var connection = renderingEngine.CurrentProject.Connections.Find(x => x.FromInputOutput.Origin == node.Value);
-                        if (n.Connection.ToInputOutput.InputOutputId != node.Skip.OutputIndex)
+                        var n = node.Next[i];
+                        if (node.Skip == null)
                         {
                             Process(n, renderingEngine);
+                        }
+                        else
+                        {
+                            if (n.Connection.ToInputOutput.InputOutputId != node.Skip.OutputIndex)
+                            {
+                                Process(n, renderingEngine);
+                            }
                         }
                     }
                 }
             }
-            
-            if (node.Repeat)
-            {
-                node.Repeat = false;
-                Process(node, renderingEngine);
-            }
+            while (node.Repeat);
         }
 
         private void ProcessDataRoot(ProcessingNode<T> node, Engine renderingEngine)

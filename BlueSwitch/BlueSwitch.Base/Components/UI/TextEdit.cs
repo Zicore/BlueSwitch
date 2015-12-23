@@ -137,6 +137,11 @@ namespace BlueSwitch.Base.Components.UI
             return new TextEdit { NumberMode = true, AllowDecimalPoint = false };
         }
 
+        public static TextEdit CreateNumberic(bool allowDecimal)
+        {
+            return new TextEdit { NumberMode = true, AllowDecimalPoint = allowDecimal };
+        }
+
         protected override void OnInitialize(Engine engine, DrawableBase parent)
         {
             base.OnInitialize(engine, parent);

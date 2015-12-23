@@ -44,6 +44,8 @@ namespace BlueSwitch.Base.Components.Base
                 }
             }
         }
+
+        public event EventHandler BeforeLoading;
         public event EventHandler ProjectLoaded;
 
         public Engine()
@@ -96,8 +98,17 @@ namespace BlueSwitch.Base.Components.Base
             DesignMode = false;
         }
 
+        public void NewProject()
+        {
+            OnBeforeLoading();
+            CurrentProject = new BlueSwitchProject();
+            CurrentProject.Initialize(this);
+            OnProjectLoaded();
+        }
+
         public void LoadProject(String filePath)
         {
+            OnBeforeLoading();
             CurrentProject = new BlueSwitchProject();
             try
             {
@@ -141,6 +152,11 @@ namespace BlueSwitch.Base.Components.Base
         protected virtual void OnDebugValueUpdated()
         {
             DebugValueUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnBeforeLoading()
+        {
+            BeforeLoading?.Invoke(this, EventArgs.Empty);
         }
     }
 }

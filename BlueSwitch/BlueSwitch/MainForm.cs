@@ -177,8 +177,7 @@ namespace BlueSwitch
 
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
-            Renderer.RenderingEngine.CurrentProject = new BlueSwitchProject();
-            Renderer.RenderingEngine.CurrentProject.Initialize(Renderer.RenderingEngine);
+            Renderer.RenderingEngine.NewProject();
         }
        
 
@@ -260,6 +259,11 @@ namespace BlueSwitch
                 
                 Renderer.AddComponent(sw, new PointF(x, y));
             }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

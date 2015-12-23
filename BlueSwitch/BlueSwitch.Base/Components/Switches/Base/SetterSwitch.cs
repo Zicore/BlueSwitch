@@ -21,6 +21,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             base.OnInitialize(renderingEngine);
 
+            AutoDiscoverDisabled = true;
+
             AddInput(new ActionSignature());
             if (Variable == null)
             {
@@ -28,7 +30,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
             else
             {
-                AddInput(Variable.NetValueType);
+                AddInput(Variable.NetValueType, Variable.CreateComponent());
             }
             AddOutput(new ActionSignature());
 

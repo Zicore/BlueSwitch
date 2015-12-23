@@ -56,6 +56,7 @@ namespace BlueSwitch.Base.Processing
         }
 
         public bool Repeat { get; set; }
+        private int RepeatN { get; set; }
     }
 
     public class SkipNode

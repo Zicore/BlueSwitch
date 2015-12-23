@@ -136,13 +136,14 @@ namespace BlueSwitch.Base.Components.Base
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             DrawRenderingInfo(g, viewport);
+            
 
-            Matrix mat = new Matrix();
+            var mat = new Matrix();
             mat.Translate(CurrentProject.Translation.X, CurrentProject.Translation.Y);
             mat.Scale(CurrentProject.Zoom, CurrentProject.Zoom, MatrixOrder.Append);
-            //mat.Translate(CurrentProject.Translation.X - ((CurrentProject.Zoom * ClientSize.Width) - ClientSize.Width), CurrentProject.Translation.Y - ((CurrentProject.Zoom * ClientSize.Height) - ClientSize.Height)); 
             g.Transform = mat;
 
+            //DrawGrid(g, viewport);
 
             if (CurrentProject.Ready)
             {
@@ -188,23 +189,50 @@ namespace BlueSwitch.Base.Components.Base
 
         public void DrawGrid(Graphics g, RectangleF viewport)
         {
-            int maxGrid = (int)((CurrentProject.Zoom / 500) * 1000);
+            float zoom = CurrentProject.Zoom;
+            var pen = new Pen(Brushes.Gray, 1 / CurrentProject.Zoom);
+            var penBlack = new Pen(Brushes.Black, 1 / CurrentProject.Zoom);
 
-            float stepX = viewport.Width / maxGrid;
-            float stepY = viewport.Height / maxGrid;
+            RectangleF grid = new RectangleF(0, 0, 100,100);
+            viewport = new RectangleF(-CurrentProject.Translation.X, -CurrentProject.Translation.Y, viewport.Width / zoom, viewport.Height / zoom);
 
-            for (int i = 1; i < maxGrid; i++)
+            int maxGridX = (int)Math.Floor(viewport.Width / grid.Width) + 1;
+            int maxGridY = (int)Math.Floor(viewport.Height / grid.Height) + 1;
+
+            int subGridX = 8 * maxGridX;
+            int subGridY = 8 * maxGridY;
+
+            g.FillRectangle(Brushes.DimGray, viewport);
+
+            for (int i = -1; i < subGridX; i++)
             {
-                var x = i * stepX;
-
-                g.DrawLine(Pens.Black, x, viewport.Top, x, viewport.Bottom);
+                var x = (i * (grid.Width / 8)) + viewport.X;
+                if (i % 8 != 0)
+                {
+                    g.DrawLine(pen, x, viewport.Top, x, viewport.Bottom);
+                }
             }
 
-            for (int i = 1; i < maxGrid; i++)
+            for (int i = -1; i < subGridY; i++)
             {
-                var y = i * stepY;
+                var y = i * (grid.Height / 8) + viewport.Y;
+                if (i % 8 != 0)
+                {
+                    g.DrawLine(pen, viewport.Left, y, viewport.Right, y);
+                }
+            }
 
-                g.DrawLine(Pens.Black, viewport.Left, y, viewport.Right, y);
+            for (int i = -1; i < maxGridX; i++)
+            {
+                var x = i * grid.Width + viewport.X;
+                g.DrawLine(penBlack, x, viewport.Top, x, viewport.Bottom);
+            }
+
+            for (int i = -1; i < maxGridY; i++)
+            {
+                var y = i * grid.Height + viewport.Y;
+
+                g.DrawLine(penBlack, viewport.Left, y, viewport.Right, y);
             }
         }
 

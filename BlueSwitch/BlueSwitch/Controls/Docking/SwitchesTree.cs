@@ -56,8 +56,8 @@ namespace BlueSwitch.Controls.Docking
 
         public void UpdateTree()
         {
-            var av = new List<SwitchBase>(RenderingEngine.AvailableSwitches);
-            var switches = new List<SwitchBase>(RenderingEngine.AvailableSwitches);
+            var av = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x=>!x.AutoDiscoverDisabled));
+            var switches = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x => !x.AutoDiscoverDisabled));
             if (TradeFairMode)
             {
                 switches.Clear();

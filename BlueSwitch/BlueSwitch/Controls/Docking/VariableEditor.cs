@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.IO;
+using BlueSwitch.Base.Reflection;
 using WeifenLuo.WinFormsUI.Docking;
 using ValueType = BlueSwitch.Base.IO.ValueType;
 
@@ -22,6 +23,7 @@ namespace BlueSwitch.Controls.Docking
         {
             RenderingEngine = renderingEngine;
             RenderingEngine.ProjectLoaded += RenderingEngineOnProjectLoaded;
+            RenderingEngine.BeforeLoading += RenderingEngineOnBeforeLoading;
             InitializeComponent();
 
             Editors = new Control[] {
@@ -32,8 +34,12 @@ namespace BlueSwitch.Controls.Docking
             var items = Enum.GetNames(typeof (BlueSwitch.Base.IO.ValueType));
 
             comboBoxEditor.Items.AddRange(items);
-            
             comboBoxEditor.SelectedIndexChanged += new EventHandler(control_SelectedValueChanged);
+        }
+
+        private void RenderingEngineOnBeforeLoading(object sender, EventArgs eventArgs)
+        {
+            listVariables.Items.Clear();
         }
 
         private void RenderingEngineOnProjectLoaded(object sender, EventArgs eventArgs)
@@ -54,7 +60,7 @@ namespace BlueSwitch.Controls.Docking
             Variable variable = new Variable();
             variable.Name = RenderingEngine.CurrentProject.GetFreeVariablename("MyVariable",0);
             variable.ValueType = ValueType.Bool;
-
+            
             AddEntry(variable);
 
             RenderingEngine.CurrentProject.Variables.Add(variable.Name, variable);
@@ -83,6 +89,7 @@ namespace BlueSwitch.Controls.Docking
                     var types = Enum.GetValues(typeof (BlueSwitch.Base.IO.ValueType));
                     var valueType = (BlueSwitch.Base.IO.ValueType)types.GetValue(comboBoxEditor.SelectedIndex);
                     variable.ValueType = valueType;
+                    variable.Value = TypeExtensions.GetDefault(variable.NetValueType);
                 }
                 else if (e.SubItem == 1)
                 {
@@ -146,7 +153,7 @@ namespace BlueSwitch.Controls.Docking
                     selectedItem.SubItems[2].Text = variable.Value?.ToString();
                 }
             }
-            listVariables.Update();
+            listVariables.EndEditing(false);
         }
     }
 }

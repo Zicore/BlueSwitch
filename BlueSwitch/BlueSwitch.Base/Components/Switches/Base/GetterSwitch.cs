@@ -20,7 +20,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine);
-            
+
+            AutoDiscoverDisabled = true;
+
             if (Variable == null)
             {
                 AddOutput(typeof(object));

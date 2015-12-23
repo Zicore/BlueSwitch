@@ -48,6 +48,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         public bool IsStart { get; set; }
 
         [JsonIgnore]
+        public bool AutoDiscoverDisabled { get; set; }
+
+        [JsonIgnore]
         int MinVariableInputs { get; set; } = 0;
 
         [JsonIgnore]
@@ -151,9 +154,13 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             var data = GetData(index);
 
-            if (data != null)
+            if (data.Value != null)
             {
                 data.Value = (T) Convert.ChangeType(data.Value, typeof (T));
+            }
+            else
+            {
+                data.Value = default(T);
             }
 
             return data;
@@ -162,7 +169,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         public T GetDataValueOrDefault<T>(int index)
         {
             var data = GetData(index);
-            if (data != null)
+            if (data?.Value != null)
             {
                 var result = (T) Convert.ChangeType(data.Value, typeof (T));
                 return result;

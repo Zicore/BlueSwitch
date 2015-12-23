@@ -12,6 +12,8 @@ namespace BlueSwitch.Base.IO
     [JsonObject("BlueSwitchProject")]
     public class BlueSwitchProject : JsonSerializable
     {
+        public event EventHandler BeforeLoading;
+
         private static volatile int _currentSwitchId = 0;
 
         [JsonIgnore]
@@ -51,10 +53,10 @@ namespace BlueSwitch.Base.IO
                 return key + iterator;
             }
             iterator++;
-            return GetFreeVariablename(key , iterator);
+            return GetFreeVariablename(key, iterator);
         }
 
-        public bool RenameVariable(string oldName,string newName)
+        public bool RenameVariable(string oldName, string newName)
         {
             if (Variables.ContainsKey(newName))
             {
@@ -89,7 +91,7 @@ namespace BlueSwitch.Base.IO
 
         public float Zoom { get; set; } = 1.0f;
 
-        public void Add(Engine renderingEngine,SwitchBase sw)
+        public void Add(Engine renderingEngine, SwitchBase sw)
         {
             sw.Id = _currentSwitchId;
             ItemLookup.Add(_currentSwitchId, sw);
@@ -199,7 +201,7 @@ namespace BlueSwitch.Base.IO
             return Connections.Where(x => x.ToInputOutput.Origin == sw).ToList();
         }
 
-        public void SetOutputValue(SwitchBase sw,DataContainer data)
+        public void SetOutputValue(SwitchBase sw, DataContainer data)
         {
             foreach (var connection in FindInputs(sw))
             {
@@ -209,6 +211,7 @@ namespace BlueSwitch.Base.IO
 
         public void Initialize(Engine renderingEngine)
         {
+            OnBeforeLoading();
             UpdateSwitches(renderingEngine);
             UpdateConnections();
 
@@ -252,6 +255,11 @@ namespace BlueSwitch.Base.IO
             {
                 AddConnectionToLookup(connection);
             }
+        }
+
+        protected virtual void OnBeforeLoading()
+        {
+            BeforeLoading?.Invoke(this, EventArgs.Empty);
         }
     }
 }

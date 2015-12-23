@@ -24,8 +24,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            base.OnInitialize(renderingEngine);
+            AutoDiscoverDisabled = true;
 
+            base.OnInitialize(renderingEngine);
             Variable = renderingEngine.CurrentProject.GetVariable(VariableKey);
         }
     }

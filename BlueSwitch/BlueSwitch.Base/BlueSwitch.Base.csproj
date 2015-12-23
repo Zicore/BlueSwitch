@@ -71,6 +71,7 @@
     <Compile Include="Components\Switches\Base\TickSwitch.cs" />
     <Compile Include="Components\Switches\Base\VariableSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
+    <Compile Include="Components\Switches\CodeFlow\ForLoopSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\WhileLoopSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\BooleanToObjectSwitch.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\NotSwitch.cs" />
     <Compile Include="Components\Switches\Logic\EitherSwitch.cs" />
     <Compile Include="Components\Switches\Logic\Int32\GreaterThanSwitch.cs" />
     <Compile Include="Components\Switches\Logic\OrSwitch.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Drawing.Extended\ExtendedGraphics.cs" />
     <Compile Include="IO\ValueStore.cs" />
     <Compile Include="IO\Variable.cs" />
+    <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
     <Compile Include="Trigger\EventManager.cs" />
