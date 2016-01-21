@@ -10,6 +10,9 @@ namespace BlueSwitch.Base.Trigger.Types
         {
             Tree = tree;
         }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
         
         public ProcessingTree<SwitchBase> Tree { get; private set; }
 

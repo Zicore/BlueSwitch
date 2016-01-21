@@ -20,6 +20,16 @@ namespace LabelPrinter
         public const int SW_HIDE = 0;
         public const int SW_SHOW = 5;
 
+        public static void InitConsole()
+        {
+            var handle = GetConsoleWindow();
+
+            if (handle == IntPtr.Zero)
+            {
+                AllocConsole();
+            }
+        }
+
         public static void ShowConsole()
         {
             var handle = GetConsoleWindow();

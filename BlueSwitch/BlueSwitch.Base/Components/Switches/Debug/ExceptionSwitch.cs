@@ -14,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Debug
     {
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Debug;
+            return Groups.Debug;
         }
 
         protected override void OnInitialize(Engine renderingEngine)

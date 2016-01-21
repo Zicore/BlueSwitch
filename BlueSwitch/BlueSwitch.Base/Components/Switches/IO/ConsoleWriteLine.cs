@@ -10,7 +10,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
     {
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.IO;
+            return Groups.IO;
         }
 
         protected override void OnInitialize(Engine renderingEngine)

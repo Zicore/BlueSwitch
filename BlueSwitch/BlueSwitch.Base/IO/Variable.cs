@@ -22,7 +22,8 @@ namespace BlueSwitch.Base.IO
         Long,
         Float,
         Double,
-        String
+        String,
+        Object
     }
 
 
@@ -52,6 +53,8 @@ namespace BlueSwitch.Base.IO
                     return typeof(double);
                 case ValueType.String:
                     return typeof(string);
+                case ValueType.Object:
+                    return typeof(object);
                 default:
                     return typeof (object);
             }
@@ -83,6 +86,8 @@ namespace BlueSwitch.Base.IO
                     break;
                 case ValueType.String:
                     component = new TextEdit { ReadOnly = IsReadOnly, NumberMode = false,AutoStoreValue = true };
+                    break;
+                case ValueType.Object:
                     break;
                 default:
                     component = null;

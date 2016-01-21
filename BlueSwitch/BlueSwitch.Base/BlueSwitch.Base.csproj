@@ -67,12 +67,16 @@
     <Compile Include="Components\Base\Engine.cs" />
     <Compile Include="Components\Base\RuntimeEngine.cs" />
     <Compile Include="Components\Switches\Base\GetterSwitch.cs" />
+    <Compile Include="Components\Switches\Base\RaiseEventSwitch.cs" />
     <Compile Include="Components\Switches\Base\SetterSwitch.cs" />
+    <Compile Include="Components\Switches\Base\NamedEventSwitch.cs" />
     <Compile Include="Components\Switches\Base\TickSwitch.cs" />
     <Compile Include="Components\Switches\Base\VariableSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\ForLoopSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\WhileLoopSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\ObjectToAnySwitch.cs" />
+    <Compile Include="Components\Switches\Converter\AnyToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\BooleanToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Debug\DownloadInfo.cs" />
@@ -86,7 +90,10 @@
     <Compile Include="Components\Switches\Logic\OrSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\AddSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\CalculationSwitch.cs" />
+    <Compile Include="Components\Switches\SwitchMath\Int32\AddInt32Switch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Int32\MaxSwitch.cs" />
+    <Compile Include="Components\Switches\Text\RandomTextSwitch.cs" />
+    <Compile Include="Components\Switches\Text\ConcatTextSwitch.cs" />
     <Compile Include="Components\Switches\Variables\BooleanSwitch.cs" />
     <Compile Include="Components\Switches\Variables\Int32Switch.cs" />
     <Compile Include="Components\Switches\Variables\TextEditBaseSwitch.cs" />
@@ -141,7 +148,7 @@
     <Compile Include="Components\Types\SignatureSingle.cs" />
     <Compile Include="Processing\Processor.cs" />
     <Compile Include="Components\Switches\IO\ToggleSwitch.cs" />
-    <Compile Include="Components\Switches\Base\DateTimeSwitch.cs" />
+    <Compile Include="Components\Switches\Variables\DateTimeSwitch.cs" />
     <Compile Include="Components\Base\Connection.cs" />
     <Compile Include="Components\Base\DrawableBase.cs" />
     <Compile Include="Components\Base\InputBase.cs" />

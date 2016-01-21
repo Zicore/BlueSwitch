@@ -14,13 +14,33 @@ namespace BlueSwitch.Base.Components.Switches.Base
     {
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Variable;
+            return Groups.Variable;
         }
 
         [JsonIgnore]
         public Variable Variable { get; protected set; }
 
         public String VariableKey { get; set; }
+
+        [JsonIgnore]
+        public String NameSuffix { get; set; }
+
+        [JsonIgnore]
+        public String NamePrefix { get; set; }
+
+        public virtual void UpdateVariable(Variable variable)
+        {
+            if (Variable != null)
+            {
+                NameSuffix = $"({Variable.Name})";
+            }
+            else
+            {
+                NameSuffix = "";
+            }
+
+            Name = $"{NamePrefix} {NameSuffix}";
+        }
 
         protected override void OnInitialize(Engine renderingEngine)
         {

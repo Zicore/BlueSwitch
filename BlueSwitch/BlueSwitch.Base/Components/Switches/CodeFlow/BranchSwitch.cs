@@ -27,7 +27,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.CodeFlow;
+            return Groups.CodeFlow;
         }
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)

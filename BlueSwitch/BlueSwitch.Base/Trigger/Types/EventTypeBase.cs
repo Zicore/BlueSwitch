@@ -19,6 +19,7 @@ namespace BlueSwitch.Base.Trigger.Types
 
         public static readonly EventTypeBase Start = new EventTypeBase { Name = "Start"};
         public static readonly EventTypeBase MouseClick = new EventTypeBase { Name = "MouseClick" };
+        public static readonly EventTypeBase StartSingle = new EventTypeBase { Name = "StartSingle" };
         public static readonly EventTypeBase TimerTick = new EventTypeBase { Name = "TimerTick" };
     }
 }

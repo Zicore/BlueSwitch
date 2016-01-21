@@ -84,6 +84,8 @@ namespace BlueSwitch
 
         private VariableEditor _variableEditor;
 
+        private TriggerExample _triggerExample;
+
         private void InitializeDockingControls()
         {
             dockPanel.SuspendLayout();
@@ -97,22 +99,24 @@ namespace BlueSwitch
             Renderer.HideOnClose = true;
             
             _switchesTree = new SwitchesTree(Renderer.RenderingEngine);
+            _errorList = new ErrorList(Renderer.RenderingEngine);
+            _triggerExample = new TriggerExample(Renderer.RenderingEngine);
+            //_properties = new PropertiesEditor(Renderer.RenderingEngine);
+            _variableEditor = new VariableEditor(Renderer.RenderingEngine);
+            
             _switchesTree.HideOnClose = true;
             _switchesTree.Show(dockPanel, DockState.DockLeft);
+
+            _triggerExample.HideOnClose = true;
+            _triggerExample.Show(dockPanel, DockState.DockRight);
+
+            //_properties.HideOnClose = true;
             
-
-            _properties = new PropertiesEditor(Renderer.RenderingEngine);
-            _properties.HideOnClose = true;
-
-            _errorList = new ErrorList(Renderer.RenderingEngine);
-            _errorList.HideOnClose = true;
-            _errorList.Show(Renderer.Pane, DockAlignment.Bottom, 0.3);
-
-
-            _variableEditor = new VariableEditor(Renderer.RenderingEngine);
             _variableEditor.HideOnClose = true;
-
             _variableEditor.Show(_switchesTree.Pane, DockAlignment.Bottom, 0.4);
+
+            _errorList.HideOnClose = true;
+            _errorList.Show(Renderer.DockPanel, DockState.DockBottom);
 
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;
@@ -264,6 +268,11 @@ namespace BlueSwitch
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

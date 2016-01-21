@@ -35,5 +35,19 @@ namespace BlueSwitch.Base.Trigger
                 }
             }
         }
+
+        public void Run(EventTypeBase type, string name)
+        {
+            if (Items.ContainsKey(type))
+            {
+                foreach (var eventBase in Items[type])
+                {
+                    if (eventBase.Name == name)
+                    {
+                        eventBase.Run(RenderingEngine, RenderingEngine.ProcessorCompiler);
+                    }
+                }
+            }
+        }
     }
 }

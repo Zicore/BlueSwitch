@@ -30,6 +30,14 @@ namespace BlueSwitch.Controls.Docking
             RenderingEngine.ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
         }
 
+        private ContextMenuStrip _contextMenuStrip;
+        private IContainer components;
+        private ToolStripMenuItem removeToolStripMenuItem;
+        Pen focusPen = new Pen(Brushes.CornflowerBlue, 2.0f);
+        Pen focusPenSimulation = new Pen(Brushes.OrangeRed, 2.0f);
+        Boolean scrollingUp = true;
+        int oldDelta = 0;
+
         private void ProcessorCompilerOnFinished(object sender, EventArgs eventArgs)
         {
             if (RenderingEngine.ProcessorCompiler.Items.Count(x => x.IsActive) == 0)
@@ -68,12 +76,6 @@ namespace BlueSwitch.Controls.Docking
             }
         }
 
-        private ContextMenuStrip contextMenuStrip;
-        private IContainer components;
-        private ToolStripMenuItem removeToolStripMenuItem;
-        Pen focusPen = new Pen(Brushes.CornflowerBlue, 2.0f);
-        Pen focusPenSimulation = new Pen(Brushes.OrangeRed, 2.0f);
-
         private void OnGotFocus(object sender, EventArgs e)
         {
 
@@ -101,20 +103,20 @@ namespace BlueSwitch.Controls.Docking
         protected override void OnPaint(PaintEventArgs e)
         {
             RenderingEngine.Draw(e.Graphics, ClientRectangle);
-
-            if (Focused)
+            
+            RectangleF bounds = new RectangleF(2, 2, Bounds.Width - 4, Bounds.Height - 4);
+            if (RenderingEngine.DesignMode)
             {
-                RectangleF bounds = new RectangleF(2, 2, Bounds.Width - 4, Bounds.Height - 4);
-                if (RenderingEngine.DesignMode)
+                if (Focused)
                 {
                     e.Graphics.DrawRectangle(focusPen, bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 }
-                else
-                {
-                    e.Graphics.DrawRectangle(focusPenSimulation, bounds.X, bounds.Y, bounds.Width, bounds.Height);
-                }
             }
-
+            else
+            {
+                e.Graphics.DrawRectangle(focusPenSimulation, bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            }
+            
             base.OnPaint(e);
         }
 
@@ -126,11 +128,6 @@ namespace BlueSwitch.Controls.Docking
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            //RenderingEngine.UpdateValue("TranslationX", RenderingEngine.CurrentProject.Translation.X);
-            //RenderingEngine.UpdateValue("TranslationY", RenderingEngine.CurrentProject.Translation.Y);
-
-            //RenderingEngine.UpdateValue("Zoom", RenderingEngine.CurrentProject.Zoom);
-
             RenderingEngine.MouseService.UpdateMouseMove(e);
             base.OnMouseMove(e);
             Invalidate();
@@ -264,9 +261,6 @@ namespace BlueSwitch.Controls.Docking
             Invalidate();
         }
 
-
-        Boolean scrollingUp = true;
-        int oldDelta = 0;
         void renderView_MouseWheel(object sender, MouseEventArgs e)
         {
             if (oldDelta > e.Delta)
@@ -309,18 +303,7 @@ namespace BlueSwitch.Controls.Docking
                 RenderingEngine.CurrentProject.Add(RenderingEngine, switchBase);
             }
         }
-
-        //public void AddGetterOrSetter(SwitchBase sourceComponent, PointF pt)
-        //{
-        //    SwitchBase switchBase = Activator.CreateInstance(sourceComponent.GetType()) as SwitchBase;
-
-        //    if (switchBase != null)
-        //    {
-        //        switchBase.Position = pt;
-        //        RenderingEngine.CurrentProject.Add(RenderingEngine, switchBase);
-        //    }
-        //}
-
+        
         protected override void OnResize(EventArgs e)
         {
             Invalidate();

@@ -26,7 +26,7 @@ namespace BlueSwitch.Base.Components.Base
 
         protected Logger _log = LogManager.GetCurrentClassLogger();
 
-        protected static Brush _selectionRectangleBrush = new SolidBrush(Color.FromArgb(150, 10,30, 200));
+        protected static Brush _selectionRectangleBrush = new SolidBrush(Color.FromArgb(120, 50, 50, 200));
 
         [JsonIgnore]
         public bool PreventContextMenu { get; protected set; } = false;

@@ -36,7 +36,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Base;
+            return Groups.Base;
         }
     }
 }

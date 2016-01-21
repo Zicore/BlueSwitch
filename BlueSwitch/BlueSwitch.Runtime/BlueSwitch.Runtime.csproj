@@ -72,6 +72,10 @@
       <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
       <Name>BlueSwitch.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj">
+      <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
+      <Name>BlueSwitch.Monitoring</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
       <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
       <Name>BlueSwitch.OpcUa</Name>

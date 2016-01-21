@@ -45,7 +45,7 @@ namespace BlueSwitch.Base.Components.UI
             }
         }
 
-        public event EventHandler TextChanged;
+        //public event EventHandler TextChanged;
 
         private static readonly StringFormat StringFormat = new StringFormat(StringFormat.GenericDefault.FormatFlags | StringFormatFlags.MeasureTrailingSpaces | StringFormatFlags.NoClip);
 
@@ -132,12 +132,12 @@ namespace BlueSwitch.Base.Components.UI
         /// Creates a numeric Text Edit UI Element
         /// </summary>
         /// <returns>The numeric TextEdit UI Element</returns>
-        public static TextEdit CreateNumberic()
+        public static TextEdit CreateNumeric()
         {
             return new TextEdit { NumberMode = true, AllowDecimalPoint = false };
         }
 
-        public static TextEdit CreateNumberic(bool allowDecimal)
+        public static TextEdit CreateNumeric(bool allowDecimal)
         {
             return new TextEdit { NumberMode = true, AllowDecimalPoint = allowDecimal };
         }
@@ -451,7 +451,7 @@ namespace BlueSwitch.Base.Components.UI
             var sw = Parent as SwitchBase;
             sw?.ValueStore.Store("TextEdit.Data", Text);
             var io = Parent as InputOutputBase;
-            io?.Parent?.ValueStore.Store($"TextEdit.{io.Parent.Id}.Data", Text);
+            io?.Parent?.ValueStore.Store($"TextEdit.{io.Index}.Data", Text);
         }
 
         public override void LoadData()
@@ -464,7 +464,7 @@ namespace BlueSwitch.Base.Components.UI
             var io = Parent as InputOutputBase;
             if (io != null)
             {
-                Text = io.Parent?.ValueStore.GetOrDefault<string>($"TextEdit.{io.Parent.Id}.Data");
+                Text = io.Parent?.ValueStore.GetOrDefault<string>($"TextEdit.{io.Index}.Data");
             }
         }
     }

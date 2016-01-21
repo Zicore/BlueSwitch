@@ -22,7 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Variable;
+            return Groups.Variable;
         }
     }
 }

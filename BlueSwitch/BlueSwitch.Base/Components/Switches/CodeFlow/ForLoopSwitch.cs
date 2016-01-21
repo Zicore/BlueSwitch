@@ -18,7 +18,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
             Name = "For";
 
             AddInput(new ActionSignature());
-            AddInput(typeof(int), TextEdit.CreateNumberic());
+            AddInput(typeof(int), TextEdit.CreateNumeric());
 
             AddOutput(new ActionSignature());
             AddOutput(new ActionSignature());
@@ -27,7 +27,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.CodeFlow;
+            return Groups.CodeFlow;
         }
 
         private int index = 0;

@@ -15,6 +15,7 @@ namespace BlueSwitch
         [STAThread]
         static void Main()
         {
+            ConsoleUtils.InitConsole();
             ConsoleUtils.HideConsole();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

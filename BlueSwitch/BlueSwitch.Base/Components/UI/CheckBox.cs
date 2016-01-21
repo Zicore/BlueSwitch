@@ -30,9 +30,9 @@ namespace BlueSwitch.Base.Components.UI
             }
         }
 
-        private bool _carretVisible = false;
+        //private bool _carretVisible = false;
 
-        private int _carret;
+        //private int _carret;
         private string _text = String.Empty;
         private bool _value = false;
 

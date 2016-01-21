@@ -8,7 +8,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
     {
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Converter;
+            return Groups.Converter;
         }
 
         protected override void OnInitialize(Engine renderingEngine)

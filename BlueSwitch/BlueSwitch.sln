@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Base", "BlueSwit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Runtime", "BlueSwitch.Runtime\BlueSwitch.Runtime.csproj", "{1A660075-42D4-453C-A302-D54ED17AC62A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Monitoring", "BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj", "{65ECA8E4-F9D4-48C2-83FE-6B4090167069}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{1A660075-42D4-453C-A302-D54ED17AC62A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A660075-42D4-453C-A302-D54ED17AC62A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A660075-42D4-453C-A302-D54ED17AC62A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

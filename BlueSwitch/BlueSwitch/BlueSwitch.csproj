@@ -86,6 +86,12 @@
     <Compile Include="Controls\Docking\SwitchesTree.Designer.cs">
       <DependentUpon>SwitchesTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Docking\TriggerExample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\TriggerExample.Designer.cs">
+      <DependentUpon>TriggerExample.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Docking\VariableEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\SwitchesTree.resx">
       <DependentUpon>SwitchesTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\TriggerExample.resx">
+      <DependentUpon>TriggerExample.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\VariableEditor.resx">
       <DependentUpon>VariableEditor.cs</DependentUpon>
@@ -162,6 +171,10 @@
     <ProjectReference Include="..\BlueSwitch.Base\BlueSwitch.Base.csproj">
       <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
       <Name>BlueSwitch.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj">
+      <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
+      <Name>BlueSwitch.Monitoring</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
       <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>

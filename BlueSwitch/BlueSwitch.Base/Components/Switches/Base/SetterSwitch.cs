@@ -14,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
     {
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Setter;
+            return Groups.Setter;
         }
 
         protected override void OnInitialize(Engine renderingEngine)
@@ -32,16 +32,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 AddInput(Variable.NetValueType, Variable.CreateComponent());
             }
+            
             AddOutput(new ActionSignature());
 
-            if (Variable != null)
-            {
-                Name = $"Set ({Variable.Name})";
-            }
-            else
-            {
-                Name = "Set";
-            }
+            NamePrefix = "Set";
+            UpdateVariable(Variable);
         }
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)

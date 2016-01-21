@@ -22,7 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Double
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.LogicDouble;
+            return Groups.LogicDouble;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

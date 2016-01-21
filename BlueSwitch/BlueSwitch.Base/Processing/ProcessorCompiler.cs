@@ -43,10 +43,7 @@ namespace BlueSwitch.Base.Processing
         {
             foreach (var processingTree in Items)
             {
-                if (processingTree.Processor != null)
-                {
-                    processingTree.CancellationTokenSource.Cancel();
-                }
+                processingTree.Stop();
             }
         }
 
@@ -70,8 +67,15 @@ namespace BlueSwitch.Base.Processing
                 
                 var current = tree.Root;
                 ResolveTree(current, current, project);
+
+                tree.Started -= ProcessingTreeOnStarted;
+                tree.Started += ProcessingTreeOnStarted;
+                tree.Finished -= ProcessingTreeOnFinished;
+                tree.Finished += ProcessingTreeOnFinished;
+
                 Items.Add(tree);
             }
+
             OnCompileFinished();
         }
         
@@ -162,11 +166,7 @@ namespace BlueSwitch.Base.Processing
                 try
                 {
                     processor = new Processor(renderingEngine, tokenSource);
-                    processingTree.Started -= ProcessingTreeOnStarted;
-                    processingTree.Finished -= ProcessingTreeOnFinished;
 
-                    processingTree.Started += ProcessingTreeOnStarted;
-                    processingTree.Finished += ProcessingTreeOnFinished;
 
                     processingTree.IsActive = true;
                     processingTree.OnStarted();
@@ -193,7 +193,7 @@ namespace BlueSwitch.Base.Processing
                 finally
                 {
                     processingTree.IsActive = false;
-                    processingTree.OnFinished();
+                    //processingTree.OnFinished();
                 }
 
             }, tokenSource.Token);

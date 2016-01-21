@@ -40,13 +40,13 @@ namespace BlueSwitch.Base.Components.UI
                     component = null;
                     break;
                 case UIType.TextEdit:
-                    component = new TextEdit { ReadOnly = IsReadOnly,AllowDecimalPoint = IsDecimalNumber, NumberMode = IsNumeric,AutoResize = IsAutoResize,AutoStoreValue = IsAutoStoreValue};
+                    component = new TextEdit { ReadOnly = IsReadOnly,AllowDecimalPoint = IsDecimalNumber, NumberMode = IsNumeric,AutoResize = IsAutoResize};
                     break;
                 case UIType.CheckBox:
-                    component = new CheckBox { ReadOnly = IsReadOnly, AutoResize = IsAutoResize, AutoStoreValue = IsAutoStoreValue };
+                    component = new CheckBox { ReadOnly = IsReadOnly, AutoResize = IsAutoResize };
                     break;
                 case UIType.Button:
-                    component = new Button { ReadOnly = IsReadOnly, AutoResize = IsAutoResize, AutoStoreValue = IsAutoStoreValue };
+                    component = new Button { ReadOnly = IsReadOnly, AutoResize = IsAutoResize };
                     break;
                 default:
                     component = null;

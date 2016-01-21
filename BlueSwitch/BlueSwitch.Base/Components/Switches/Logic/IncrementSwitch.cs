@@ -17,7 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
         {
             AddInput(new ActionSignature(), edit);
             AddInput(typeof(int), new TextEdit { NumberMode = true, AllowDecimalPoint = false });
-            AddInput(typeof(bool));
+            AddInput(typeof(bool), new CheckBox());
             AddOutput(new ActionSignature());
             AddOutput(typeof(int));
             Name = "Increment";
@@ -28,7 +28,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Logic;
+            return Groups.Logic;
         }
 
         private int _value;

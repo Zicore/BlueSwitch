@@ -85,7 +85,7 @@ namespace BlueSwitch.Base.Processing
                     }
                 }
             }
-            while (node.Repeat);
+            while (node.Repeat && !CancellationTokenSource.IsCancellationRequested);
         }
 
         private void ProcessDataRoot(ProcessingNode<T> node, Engine renderingEngine)
@@ -115,6 +115,17 @@ namespace BlueSwitch.Base.Processing
             {
                 c.FromInputOutput.InputOutput.Data = c.ToInputOutput.InputOutput.Data;
             }
+        }
+
+        public void Stop()
+        {
+            if (IsActive)
+            {
+                CancellationTokenSource.Cancel();
+            }
+
+            OnFinished();
+            IsActive = false;
         }
     }
 }

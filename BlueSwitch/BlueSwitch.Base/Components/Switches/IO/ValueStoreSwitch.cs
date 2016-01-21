@@ -29,7 +29,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.IO;
+            return Groups.IO;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

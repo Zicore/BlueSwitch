@@ -18,9 +18,9 @@ namespace BlueSwitch.Base.Components.UI
             Text = "Properties";
         }
 
-        private bool _carretVisible = false;
+        //private bool _carretVisible = false;
 
-        private int _carret;
+        //private int _carret;
         private string _text = String.Empty;
 
         public event EventHandler Click;

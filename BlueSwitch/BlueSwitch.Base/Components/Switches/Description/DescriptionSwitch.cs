@@ -20,7 +20,7 @@ namespace BlueSwitch.Base.Components.Switches.Description
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Variable;
+            return Groups.Variable;
         }
 
         public override void DrawDescription(Graphics g, Engine e, DrawableBase parent)

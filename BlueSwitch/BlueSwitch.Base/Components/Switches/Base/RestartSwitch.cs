@@ -8,7 +8,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
     {
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.CodeFlow;
+            return Groups.CodeFlow;
         }
 
         protected override void OnInitialize(Engine renderingEngine)

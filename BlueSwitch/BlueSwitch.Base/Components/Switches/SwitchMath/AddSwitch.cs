@@ -18,7 +18,7 @@ namespace BlueSwitch.Base.Components.Switches.SwitchMath
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Math;
+            return Groups.Math;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

@@ -17,7 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
 
         public override GroupBase OnSetGroup()
         {
-            return GroupBase.Logic;
+            return Groups.Logic;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)
