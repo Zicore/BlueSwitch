@@ -75,6 +75,7 @@
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\ForLoopSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\WhileLoopSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\DateTimeToStringSwitch.cs" />
     <Compile Include="Components\Switches\Converter\ObjectToAnySwitch.cs" />
     <Compile Include="Components\Switches\Converter\AnyToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />

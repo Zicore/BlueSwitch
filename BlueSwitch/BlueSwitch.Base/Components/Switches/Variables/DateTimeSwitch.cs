@@ -11,9 +11,8 @@ namespace BlueSwitch.Base.Components.Switches.Variables
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine);
-
-            AddInput(typeof (string), new TextEdit());
-            AddOutput(typeof(string));
+            
+            AddOutput(typeof(DateTime));
             Name = "DateTime";
             ColumnWidth = 120;
         }
@@ -25,8 +24,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)
         {
-            var format = GetDataValueOrDefault<string>(0);
-            var result = DateTime.Now.ToString(format);
+            var result = DateTime.Now;
             SetData(0, new DataContainer {Value = result });
         }
     }

@@ -23,7 +23,8 @@ namespace BlueSwitch.Base.IO
         Float,
         Double,
         String,
-        Object
+        Object,
+        DateTime
     }
 
 
@@ -55,6 +56,8 @@ namespace BlueSwitch.Base.IO
                     return typeof(string);
                 case ValueType.Object:
                     return typeof(object);
+                case ValueType.DateTime:
+                    return typeof(DateTime);
                 default:
                     return typeof (object);
             }
