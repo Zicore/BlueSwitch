@@ -190,6 +190,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Roadmap.txt" />
+    <Content Include="VersionLog.txt" />
     <Content Include="Images\BlueSwitchDesign.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
