@@ -1,0 +1,6 @@
+﻿+ = Added
+- = Removed
+* = Modified
+
+2016-01-25 av
++ DateTime as Variable

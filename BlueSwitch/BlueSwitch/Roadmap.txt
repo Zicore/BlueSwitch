@@ -1,0 +1,5 @@
+﻿+ = Added
+- = Removed
+* = Modified
+
++ Formular for managing Events

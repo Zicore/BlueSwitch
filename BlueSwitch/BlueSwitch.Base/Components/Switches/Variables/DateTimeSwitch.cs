@@ -14,7 +14,6 @@ namespace BlueSwitch.Base.Components.Switches.Variables
             
             AddOutput(typeof(DateTime));
             Name = "DateTime";
-            ColumnWidth = 120;
         }
 
         public override GroupBase OnSetGroup()
