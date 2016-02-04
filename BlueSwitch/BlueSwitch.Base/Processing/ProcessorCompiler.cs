@@ -116,8 +116,9 @@ namespace BlueSwitch.Base.Processing
 
                     node.PreviousData.Add(nextNode);
 
-                    if (c.ToInputOutput.Origin != start.Value)
+                    if (!start.ChainedNodes.Contains(nextNode.Value.Id) && c.ToInputOutput.Origin != start.Value)
                     {
+                        start.ChainedNodes.Add(nextNode.Value.Id);
                         ResolveData(start, nextNode, project);
                     }
                 }

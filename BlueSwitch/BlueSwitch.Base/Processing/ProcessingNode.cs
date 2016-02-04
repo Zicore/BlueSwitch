@@ -27,6 +27,8 @@ namespace BlueSwitch.Base.Processing
         public List<ProcessingNode<T>> NextData { get; set; } = new List<ProcessingNode<T>>();
         public List<ProcessingNode<T>> PreviousData { get; set; } = new List<ProcessingNode<T>>();
 
+        public HashSet<int> ChainedNodes { get; set; } = new HashSet<int>();
+
         public SkipNode Skip { get; set; }
 
         private int _outputIndex = -1;

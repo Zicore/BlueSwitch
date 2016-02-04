@@ -14,5 +14,10 @@ namespace BlueSwitch.Base.Diagnostics
         public ProcessingTree<SwitchBase> Tree { get; set; }
         public ProcessingNode<SwitchBase> Node { get; set; }
         public int Step { get; set; }
+
+        public override string ToString()
+        {
+            return $"Exception: {Exception}, Tree: {Tree}, Node: {Node}, Step: {Step}";
+        }
     }
 }
