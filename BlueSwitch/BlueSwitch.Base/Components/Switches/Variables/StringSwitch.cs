@@ -9,7 +9,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
         {
             base.OnInitialize(renderingEngine); // Wichtig
             AddOutput(typeof(string));
-            Name = "String";
+            UniqueName = "String";
             ColumnWidth = 120;
         }
 

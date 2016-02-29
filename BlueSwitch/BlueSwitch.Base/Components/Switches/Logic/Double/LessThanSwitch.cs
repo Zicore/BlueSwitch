@@ -17,7 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Double
             AddInput(typeof(double));
             AddOutput(typeof(bool));
 
-            Name = "LessThan.Double";
+            UniqueName = "Double.LessThan";
         }
 
         public override GroupBase OnSetGroup()

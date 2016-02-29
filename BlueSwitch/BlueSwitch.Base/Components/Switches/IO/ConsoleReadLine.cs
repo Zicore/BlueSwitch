@@ -15,7 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "ConsoleReadLine";
+            UniqueName = "ConsoleReadLine";
 
             AddInput(new ActionSignature());
             AddInput(typeof(string));

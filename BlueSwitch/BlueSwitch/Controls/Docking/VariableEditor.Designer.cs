@@ -33,7 +33,7 @@
             this.comboBoxEditor = new System.Windows.Forms.ComboBox();
             this.btRemove = new System.Windows.Forms.Button();
             this.btRefresh = new System.Windows.Forms.Button();
-            this.listVariables = new ListViewEx.ListViewEx();
+            this.listVariables = new ListViewEx();
             this.columnType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -112,9 +112,9 @@
             this.listVariables.TabIndex = 2;
             this.listVariables.UseCompatibleStateImageBehavior = false;
             this.listVariables.View = System.Windows.Forms.View.Details;
-            this.listVariables.SubItemClicked += new ListViewEx.SubItemEventHandler(this.listVariables_SubItemClicked);
-            this.listVariables.SubItemBeginEditing += new ListViewEx.SubItemEventHandler(this.listVariables_SubItemBeginEditing);
-            this.listVariables.SubItemEndEditing += new ListViewEx.SubItemEndEditingEventHandler(this.listVariables_SubItemEndEditing);
+            this.listVariables.SubItemClicked += new SubItemEventHandler(this.listVariables_SubItemClicked);
+            this.listVariables.SubItemBeginEditing += new SubItemEventHandler(this.listVariables_SubItemBeginEditing);
+            this.listVariables.SubItemEndEditing += new SubItemEndEditingEventHandler(this.listVariables_SubItemEndEditing);
             this.listVariables.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listVariables_ItemDrag);
             // 
             // columnType
@@ -153,7 +153,7 @@
 
         #endregion
         private System.Windows.Forms.Button btAdd;
-        private ListViewEx.ListViewEx listVariables;
+        private ListViewEx listVariables;
         private System.Windows.Forms.ColumnHeader columnName;
         private System.Windows.Forms.ColumnHeader columnType;
         private System.Windows.Forms.TextBox textBoxEditor;

@@ -16,7 +16,7 @@ namespace BlueSwitch.Base.Components.Switches.Text
             AddInput(typeof (int), TextEdit.CreateNumeric(false));
 
             AddOutput(typeof(string));
-            Name = "Random String";
+            UniqueName = "Random String";
             Description = "Random String";
         }
 

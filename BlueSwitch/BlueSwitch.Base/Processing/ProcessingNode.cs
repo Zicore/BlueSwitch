@@ -46,7 +46,7 @@ namespace BlueSwitch.Base.Processing
 
         public override string ToString()
         {
-            return $"{Value.Name}";
+            return $"{Value.UniqueName}";
         }
 
         private Connection _connection;

@@ -14,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
         protected override void OnInitialize(Engine renderingEngine)
         {
             AddOutput(typeof (decimal));
-            Name = "Request";
+            UniqueName = "Request";
         }
 
         public override GroupBase OnSetGroup()

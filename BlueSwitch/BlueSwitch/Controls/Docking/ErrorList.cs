@@ -21,6 +21,8 @@ namespace BlueSwitch.Controls.Docking
             Engine = engine;
             Engine.ProcessorCompiler.ErrorAdded +=ProcessorCompilerOnErrorAdded;
             Engine.ProcessorCompiler.ErrorCleared += ProcessorCompilerOnErrorCleared;
+
+            listErrors.LabelWrap = true;
         }
 
         private void ProcessorCompilerOnErrorCleared(object sender, EventArgs eventArgs)
@@ -57,15 +59,17 @@ namespace BlueSwitch.Controls.Docking
 
         private void AddEntry(ExceptionEntry entry)
         {
-            listErrors.Items.Add(new ListViewItem(new []
+            var item = new ListViewItem(new[]
             {
-                new ListViewItem.ListViewSubItem { Text = listErrors.Items.Count.ToString() + 1 }, // LFD
-                new ListViewItem.ListViewSubItem { Text = entry.Step.ToString() }, // Step
-                new ListViewItem.ListViewSubItem { Text = entry.Node.Value.Name }, // Name
-                new ListViewItem.ListViewSubItem { Text = entry.Node.Value.Description }, // Node
-                new ListViewItem.ListViewSubItem { Text = entry.Exception.GetType().Name }, // Exception
-                new ListViewItem.ListViewSubItem { Text = entry.Exception.ToString() }, // Exception
-            },0));
+                new ListViewItem.ListViewSubItem {Text = listErrors.Items.Count.ToString() + 1}, // LFD
+                new ListViewItem.ListViewSubItem {Text = entry.Step.ToString()}, // Step
+                new ListViewItem.ListViewSubItem {Text = entry.NameSafe}, // Name
+                new ListViewItem.ListViewSubItem {Text = entry.DescriptionSafe}, // Node
+                new ListViewItem.ListViewSubItem {Text = entry.Exception.GetType().Name}, // Exception
+                new ListViewItem.ListViewSubItem {Text = entry.Exception.ToString()}, // Exception
+            }, 0);
+
+            listErrors.Items.Add(item);
         }
     }
 }

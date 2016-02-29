@@ -58,7 +58,7 @@ namespace BlueSwitch.Base.Processing
 
                 if (renderingEngine.DebugMode)
                 {
-                    Log.Warn("Processing: {0}", node.Value.Name);
+                    Log.Warn("Processing: {0}", node.Value.UniqueName);
                 }
 
                 node.Value.Process(Processor, node);
@@ -98,7 +98,7 @@ namespace BlueSwitch.Base.Processing
                 {
                     if (renderingEngine.DebugMode)
                     {
-                        Log.Debug("Processing: {0}", dataNode.Value.Name);
+                        Log.Debug("Processing: {0}", dataNode.Value.UniqueName);
                     }
 
                     dataNode.Value.ProcessData(Processor, dataNode);

@@ -12,7 +12,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
             ActivateInputAdd(new PinDescription(typeof(bool), UIType.CheckBox), 2);
 
             AddOutput(typeof(bool));
-            Name = "Or";
+            UniqueName = "Or";
             Description = "Or Gate";
         }
 

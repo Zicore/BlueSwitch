@@ -22,7 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.Debug
         {
             base.OnInitialize(renderingEngine);
 
-            Name = "DownloadTest";
+            UniqueName = "DownloadTest";
 
             AddInput(new ActionSignature());
             AddInput(new ActionSignature());

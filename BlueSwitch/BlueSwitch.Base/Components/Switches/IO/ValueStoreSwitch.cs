@@ -15,7 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine);
-            Name = "ValueStore";
+            UniqueName = "ValueStore";
 
             AddInput(new ActionSignature());
             AddOutput(new ActionSignature());

@@ -22,7 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
         {
             base.OnInitialize(renderingEngine);
 
-            Name = "Either";
+            UniqueName = "Either";
             Description = "Returns based on a bool the first value or the second";
 
             AddInput(typeof (bool), new CheckBox());

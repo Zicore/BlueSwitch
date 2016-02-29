@@ -20,7 +20,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
             AddInput(typeof(bool), new CheckBox());
             AddOutput(new ActionSignature());
             AddOutput(typeof(int));
-            Name = "Increment";
+            UniqueName = "Increment";
             edit.Text = Value.ToString();
         }
 

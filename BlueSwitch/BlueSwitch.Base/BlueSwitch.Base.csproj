@@ -89,9 +89,9 @@
     <Compile Include="Components\Switches\Logic\EitherSwitch.cs" />
     <Compile Include="Components\Switches\Logic\Int32\GreaterThanSwitch.cs" />
     <Compile Include="Components\Switches\Logic\OrSwitch.cs" />
-    <Compile Include="Components\Switches\SwitchMath\AddSwitch.cs" />
+    <Compile Include="Components\Switches\SwitchMath\Double\AddSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\CalculationSwitch.cs" />
-    <Compile Include="Components\Switches\SwitchMath\Int32\AddInt32Switch.cs" />
+    <Compile Include="Components\Switches\SwitchMath\Int32\AddSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Int32\MaxSwitch.cs" />
     <Compile Include="Components\Switches\Text\RandomTextSwitch.cs" />
     <Compile Include="Components\Switches\Text\ConcatTextSwitch.cs" />
@@ -118,9 +118,14 @@
     <Compile Include="Drawing.Extended\ExtendedGraphics.cs" />
     <Compile Include="IO\ValueStore.cs" />
     <Compile Include="IO\Variable.cs" />
+    <Compile Include="Meta\Help\HelpDescription.cs" />
+    <Compile Include="Meta\Search\SearchDescription.cs" />
+    <Compile Include="Meta\Search\SearchEntry.cs" />
+    <Compile Include="Meta\Search\SearchTag.cs" />
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
+    <Compile Include="Services\SearchService.cs" />
     <Compile Include="Trigger\EventManager.cs" />
     <Compile Include="Trigger\Types\EventBase.cs" />
     <Compile Include="Trigger\Types\EventTypeBase.cs" />

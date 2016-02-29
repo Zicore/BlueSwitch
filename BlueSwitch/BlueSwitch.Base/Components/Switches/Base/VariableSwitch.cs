@@ -39,7 +39,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 NameSuffix = "";
             }
 
-            Name = $"{NamePrefix} {NameSuffix}";
+            UniqueName = $"{NamePrefix} {NameSuffix}";
         }
 
         protected override void OnInitialize(Engine renderingEngine)

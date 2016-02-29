@@ -11,7 +11,7 @@ namespace BlueSwitch.Base.Components.Switches.Description
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine); // Wichtig
-            Name = "Description";
+            UniqueName = "Description";
             MinRows = 1;
             DescriptionHeight = 0;
             ColumnWidth = 160;

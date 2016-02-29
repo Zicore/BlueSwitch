@@ -22,7 +22,7 @@ namespace BlueSwitch.Monitoring.Components.Switches
         {
             base.OnInitialize(renderingEngine);
 
-            Name = "Process Running";
+            UniqueName = "Process Running";
             Description = "Checks if process is running";
 
             AddInput(new ActionSignature());

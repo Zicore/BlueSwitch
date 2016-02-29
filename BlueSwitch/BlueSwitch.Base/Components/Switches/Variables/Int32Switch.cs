@@ -10,7 +10,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
         {
             base.OnInitialize(renderingEngine); // Wichtig
             AddOutput(typeof(int));
-            Name = "Int32";
+            UniqueName = "Int32";
             TextEdit.AllowDecimalPoint = false;
             TextEdit.NumberMode = true;
         }

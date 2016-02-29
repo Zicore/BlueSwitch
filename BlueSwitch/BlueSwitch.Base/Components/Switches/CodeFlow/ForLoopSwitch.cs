@@ -15,7 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "For";
+            UniqueName = "For";
 
             AddInput(new ActionSignature());
             AddInput(typeof(int), TextEdit.CreateNumeric());

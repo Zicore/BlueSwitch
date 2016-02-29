@@ -15,6 +15,33 @@ namespace BlueSwitch.Base.Diagnostics
         public ProcessingNode<SwitchBase> Node { get; set; }
         public int Step { get; set; }
 
+        public String Name { get; set; }
+        public String Description { get; set; }
+
+        public string NameSafe
+        {
+            get
+            {
+                if (Node?.Value != null)
+                {
+                    return Node.Value.UniqueName;
+                }
+                return Name;
+            }
+        }
+        
+        public string DescriptionSafe
+        {
+            get
+            {
+                if (Node?.Value != null)
+                {
+                    return Node.Value.Description;
+                }
+                return Description;
+            }
+        }
+
         public override string ToString()
         {
             return $"Exception: {Exception}, Tree: {Tree}, Node: {Node}, Step: {Step}";

@@ -77,6 +77,7 @@ namespace BlueSwitch
 
         private RendererBase Renderer;
         private SwitchesTree _switchesTree;
+        private MetaEditor _metaEditor;
 
         private PropertiesEditor _properties;
 
@@ -98,6 +99,7 @@ namespace BlueSwitch
             Renderer.AllowDrop = true;
             Renderer.HideOnClose = true;
             
+            _metaEditor = new MetaEditor(Renderer.RenderingEngine);
             _switchesTree = new SwitchesTree(Renderer.RenderingEngine);
             _errorList = new ErrorList(Renderer.RenderingEngine);
             _triggerExample = new TriggerExample(Renderer.RenderingEngine);
@@ -106,6 +108,8 @@ namespace BlueSwitch
             
             _switchesTree.HideOnClose = true;
             _switchesTree.Show(dockPanel, DockState.DockLeft);
+
+            _metaEditor.HideOnClose = true;
 
             _triggerExample.HideOnClose = true;
             _triggerExample.Show(dockPanel, DockState.DockRight);
@@ -120,8 +124,11 @@ namespace BlueSwitch
 
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;
+            
+            Renderer.InitializeEngine();
 
             _switchesTree.UpdateTree();
+            _metaEditor.UpdateTree();
             dockPanel.ResumeLayout(true,true);
 
             var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -273,6 +280,22 @@ namespace BlueSwitch
         private void MainForm_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void exportSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialogTags.ShowDialog();
+        }
+
+        private void metaEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _metaEditor.HideOnClose = true;
+            _metaEditor.Show();
+        }
+
+        private void saveFileDialogTags_FileOk(object sender, CancelEventArgs e)
+        {
+            Renderer.RenderingEngine.SearchService.ExportSearchDescription(saveFileDialogTags.FileName);
         }
     }
 }

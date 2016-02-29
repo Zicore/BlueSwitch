@@ -39,7 +39,7 @@ namespace BlueSwitch.Controls.Docking
 
         private void RenderingEngineOnProjectLoaded(object sender, EventArgs eventArgs)
         {
-            tbProject.Text = RenderingEngine.CurrentProject.Name;
+            //tbProject.Text = RenderingEngine.CurrentProject.Name;
         }
 
         private void RenderingEngineOnDebugModeChanged(object sender, EventArgs eventArgs)
@@ -56,38 +56,55 @@ namespace BlueSwitch.Controls.Docking
 
         public void UpdateTree()
         {
-            var av = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x=>!x.AutoDiscoverDisabled));
-            var switches = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x => !x.AutoDiscoverDisabled));
-            if (TradeFairMode)
+            //var av = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x=>!x.AutoDiscoverDisabled));
+
+            //if (TradeFairMode)
+            //{
+            //    switches.Clear();
+            //    switches.Add(av.First(x => x.UniqueName == "Start"));
+            //    switches.Add(av.First(x => x.UniqueName == "Branch"));
+            //    switches.Add(av.First(x => x.UniqueName == "Delay"));
+            //    switches.Add(av.First(x => x.UniqueName == "Restart"));
+
+            //    switches.Add(av.First(x => x.UniqueName == "Display"));
+            //    switches.Add(av.First(x => x.UniqueName == "OpcUa Connection"));
+            //    switches.Add(av.First(x => x.UniqueName == "Read OpcUa Variable"));
+            //    switches.Add(av.First(x => x.UniqueName == "Write OpcUa Variable"));
+
+            //    switches.Add(av.First(x => x.UniqueName == "Tweet.Available"));
+            //    switches.Add(av.First(x => x.UniqueName == "Tweet.Display"));
+
+            //    switches.Add(av.First(x => x.UniqueName == "Or"));
+            //    switches.Add(av.First(x => x.UniqueName == "And"));
+
+            //    switches.Add(av.First(x => x.UniqueName == "String"));
+            //    switches.Add(av.First(x => x.UniqueName == "Description"));
+
+            //    switches.Add(av.First(x => x.UniqueName == "Increment"));
+            //}
+            
+            var items = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x => !x.AutoDiscoverDisabled));
+
+            var query = tbSearch.Text;
+
+            if (!String.IsNullOrEmpty(query))
             {
-                switches.Clear();
-                switches.Add(av.First(x => x.Name == "Start"));
-                switches.Add(av.First(x => x.Name == "Branch"));
-                switches.Add(av.First(x => x.Name == "Delay"));
-                switches.Add(av.First(x => x.Name == "Restart"));
+                var searchResult = RenderingEngine.SearchService.Search(tbSearch.Text);
 
-                switches.Add(av.First(x => x.Name == "Display"));
-                switches.Add(av.First(x => x.Name == "OpcUa Connection"));
-                switches.Add(av.First(x => x.Name == "Read OpcUa Variable"));
-                switches.Add(av.First(x => x.Name == "Write OpcUa Variable"));
+                items.Clear();
 
-                switches.Add(av.First(x => x.Name == "Tweet.Available"));
-                switches.Add(av.First(x => x.Name == "Tweet.Display"));
-
-                switches.Add(av.First(x => x.Name == "Or"));
-                switches.Add(av.First(x => x.Name == "And"));
-
-                switches.Add(av.First(x => x.Name == "String"));
-                switches.Add(av.First(x => x.Name == "Description"));
-
-                switches.Add(av.First(x => x.Name == "Increment"));
+                if (searchResult.Count > 0)
+                {
+                    items.AddRange(searchResult.Values.OrderByDescending(x => x.Relevance).Select(x => x.Item));
+                }
             }
 
+            treeView.BeginUpdate();
             treeView.Nodes.Clear();
 
             Dictionary<String, GroupBase> groups = new Dictionary<string, GroupBase>();
 
-            foreach (var switchBase in switches)
+            foreach (var switchBase in items)
             {
                 if (!groups.ContainsKey(switchBase.Group.Name))
                 {
@@ -100,17 +117,18 @@ namespace BlueSwitch.Controls.Docking
                 var groupNode = treeView.Nodes.Add(g.Value.Name, g.Value.Name);
                 groupNode.Tag = g.Value;
 
-                foreach (var switchBase in switches)
+                foreach (var switchBase in items)
                 {
                     if (switchBase.Group.Name == g.Value.Name)
                     {
-                        var node = groupNode.Nodes.Add(switchBase.Name, switchBase.Name);
+                        var node = groupNode.Nodes.Add(switchBase.UniqueName, switchBase.UniqueName);
                         node.Tag = switchBase;
                     }
                 }
             }
 
             treeView.ExpandAll();
+            treeView.EndUpdate();
         }
 
         private void treeView_ItemDrag(object sender, ItemDragEventArgs e)
@@ -140,7 +158,28 @@ namespace BlueSwitch.Controls.Docking
 
         private void tbProject_TextChanged(object sender, EventArgs e)
         {
-            RenderingEngine.CurrentProject.Name = tbProject.Text;
+            //RenderingEngine.CurrentProject.Name = tbProject.Text;
+        }
+
+        private void tbSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                tbSearch.Text = "";
+            }
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            UpdateTree();
+        }
+
+        private void tbSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

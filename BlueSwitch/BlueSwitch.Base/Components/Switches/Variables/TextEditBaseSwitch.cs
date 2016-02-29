@@ -10,7 +10,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "Variable";
+            UniqueName = "Variable";
 
             TextEdit = new TextEdit();
             TextEdit.AutoResize = true;

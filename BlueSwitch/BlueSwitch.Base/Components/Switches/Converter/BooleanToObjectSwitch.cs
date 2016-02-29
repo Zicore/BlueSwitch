@@ -13,7 +13,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "Boolean.ToObject";
+            UniqueName = "Boolean.ToObject";
             AddInput(typeof (bool));
             AddOutput(typeof (object));
         }

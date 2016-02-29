@@ -79,7 +79,7 @@ namespace BlueSwitch.Controls.Docking
 
         private Control[] Editors;
 
-        private void listVariables_SubItemEndEditing(object sender, ListViewEx.SubItemEndEditingEventArgs e)
+        private void listVariables_SubItemEndEditing(object sender, SubItemEndEditingEventArgs e)
         {
             var variable = e.Item.Tag as Variable;
             if (variable != null)
@@ -105,7 +105,7 @@ namespace BlueSwitch.Controls.Docking
             }
         }
 
-        private void listVariables_SubItemClicked(object sender, ListViewEx.SubItemEventArgs e)
+        private void listVariables_SubItemClicked(object sender, SubItemEventArgs e)
         {
             if (e.SubItem == 0 || e.SubItem == 1)
             {
@@ -113,7 +113,7 @@ namespace BlueSwitch.Controls.Docking
             }
         }
         
-        private void listVariables_SubItemBeginEditing(object sender, ListViewEx.SubItemEventArgs e)
+        private void listVariables_SubItemBeginEditing(object sender, SubItemEventArgs e)
         {
            
         }

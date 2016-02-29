@@ -20,14 +20,20 @@ namespace BlueSwitch.Controls.Docking
             TabText = "Renderer";
             DoubleBuffered = true;
             Load += OnLoad;
-            RenderingEngine.LoadAddons();
             RenderingEngine.Redraw += RenderingEngineOnRedraw;
             this.MouseWheel += renderView_MouseWheel;
             GotFocus += OnGotFocus;
             LostFocus += OnLostFocus;
             AllowDrop = true;
+            
+        }
+
+        public void InitializeEngine()
+        {
             RenderingEngine.ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             RenderingEngine.ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
+
+            RenderingEngine.LoadAddons();
         }
 
         private ContextMenuStrip _contextMenuStrip;

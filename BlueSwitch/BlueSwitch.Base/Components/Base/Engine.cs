@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.Diagnostics;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Processing;
+using BlueSwitch.Base.Services;
 using BlueSwitch.Base.Trigger;
 using BlueSwitch.Base.Trigger.Types;
 using Newtonsoft.Json;
@@ -18,6 +20,7 @@ namespace BlueSwitch.Base.Components.Base
     {
         public event EventHandler DebugModeChanged;
 
+        public SearchService SearchService { get; set; }
         public BlueSwitchProject CurrentProject { get; set; } = new BlueSwitchProject();
         public ReflectionService ReflectionService { get; set; } = new ReflectionService();
         public EventManager EventManager { get; }
@@ -52,12 +55,36 @@ namespace BlueSwitch.Base.Components.Base
         {
             ProcessorCompiler = new ProcessorCompiler(this);
             EventManager = new EventManager(this);
+            SearchService = new SearchService(this);
+            SearchService.Initialize();
         }
 
         public void LoadAddons()
         {
             AvailableSwitches = ReflectionService.LoadAddons(this);
         }
+
+        public void AddAvailableSwitch(SwitchBase sw)
+        {
+            if (!AvailableSwitchesDict.ContainsKey(sw.UniqueName))
+            {
+                AvailableSwitchesDict.Add(sw.UniqueName, sw);
+            }
+            else
+            {
+                var collidingSwitch = AvailableSwitchesDict[sw.UniqueName];
+                ProcessorCompiler.AddError(
+                    new ExceptionEntry
+                    {
+                        Exception = new ArgumentException(
+                        $"Switch Name {sw.UniqueName} is not unique ({sw.FullTypeName}) it collides with {collidingSwitch.DisplayName} ({collidingSwitch.FullTypeName}).\r\n" +
+                        $"Make sure the UniqueName is unique or search, help and other features wont work correctly!"),
+                        Name = $"Switch {sw.UniqueName} is not unique."
+                    });
+            }
+        }
+
+        public Dictionary<string, SwitchBase> AvailableSwitchesDict { get; set; } = new Dictionary<string, SwitchBase>();
 
         [JsonIgnore]
         public TimeSpan DebugTime { get; set; } = new TimeSpan(0, 0, 0, 0, 300);

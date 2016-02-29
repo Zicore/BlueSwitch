@@ -29,7 +29,7 @@ namespace BlueSwitch
             //}
         }
         
-        public List<SwitchBase> LoadAddons(Engine renderingEngine)
+        public List<SwitchBase> LoadAddons(Engine engine)
         {
             var list = new List<SwitchBase>();
 
@@ -68,7 +68,9 @@ namespace BlueSwitch
                             var instance = Activator.CreateInstance(type) as SwitchBase;
                             if (instance != null)
                             {
-                                instance.Initialize(renderingEngine);
+                                instance.Initialize(engine);
+                                engine.AddAvailableSwitch(instance); // Important for Search and Help Services
+                                instance.InitializeMetaInformation(engine); // Initializes
                                 list.Add(instance);
                             }
                         }

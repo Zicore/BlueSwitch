@@ -40,12 +40,12 @@ namespace BlueSwitch.Runtime
 
             engine.DebugMode = false;
 
-            engine.LoadAddons();
-            
             engine.ProcessorCompiler.Started += ProcessorCompilerOnStarted;
             engine.ProcessorCompiler.CompileFinished += ProcessorCompilerOnCompileFinished;
             engine.ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             engine.ProcessorCompiler.ErrorAdded += ProcessorCompilerOnErrorAdded;
+
+            engine.LoadAddons();
 
             engine.ProjectLoaded += EngineOnProjectLoaded;
             engine.LoadProject(filePath);

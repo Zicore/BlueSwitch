@@ -12,7 +12,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
             AddInput(typeof (bool), new CheckBox());
             AddOutput(typeof(bool));
 
-            Name = "Not";
+            UniqueName = "Not";
         }
 
         public override GroupBase OnSetGroup()

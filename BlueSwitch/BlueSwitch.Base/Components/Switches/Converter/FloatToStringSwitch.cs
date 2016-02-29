@@ -13,9 +13,14 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "Float.ToString";
+            UniqueName = "Float.ToString";
             AddInput(typeof (float));
             AddOutput(typeof (string));
+        }
+
+        protected override void OnInitializeMetaInformation(Engine engine)
+        {
+            engine.SearchService.AddTags(this, new [] { "Converter", "Float", "ToString" });
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

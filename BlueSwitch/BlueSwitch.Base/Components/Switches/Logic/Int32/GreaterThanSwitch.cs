@@ -13,7 +13,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Int32
             AddInput(typeof(int), new TextEdit { NumberMode = true, AllowDecimalPoint = false });
             AddOutput(typeof(bool));
 
-            Name = "GreaterThan.Int32";
+            UniqueName = "Int32.GreaterThan";
         }
 
         public override GroupBase OnSetGroup()

@@ -8,6 +8,7 @@ using BlueSwitch.Base.Components.Types;
 using BlueSwitch.Base.Components.UI;
 using BlueSwitch.Base.Drawing.Extended;
 using BlueSwitch.Base.IO;
+using BlueSwitch.Base.Meta.Search;
 using BlueSwitch.Base.Processing;
 using Newtonsoft.Json;
 
@@ -105,29 +106,41 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public bool HasActionOutput { get; protected set; }
 
-        private string _name;
+        private string _uniqueName;
+        private string _displayName;
 
         [JsonIgnore]
-        public String Name
+        public string UniqueName
         {
             get
             {
-                if (String.IsNullOrEmpty(_name))
+                if (String.IsNullOrEmpty(_uniqueName))
                 {
-                    return GetType().Name;
+                    return TypeName;
                 }
-                return _name;
+                return _uniqueName;
             }
-            set { _name = value; }
+            set { _uniqueName = value; }
         }
+
+        public string TypeName => GetType().Name;
+        public string FullTypeName => GetType().FullName;
 
         [JsonIgnore]
         public string Description { get; protected set; }
 
         [JsonIgnore]
-        public String DisplayName
+        public string DisplayName
         {
-            get { return $"{Name} {Id}";}
+            get
+            {
+                if (String.IsNullOrEmpty(_displayName))
+                {
+                    return UniqueName;
+                }
+                return _displayName;
+            }
+            set { _displayName = value; }
         }
 
         [JsonIgnore]
@@ -555,8 +568,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             g.TranslateTransform(Position.X, Position.Y);
 
-            g.DrawString(Name + " " + Extension, FontSmall, Brushes.Black, new PointF(3, 1));
-            g.DrawString(Name + " " + Extension, FontSmall, Brushes.White, new PointF(2, 0));
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.Black, new PointF(3, 1));
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(2, 0));
 
             g.Transform = transform;
         }
@@ -791,7 +804,13 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected virtual void OnProcess<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase { }
         protected virtual void OnProcessData<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase { }
-        
+        protected virtual void OnInitializeMetaInformation(Engine engine) { }
+
+        public void InitializeMetaInformation(Engine engine)
+        {
+            engine.SearchService.AddSearchDescription(new SearchDescription(UniqueName)); // Basic Search Setup
+            OnInitializeMetaInformation(engine);
+        }
 
         public void Initialize(Engine renderingEngine)
         {
@@ -846,7 +865,12 @@ namespace BlueSwitch.Base.Components.Switches.Base
             Group = OnSetGroup();
         }
 
-
+        /// <summary>
+        /// Use this to define all properties of a switch.
+        /// Set a UniqueName which should be unique across all switches.
+        /// Set a DisplayName which can whatever name you want to be displayed.
+        /// </summary>
+        /// <param name="renderingEngine"></param>
         protected virtual void OnInitialize(Engine renderingEngine)
         {
 

@@ -14,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "Object.ToAny";
+            UniqueName = "Object.ToAny";
            
             AddInput(typeof(object));
             AddOutput(new AnySignature());

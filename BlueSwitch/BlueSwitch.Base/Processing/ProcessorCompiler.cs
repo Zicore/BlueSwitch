@@ -239,5 +239,11 @@ namespace BlueSwitch.Base.Processing
         {
             ErrorCleared?.Invoke(this, EventArgs.Empty);
         }
+
+        public void AddError(ExceptionEntry entry)
+        {
+            Errors.Add(entry);
+            OnErrorAdded(new ExceptionEntryEventArgs { ExceptionEntry = entry });
+        }
     }
 }

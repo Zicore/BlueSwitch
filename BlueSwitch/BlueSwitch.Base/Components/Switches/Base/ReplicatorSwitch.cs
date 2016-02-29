@@ -15,7 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             AddOutput(new OutputBase(new AnySignature()));
             AddOutput(new OutputBase(new AnySignature()));
 
-            Name = "Replicator";
+            UniqueName = "Replicator";
             Description = "Setzt Index 0 Input in alle Outputs";
         }
 

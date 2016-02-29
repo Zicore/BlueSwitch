@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-namespace ListViewEx
+namespace BlueSwitch.Controls
 {
 	/// <summary>
 	/// Event Handler for SubItem events

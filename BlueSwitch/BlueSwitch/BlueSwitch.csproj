@@ -80,6 +80,12 @@
     <Compile Include="Controls\Docking\RendererBase.Designer.cs">
       <DependentUpon>RendererBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Docking\MetaEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\MetaEditor.Designer.cs">
+      <DependentUpon>MetaEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Docking\SwitchesTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\RendererBase.resx">
       <DependentUpon>RendererBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\MetaEditor.resx">
+      <DependentUpon>MetaEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\SwitchesTree.resx">
       <DependentUpon>SwitchesTree.cs</DependentUpon>
@@ -175,10 +184,6 @@
     <ProjectReference Include="..\BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj">
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
-      <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
-      <Name>BlueSwitch.OpcUa</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>

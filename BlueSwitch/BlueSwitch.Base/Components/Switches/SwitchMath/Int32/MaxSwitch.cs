@@ -21,7 +21,8 @@ namespace BlueSwitch.Base.Components.Switches.SwitchMath.Int32
         {
             base.OnInitialize(renderingEngine);
 
-            Name = "Max.Int32";
+            UniqueName = "Int32.Max";
+            DisplayName = "Int32.Max";
 
             ActivateInputAdd(new PinDescription(typeof(int), UIType.TextEdit) { IsDecimalNumber = false, IsNumeric = true}, 2);
             

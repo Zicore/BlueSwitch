@@ -12,7 +12,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
         {
             AddOutput(typeof (bool));
             SetData(0,new DataContainer(true));
-            Name = "Toggle";
+            UniqueName = "Toggle";
             Description = "Schalter";
         }
 

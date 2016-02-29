@@ -13,7 +13,7 @@ namespace BlueSwitch.Base.Components.Switches.Text
             ActivateInputAdd(new PinDescription(typeof(string), UIType.TextEdit) {}, 2);
 
             AddOutput(typeof(string));
-            Name = "Concat";
+            UniqueName = "Concat";
             Description = "Concat";
         }
 

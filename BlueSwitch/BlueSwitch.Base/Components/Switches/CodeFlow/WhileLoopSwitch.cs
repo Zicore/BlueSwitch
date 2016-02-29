@@ -15,7 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "While";
+            UniqueName = "While";
 
             AddInput(new ActionSignature());
             AddInput(typeof(bool), new CheckBox { AutoStoreValue = false });

@@ -21,7 +21,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            Name = "Tick";
+            UniqueName = "Tick";
             Description = "Tick";
 
             AddInput(new ActionSignature());

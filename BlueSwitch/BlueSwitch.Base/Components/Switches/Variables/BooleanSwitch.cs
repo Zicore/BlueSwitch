@@ -14,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
             _checkBox = new CheckBox();
             AddOutput(typeof(bool));
             Components.Add(_checkBox);
-            Name = "Boolean";
+            UniqueName = "Boolean";
         }
 
         public override GroupBase OnSetGroup()

@@ -21,7 +21,7 @@ namespace BlueSwitch.Base.Components.Switches.Debug
         {
             base.OnInitialize(renderingEngine);
 
-            Name = "Exception";
+            UniqueName = "Exception";
             Description = "Throws an exception";
 
             AddInput(new ActionSignature());

@@ -22,7 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             base.OnInitialize(renderingEngine);
 
-            Name = "Execute Event";
+            UniqueName = "Execute Event";
 
             Description = "Executes Event by given name";
 
