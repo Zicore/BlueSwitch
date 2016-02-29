@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch", "BlueSwitch\BlueSwitch.csproj", "{6E73821E-6E16-417B-B6E0-6362B9A88A01}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Runtime", "BlueSwitch.Runtime\BlueSwitch.Runtime.csproj", "{1A660075-42D4-453C-A302-D54ED17AC62A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Monitoring", "BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj", "{65ECA8E4-F9D4-48C2-83FE-6B4090167069}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.OpcUa", "BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj", "{15129153-19C9-4568-B743-B9C7E3CF0D94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65ECA8E4-F9D4-48C2-83FE-6B4090167069}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
