@@ -117,7 +117,7 @@ namespace BlueSwitch
             //_properties.HideOnClose = true;
             
             _variableEditor.HideOnClose = true;
-            _variableEditor.Show(_switchesTree.Pane, DockAlignment.Bottom, 0.4);
+            _variableEditor.Show(dockPanel, DockState.DockRight);
 
             _errorList.HideOnClose = true;
             _errorList.Show(Renderer.DockPanel, DockState.DockBottom);
@@ -296,6 +296,17 @@ namespace BlueSwitch
         private void saveFileDialogTags_FileOk(object sender, CancelEventArgs e)
         {
             Renderer.RenderingEngine.SearchService.ExportSearchDescription(saveFileDialogTags.FileName);
+        }
+
+        private void importTagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialogTags.ShowDialog();
+        }
+
+        private void openFileDialogTags_FileOk(object sender, CancelEventArgs e)
+        {
+
+            Renderer.RenderingEngine.SearchService.ImportSearchDescription(openFileDialogTags.FileName);
         }
     }
 }

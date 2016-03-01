@@ -61,6 +61,7 @@ namespace BlueSwitch.Base.Components.Base
             ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
 
+            
         }
 
         private void TickerProviderOnTick(object sender, EventArgs e)

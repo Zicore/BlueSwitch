@@ -151,6 +151,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Images\BlueSwitchOverview.pdn" />
+    <None Include="Meta\Search\search.meta.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -220,7 +223,9 @@
     <None Include="Resources\Icons\saveHS.png" />
     <None Include="Resources\Icons\StopHS.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Meta\Help\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -159,7 +159,7 @@ namespace BlueSwitch.Controls.Docking
                 var search = RenderingEngine.SearchService.FindSearchDescription(sw.UniqueName);
                 if (search != null)
                 {
-                    foreach (var s in search)
+                    foreach (var s in search.Tags)
                     {
                         AddEntry(s);
                     }

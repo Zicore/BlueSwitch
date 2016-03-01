@@ -15,6 +15,7 @@ namespace BlueSwitch.Base.Services
     {
         public Engine Engine { get; set; }
 
+        [JsonProperty]
         public Dictionary<string, SearchDescription> Items { get; set; } = new Dictionary<string, SearchDescription>();
 
         public SearchService(Engine engine)
@@ -25,17 +26,8 @@ namespace BlueSwitch.Base.Services
         public void Initialize()
         {
             // Prepare Code
-            TestTags();
-        }
-
-        private void TestTags()
-        {
-            //Items["Int32.Add"] = new SearchDescription("Int32.Add")
-            //{
-            //    { "Add" },
-            //    { "Math" },
-            //    { "Calculation" }
-            //};
+            // TestTags();
+            ImportDefaultTags();
         }
 
         public void AddTag(SwitchBase sw, string tag, string description = "")
@@ -56,7 +48,9 @@ namespace BlueSwitch.Base.Services
                 }
                 else
                 {
-                    AddSearchDescription(new SearchDescription(key) { tag });
+                    var desc = new SearchDescription(key);
+                    desc.Add(tag);
+                    AddSearchDescription(desc);
                 }
             }
         }
@@ -197,13 +191,27 @@ namespace BlueSwitch.Base.Services
         {
             using (StreamWriter sw = new StreamWriter(filePath))
             {
-                using (JsonWriter jw = new JsonTextWriter(sw))
+                sw.Write(JsonConvert.SerializeObject(this.Items));
+            }
+        }
+
+        public void ImportSearchDescription(String filePath)
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+               var importedTags = JsonConvert.DeserializeObject<Dictionary<string, SearchDescription>>(sr.ReadToEnd());
+                if (importedTags != null)
                 {
-                    jw.Formatting = Formatting.None;
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(jw, JsonConvert.SerializeObject(this.Items));
+                    Items.Clear();
+                    Items = new Dictionary<string, SearchDescription>(importedTags);
                 }
             }
+        }
+
+        public void ImportDefaultTags()
+        {
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Meta", "Search", "search.meta.json");
+            ImportSearchDescription(filePath);
         }
     }
 }
