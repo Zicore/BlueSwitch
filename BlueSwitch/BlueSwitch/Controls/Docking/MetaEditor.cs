@@ -145,18 +145,25 @@ namespace BlueSwitch.Controls.Docking
             { Tag = s });
         }
 
+
+        private SwitchBase SelectedSwitch { get; set; }
+
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
+            if (SelectedSwitch != null)
+            {
+                lbSwitch.Text = $"Unique: {SelectedSwitch.UniqueName} -> Display:{SelectedSwitch.DisplayName}";
+            }
             UpdateList();
         }
 
         private void UpdateList()
         {
             listMetaData.Items.Clear();
-            var sw = treeView.SelectedNode?.Tag as SwitchBase;
-            if (sw != null)
+            if (SelectedSwitch != null)
             {
-                var search = RenderingEngine.SearchService.FindSearchDescription(sw.UniqueName);
+                var search = RenderingEngine.SearchService.FindSearchDescription(SelectedSwitch.UniqueName);
                 if (search != null)
                 {
                     foreach (var s in search.Tags)
@@ -178,10 +185,9 @@ namespace BlueSwitch.Controls.Docking
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            var sw = treeView.SelectedNode?.Tag as SwitchBase;
-            if (sw != null)
+            if (SelectedSwitch != null)
             {
-                var search = RenderingEngine.SearchService.FindSearchDescription(sw.UniqueName);
+                var search = RenderingEngine.SearchService.FindSearchDescription(SelectedSwitch.UniqueName);
                 var tag = new SearchTag("Empty");
                 search?.Tags.Add(tag);
                 AddEntry(tag);
@@ -190,10 +196,9 @@ namespace BlueSwitch.Controls.Docking
 
         private void btRemove_Click(object sender, EventArgs e)
         {
-            var sw = treeView.SelectedNode?.Tag as SwitchBase;
-            if (sw != null)
+            if (SelectedSwitch != null)
             {
-                var search = RenderingEngine.SearchService.FindSearchDescription(sw.UniqueName);
+                var search = RenderingEngine.SearchService.FindSearchDescription(SelectedSwitch.UniqueName);
                 if (search != null)
                 {
                     foreach (ListViewItem item in listMetaData.SelectedItems)
@@ -203,6 +208,19 @@ namespace BlueSwitch.Controls.Docking
                     }
                     UpdateList();
                 }
+            }
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialogTags.ShowDialog();
+        }
+
+        private void saveFileDialogTags_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (SelectedSwitch != null)
+            {
+                RenderingEngine.SearchService.ExportSearchDescription(saveFileDialogTags.FileName, SelectedSwitch.UniqueName);
             }
         }
     }

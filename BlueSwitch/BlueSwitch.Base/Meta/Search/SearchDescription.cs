@@ -26,7 +26,7 @@ namespace BlueSwitch.Base.Meta.Search
         public String Key { get; set; }
 
         [JsonProperty]
-        public List<SearchTag> Tags { get; } = new List<SearchTag>();
+        public HashSet<SearchTag> Tags { get; } = new HashSet<SearchTag>();
        
         public void Add(String tag, String description = "")
         {
@@ -35,7 +35,16 @@ namespace BlueSwitch.Base.Meta.Search
 
         public void Add(SearchTag tag)
         {
+            Tags.RemoveWhere(x => x.Tag == tag.Tag);
             Tags.Add(tag);
+        }
+
+        public void AddRange(IEnumerable<SearchTag> tags)
+        {
+            foreach (var searchTag in tags)
+            {
+                Add(searchTag);
+            }
         }
 
         //public IEnumerator<SearchTag> GetEnumerator()

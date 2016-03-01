@@ -56,12 +56,13 @@ namespace BlueSwitch.Base.Components.Base
             ProcessorCompiler = new ProcessorCompiler(this);
             EventManager = new EventManager(this);
             SearchService = new SearchService(this);
-            SearchService.Initialize();
         }
 
         public void LoadAddons()
         {
             AvailableSwitches = ReflectionService.LoadAddons(this);
+
+            SearchService.Initialize();
         }
 
         public void AddAvailableSwitch(SwitchBase sw)

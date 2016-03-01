@@ -78,7 +78,7 @@ namespace BlueSwitch.Base.Services
                     AddSearchDescription(searchDescription);
                 }
 
-                searchDescription.Tags.AddRange(tags);
+                searchDescription.AddRange(tags);
             }
         }
 
@@ -195,6 +195,19 @@ namespace BlueSwitch.Base.Services
             }
         }
 
+        public void ExportSearchDescription(String filePath, string key)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                var dict = new Dictionary<string, SearchDescription>();
+                if (Items.ContainsKey(key))
+                {
+                    dict[key] = Items[key];
+                }
+                sw.Write(JsonConvert.SerializeObject(dict));
+            }
+        }
+
         public void ImportSearchDescription(String filePath)
         {
             using (StreamReader sr = new StreamReader(filePath))
@@ -202,8 +215,16 @@ namespace BlueSwitch.Base.Services
                var importedTags = JsonConvert.DeserializeObject<Dictionary<string, SearchDescription>>(sr.ReadToEnd());
                 if (importedTags != null)
                 {
-                    Items.Clear();
-                    Items = new Dictionary<string, SearchDescription>(importedTags);
+
+                    //Items = new Dictionary<string, SearchDescription>(importedTags);
+                    foreach (var importedTag in importedTags)
+                    {
+                        var sw = FindSwitch(importedTag.Key);
+                        if (sw != null)
+                        {
+                            AddTags(sw, importedTag.Value.Tags);
+                        }
+                    }
                 }
             }
         }
