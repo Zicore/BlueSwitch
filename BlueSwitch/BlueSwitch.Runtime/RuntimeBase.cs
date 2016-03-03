@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration.Install;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,16 +11,44 @@ using BlueSwitch.Base.Diagnostics;
 using NLog;
 using NLog.Fluent;
 using System.IO;
+using System.ServiceProcess;
 
 namespace BlueSwitch.Runtime
 {
-    public class RuntimeBase
+    [RunInstaller(true)]
+    public class DatalinkInstaller : Installer
+    {
+        private ServiceInstaller m_ThisService;
+        private ServiceProcessInstaller m_ThisServiceProcess;
+
+        public DatalinkInstaller()
+        {
+            m_ThisService = new ServiceInstaller();
+            m_ThisServiceProcess = new ServiceProcessInstaller();
+
+            m_ThisServiceProcess.Account = ServiceAccount.NetworkService;
+            m_ThisService.ServiceName = "OPDwinDatalink";
+
+
+            m_ThisService.StartType = ServiceStartMode.Manual;
+
+            Installers.Add(m_ThisService);
+            Installers.Add(m_ThisServiceProcess);
+        }
+    }
+    
+    public class RuntimeBase : ServiceBase
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
         Engine engine = new RuntimeEngine();
 
         private CancellationTokenSource token = new CancellationTokenSource();
         private Task task;
+
+        protected override void OnStart(string[] args)
+        {
+            base.OnStart(args);
+        }
 
         public void Start(string[] args)
         {
