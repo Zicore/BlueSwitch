@@ -657,7 +657,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
         }
 
-        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             UIComponent lastUiComponent = null;
             foreach (var uiComponent in Components)

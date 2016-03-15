@@ -13,9 +13,12 @@ namespace BlueSwitch.Base.Components.UI
         CheckBox,
         Button,
     }
-
+    
     public abstract class UIComponent : DrawableBase
     {
+        [JsonIgnore]
+        public bool HasFocus { get; set; }
+
         [JsonIgnore]
         protected float ParentWidth = 0;
 

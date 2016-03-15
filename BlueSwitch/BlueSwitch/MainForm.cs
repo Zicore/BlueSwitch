@@ -32,6 +32,9 @@ namespace BlueSwitch
             var project = Renderer.RenderingEngine.CurrentProject;
             compiler = Renderer.RenderingEngine.ProcessorCompiler;
 
+            Renderer.RenderingEngine.SelectionService.SelectionChanged += SelectionServiceOnSelectionChanged;
+            Renderer.RenderingEngine.SelectionService.UIModeChanged += SelectionServiceOnUIModeChanged;
+
             Renderer.RenderingEngine.ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             Renderer.RenderingEngine.ProcessorCompiler.CompileFinished += ProcessorCompilerOnCompileFinished;
 
@@ -46,6 +49,22 @@ namespace BlueSwitch
             //project.Add(new EqualsSwitch { Position = new PointF(800, 200) });
             //project.Add(new AndSwitch { Position = new PointF(400, 300) });
             //project.Add(new DisplaySwitch { Position = new PointF(400, 400) });
+        }
+
+        private void SelectionServiceOnUIModeChanged(object sender, EventArgs eventArgs)
+        {
+            UpdateLabel();
+        }
+
+        private void SelectionServiceOnSelectionChanged(object sender, EventArgs eventArgs)
+        {
+            UpdateLabel();
+        }
+
+        private void UpdateLabel()
+        {
+            var e = Renderer.RenderingEngine;
+            lbHelper.Text = $"Selected: {e.SelectionService.CurrentSelection.Count} UI Focus: {e.SelectionService.IsUIFocused}";
         }
 
         private void RenderingEngineOnDebugModeChanged(object sender, EventArgs eventArgs)

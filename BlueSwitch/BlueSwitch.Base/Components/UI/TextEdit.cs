@@ -49,8 +49,6 @@ namespace BlueSwitch.Base.Components.UI
 
         private static readonly StringFormat StringFormat = new StringFormat(StringFormat.GenericDefault.FormatFlags | StringFormatFlags.MeasureTrailingSpaces | StringFormatFlags.NoClip);
 
-        [JsonIgnore]
-        public bool HasFocus { get; set; }
 
         [JsonIgnore]
         public bool AutoResize { get; set; }
@@ -417,13 +415,15 @@ namespace BlueSwitch.Base.Components.UI
             base.Draw(g, e, parent);
         }
 
-        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             HasFocus = false;
             if (IsMouseOver)
             {
                 HasFocus = true;
             }
+
+            e.SelectionService.UpdateInputMode(this);
 
             base.UpdateMouseUp(e, parent, previous);
         }

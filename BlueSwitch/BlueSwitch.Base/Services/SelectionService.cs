@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.Components.UI;
 using BlueSwitch.Base.Utils;
 using XnaGeometry;
 
@@ -16,7 +17,7 @@ namespace BlueSwitch.Base.Services
         {
             get { return CurrentSelection.Count > 0; }
         }
-
+        
         public RenderingEngine RenderingEngine { get; set; }
 
         public PointF MouseRightDownMoveTranslationPositionLast { get; set; } = new PointF(0, 0);
@@ -27,7 +28,12 @@ namespace BlueSwitch.Base.Services
         public PointF SelectionRectangleStart { get; set; } = new PointF();
         public PointF SelectionRectangleEnd { get; set; } = new PointF();
 
-        IList<SwitchBase> CurrentSelection { get; set; } = new List<SwitchBase>();
+        public IList<SwitchBase> CurrentSelection { get; private set; } = new List<SwitchBase>();
+
+        public event EventHandler SelectionChanged;
+        public event EventHandler UIModeChanged;
+
+        public bool IsUIFocused { get; private set; }
 
         public RectangleF SelectionRectangle
         {
@@ -229,6 +235,8 @@ namespace BlueSwitch.Base.Services
                     {
                         selectedItem.IsSelected = true;
                         CurrentSelection.Add(selectedItem);
+
+                        OnSelectionChanged();
                     }
                 }
 
@@ -251,6 +259,8 @@ namespace BlueSwitch.Base.Services
 
                 if (!StartDrag)
                 {
+                    bool selectedAvailable = SelectedItemsAvailable;
+
                     Input = null;
                     Output = null;
                     
@@ -263,6 +273,7 @@ namespace BlueSwitch.Base.Services
 
                     if (mouseOverItems.Count > 0)
                     {
+                        
                         foreach (var selectedItem in mouseOverItems)
                         {
                             if (!CurrentSelection.Contains(selectedItem))
@@ -292,6 +303,12 @@ namespace BlueSwitch.Base.Services
                             }
                         }
                     }
+
+                    // Selection has changed, in one way or the other
+                    if (selectedAvailable != SelectedItemsAvailable)
+                    {
+                        OnSelectionChanged();
+                    }
                 }
 
                 if (!SelectedItemsAvailable)
@@ -317,6 +334,16 @@ namespace BlueSwitch.Base.Services
             CurrentSelection.Clear();
         }
 
+        public void UpdateInputMode(UIComponent ui)
+        {
+            var focused = RenderingEngine.CurrentProject.Items.Any(x => x.Components.Any(y => y.HasFocus));
+            if (IsUIFocused != focused)
+            {
+                IsUIFocused = focused;
+                OnUIModeChanged();
+            }
+        }
+
         public void RemoveSelected()
         {
             if (RenderingEngine.DesignMode)
@@ -329,6 +356,16 @@ namespace BlueSwitch.Base.Services
                     RenderingEngine.CurrentProject.Remove(sw);
                 }
             }
+        }
+
+        protected virtual void OnSelectionChanged()
+        {
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnUIModeChanged()
+        {
+            UIModeChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

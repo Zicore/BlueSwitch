@@ -31,7 +31,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             renderingEngine.EventManager.Run(EventTypeBase.MouseClick);
         }
 
-        public override void UpdateMouseUp(Engine renderingEngine, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine renderingEngine, DrawableBase parent, DrawableBase previous)
         {
             if (this.IsMouseOver)
             {

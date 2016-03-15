@@ -107,7 +107,7 @@ namespace BlueSwitch.Base.Components.Base
 
         }
         
-        public virtual void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public virtual void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
 
         }

@@ -195,6 +195,15 @@ namespace BlueSwitch.Controls.Docking
         protected override void OnKeyUp(KeyEventArgs e)
         {
             RenderingEngine.KeyboardService.OnKeyUp(e);
+
+            if (RenderingEngine.SelectionService.SelectedItemsAvailable && !RenderingEngine.SelectionService.IsUIFocused)
+            {
+                if (e.KeyData == Keys.Delete)
+                {
+                    RenderingEngine.SelectionService.RemoveSelected();
+                }
+            }
+
             base.OnKeyUp(e);
             Invalidate();
         }
