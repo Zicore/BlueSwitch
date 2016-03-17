@@ -257,13 +257,13 @@ namespace BlueSwitch.Base.Components.UI
                     }
                 }
 
-                if (Char.IsControl(e.KeyChar)) return;
+                if (char.IsControl(e.KeyChar)) return;
 
                 if (NumberMode)
                 {
-                    if (Char.IsDigit(e.KeyChar))
+                    if (char.IsDigit(e.KeyChar))
                     {
-                        Insert(Char.ToString(e.KeyChar));
+                        Insert(char.ToString(e.KeyChar));
                         Caret++;
                     }
 
@@ -324,12 +324,13 @@ namespace BlueSwitch.Base.Components.UI
                 }
                 else
                 {
-                    Text = Text.Insert(Caret, Char.ToString(e.KeyChar));
+                    Text = Text.Insert(Caret, char.ToString(e.KeyChar));
                     Caret++;
                 }
-
             }
         }
+
+
         public override void Draw(Graphics g, RenderingEngine e, DrawableBase parent)
         {
             ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
