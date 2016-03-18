@@ -243,8 +243,8 @@ namespace BlueSwitch.Base.Components.Base
             {
                 var p = new PointF(viewport.Width - 196, 4);
                 var p2 = new PointF(viewport.Width - 194, 5);
-                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.CornflowerBlue, p2);
-                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.Black, p);
+                g.DrawString("DESIGN ◼", FontInfo, Brushes.CornflowerBlue, p2);
+                g.DrawString("DESIGN ◼", FontInfo, Brushes.Black, p);
             }
             else
             {
