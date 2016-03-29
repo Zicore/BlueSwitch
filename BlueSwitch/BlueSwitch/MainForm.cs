@@ -32,9 +32,6 @@ namespace BlueSwitch
             var project = Renderer.RenderingEngine.CurrentProject;
             compiler = Renderer.RenderingEngine.ProcessorCompiler;
 
-            Renderer.RenderingEngine.SelectionService.SelectionChanged += SelectionServiceOnSelectionChanged;
-            Renderer.RenderingEngine.SelectionService.UIModeChanged += SelectionServiceOnUIModeChanged;
-
             Renderer.RenderingEngine.ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             Renderer.RenderingEngine.ProcessorCompiler.CompileFinished += ProcessorCompilerOnCompileFinished;
 
@@ -49,22 +46,6 @@ namespace BlueSwitch
             //project.Add(new EqualsSwitch { Position = new PointF(800, 200) });
             //project.Add(new AndSwitch { Position = new PointF(400, 300) });
             //project.Add(new DisplaySwitch { Position = new PointF(400, 400) });
-        }
-
-        private void SelectionServiceOnUIModeChanged(object sender, EventArgs eventArgs)
-        {
-            UpdateLabel();
-        }
-
-        private void SelectionServiceOnSelectionChanged(object sender, EventArgs eventArgs)
-        {
-            UpdateLabel();
-        }
-
-        private void UpdateLabel()
-        {
-            var e = Renderer.RenderingEngine;
-            lbHelper.Text = $"Selected: {e.SelectionService.CurrentSelection.Count} UI Focus: {e.SelectionService.IsUIFocused}";
         }
 
         private void RenderingEngineOnDebugModeChanged(object sender, EventArgs eventArgs)
@@ -97,6 +78,7 @@ namespace BlueSwitch
         private RendererBase Renderer;
         private SwitchesTree _switchesTree;
         private MetaEditor _metaEditor;
+        private HelpEditor _helpEditor;
 
         private PropertiesEditor _properties;
 
@@ -119,6 +101,7 @@ namespace BlueSwitch
             Renderer.HideOnClose = true;
             
             _metaEditor = new MetaEditor(Renderer.RenderingEngine);
+            _helpEditor = new HelpEditor(Renderer.RenderingEngine);
             _switchesTree = new SwitchesTree(Renderer.RenderingEngine);
             _errorList = new ErrorList(Renderer.RenderingEngine);
             _triggerExample = new TriggerExample(Renderer.RenderingEngine);
@@ -129,6 +112,7 @@ namespace BlueSwitch
             _switchesTree.Show(dockPanel, DockState.DockLeft);
 
             _metaEditor.HideOnClose = true;
+            _helpEditor.HideOnClose = true;
 
             _triggerExample.HideOnClose = true;
             _triggerExample.Show(dockPanel, DockState.DockRight);
@@ -148,6 +132,7 @@ namespace BlueSwitch
 
             _switchesTree.UpdateTree();
             _metaEditor.UpdateTree();
+            _helpEditor.UpdateTree();
             dockPanel.ResumeLayout(true,true);
 
             var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -326,6 +311,37 @@ namespace BlueSwitch
         {
 
             Renderer.RenderingEngine.SearchService.ImportSearchDescription(openFileDialogTags.FileName);
+        }
+
+        private void helpEnabledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Renderer.RenderingEngine.HelpService.Enabled = helpEnabledToolStripMenuItem.Checked;
+        }
+
+        private void helpEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _helpEditor.HideOnClose = true;
+            _helpEditor.Show();
+        }
+
+        private void saveFileDialogHelp_FileOk(object sender, CancelEventArgs e)
+        {
+            Renderer.RenderingEngine.HelpService.ExportHelpDescription(saveFileDialogHelp.FileName);
+        }
+
+        private void openFileDialogHelp_FileOk(object sender, CancelEventArgs e)
+        {
+            Renderer.RenderingEngine.HelpService.ImportHelpDescription(openFileDialogHelp.FileName);
+        }
+
+        private void exportHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialogHelp.ShowDialog();
+        }
+
+        private void importHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialogHelp.ShowDialog();
         }
     }
 }

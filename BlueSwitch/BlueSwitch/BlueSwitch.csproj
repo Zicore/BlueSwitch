@@ -68,6 +68,12 @@
     <Compile Include="Controls\Docking\ErrorList.Designer.cs">
       <DependentUpon>ErrorList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Docking\HelpEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\HelpEditor.Designer.cs">
+      <DependentUpon>HelpEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Docking\PropertiesEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     <EmbeddedResource Include="Controls\Docking\ErrorList.resx">
       <DependentUpon>ErrorList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\HelpEditor.resx">
+      <DependentUpon>HelpEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\PropertiesEditor.resx">
       <DependentUpon>PropertiesEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,6 +160,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Images\BlueSwitchOverview.pdn" />
+    <None Include="Meta\Help\help.meta.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Meta\Search\search.meta.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -188,10 +200,6 @@
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
-      <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
-      <Name>BlueSwitch.OpcUa</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
       <Name>BlueSwitch.Outlook</Name>
@@ -223,9 +231,7 @@
     <None Include="Resources\Icons\saveHS.png" />
     <None Include="Resources\Icons\StopHS.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Meta\Help\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

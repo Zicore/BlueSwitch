@@ -49,6 +49,8 @@ namespace BlueSwitch.Base.Components.UI
 
         private static readonly StringFormat StringFormat = new StringFormat(StringFormat.GenericDefault.FormatFlags | StringFormatFlags.MeasureTrailingSpaces | StringFormatFlags.NoClip);
 
+        [JsonIgnore]
+        public bool HasFocus { get; set; }
 
         [JsonIgnore]
         public bool AutoResize { get; set; }
@@ -257,13 +259,13 @@ namespace BlueSwitch.Base.Components.UI
                     }
                 }
 
-                if (char.IsControl(e.KeyChar)) return;
+                if (Char.IsControl(e.KeyChar)) return;
 
                 if (NumberMode)
                 {
-                    if (char.IsDigit(e.KeyChar))
+                    if (Char.IsDigit(e.KeyChar))
                     {
-                        Insert(char.ToString(e.KeyChar));
+                        Insert(Char.ToString(e.KeyChar));
                         Caret++;
                     }
 
@@ -324,13 +326,12 @@ namespace BlueSwitch.Base.Components.UI
                 }
                 else
                 {
-                    Text = Text.Insert(Caret, char.ToString(e.KeyChar));
+                    Text = Text.Insert(Caret, Char.ToString(e.KeyChar));
                     Caret++;
                 }
+
             }
         }
-
-
         public override void Draw(Graphics g, RenderingEngine e, DrawableBase parent)
         {
             ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
@@ -416,15 +417,13 @@ namespace BlueSwitch.Base.Components.UI
             base.Draw(g, e, parent);
         }
 
-        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
         {
             HasFocus = false;
             if (IsMouseOver)
             {
                 HasFocus = true;
             }
-
-            e.SelectionService.UpdateInputMode(this);
 
             base.UpdateMouseUp(e, parent, previous);
         }

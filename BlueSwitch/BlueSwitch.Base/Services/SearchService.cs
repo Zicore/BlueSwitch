@@ -37,7 +37,7 @@ namespace BlueSwitch.Base.Services
 
         public void AddTag(SwitchBase sw, SearchTag tag)
         {
-            var swResult = FindSwitch(sw.UniqueName);
+            var swResult = Engine.FindSwitch(sw.UniqueName);
             if (swResult != null)
             {
                 var key = swResult.UniqueName;
@@ -63,7 +63,7 @@ namespace BlueSwitch.Base.Services
 
         public void AddTags(SwitchBase sw, IEnumerable<SearchTag> tags)
         {
-            var swResult = FindSwitch(sw.UniqueName);
+            var swResult = Engine.FindSwitch(sw.UniqueName);
             if (swResult != null)
             {
                 var key = swResult.UniqueName;
@@ -157,7 +157,7 @@ namespace BlueSwitch.Base.Services
 
         private void QueryMatch(Dictionary<string, SearchEntry> entries, string query, string match, int relevance = 0)
         {
-            var sw = FindSwitch(match);
+            var sw = Engine.FindSwitch(match);
             if (sw != null)
             {
                 if (!entries.ContainsKey(match))
@@ -172,16 +172,7 @@ namespace BlueSwitch.Base.Services
                 }
             }
         }
-
-        public SwitchBase FindSwitch(String key)
-        {
-            if (Engine.AvailableSwitchesDict.ContainsKey(key))
-            {
-                return Engine.AvailableSwitchesDict[key];
-            }
-            return null;
-        }
-
+        
         public static bool Contains(string source, string toCheck, StringComparison comp)
         {
             return source.IndexOf(toCheck, comp) >= 0;
@@ -210,19 +201,20 @@ namespace BlueSwitch.Base.Services
 
         public void ImportSearchDescription(String filePath)
         {
-            using (StreamReader sr = new StreamReader(filePath))
+            if (File.Exists(filePath))
             {
-               var importedTags = JsonConvert.DeserializeObject<Dictionary<string, SearchDescription>>(sr.ReadToEnd());
-                if (importedTags != null)
+                using (StreamReader sr = new StreamReader(filePath))
                 {
-
-                    //Items = new Dictionary<string, SearchDescription>(importedTags);
-                    foreach (var importedTag in importedTags)
+                    var importedTags =JsonConvert.DeserializeObject<Dictionary<string, SearchDescription>>(sr.ReadToEnd());
+                    if (importedTags != null)
                     {
-                        var sw = FindSwitch(importedTag.Key);
-                        if (sw != null)
+                        foreach (var importedTag in importedTags)
                         {
-                            AddTags(sw, importedTag.Value.Tags);
+                            var sw = Engine.FindSwitch(importedTag.Key);
+                            if (sw != null)
+                            {
+                                AddTags(sw, importedTag.Value.Tags);
+                            }
                         }
                     }
                 }

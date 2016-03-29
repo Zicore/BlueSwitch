@@ -20,6 +20,7 @@ namespace BlueSwitch.Base.Components.Base
     {
         public event EventHandler DebugModeChanged;
 
+        public HelpService HelpService { get; set; }
         public SearchService SearchService { get; set; }
         public BlueSwitchProject CurrentProject { get; set; } = new BlueSwitchProject();
         public ReflectionService ReflectionService { get; set; } = new ReflectionService();
@@ -51,11 +52,21 @@ namespace BlueSwitch.Base.Components.Base
         public event EventHandler BeforeLoading;
         public event EventHandler ProjectLoaded;
 
-        public Engine()
+        protected Engine()
         {
             ProcessorCompiler = new ProcessorCompiler(this);
             EventManager = new EventManager(this);
             SearchService = new SearchService(this);
+            HelpService = new HelpService(this);
+        }
+
+        public SwitchBase FindSwitch(String key)
+        {
+            if (AvailableSwitchesDict.ContainsKey(key))
+            {
+                return AvailableSwitchesDict[key];
+            }
+            return null;
         }
 
         public void LoadAddons()

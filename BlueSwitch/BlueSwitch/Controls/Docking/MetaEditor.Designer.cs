@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.treeView = new System.Windows.Forms.TreeView();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.textBoxEditor = new System.Windows.Forms.TextBox();
             this.btAdd = new System.Windows.Forms.Button();
             this.btRemove = new System.Windows.Forms.Button();
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialogTags = new System.Windows.Forms.SaveFileDialog();
             this.listMetaData = new BlueSwitch.Controls.ListViewEx();
             this.columnTag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -52,10 +52,24 @@
             this.treeView.ContextMenuStrip = this.contextMenuStrip;
             this.treeView.Location = new System.Drawing.Point(0, 27);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(210, 494);
+            this.treeView.Size = new System.Drawing.Size(210, 545);
             this.treeView.TabIndex = 0;
             this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView_ItemDrag);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(108, 26);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // tbSearch
             // 
@@ -69,7 +83,7 @@
             // 
             // textBoxEditor
             // 
-            this.textBoxEditor.Location = new System.Drawing.Point(10, 489);
+            this.textBoxEditor.Location = new System.Drawing.Point(12, 540);
             this.textBoxEditor.Name = "textBoxEditor";
             this.textBoxEditor.Size = new System.Drawing.Size(185, 20);
             this.textBoxEditor.TabIndex = 8;
@@ -95,20 +109,6 @@
             this.btRemove.UseVisualStyleBackColor = true;
             this.btRemove.Click += new System.EventHandler(this.btRemove_Click);
             // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToolStripMenuItem});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(108, 26);
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
-            // 
             // saveFileDialogTags
             // 
             this.saveFileDialogTags.Filter = "Meta Json Dateien|*.meta.json";
@@ -128,7 +128,7 @@
             this.listMetaData.GridLines = true;
             this.listMetaData.Location = new System.Drawing.Point(216, 27);
             this.listMetaData.Name = "listMetaData";
-            this.listMetaData.Size = new System.Drawing.Size(473, 494);
+            this.listMetaData.Size = new System.Drawing.Size(538, 545);
             this.listMetaData.TabIndex = 7;
             this.listMetaData.UseCompatibleStateImageBehavior = false;
             this.listMetaData.View = System.Windows.Forms.View.Details;
@@ -151,7 +151,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSwitch.Location = new System.Drawing.Point(216, 1);
             this.lbSwitch.Name = "lbSwitch";
-            this.lbSwitch.Size = new System.Drawing.Size(473, 20);
+            this.lbSwitch.Size = new System.Drawing.Size(538, 20);
             this.lbSwitch.TabIndex = 11;
             this.lbSwitch.Text = "Select a switch";
             this.lbSwitch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 521);
+            this.ClientSize = new System.Drawing.Size(755, 572);
             this.Controls.Add(this.lbSwitch);
             this.Controls.Add(this.btRemove);
             this.Controls.Add(this.btAdd);

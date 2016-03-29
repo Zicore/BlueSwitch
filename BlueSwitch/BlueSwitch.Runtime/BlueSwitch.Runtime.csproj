@@ -48,9 +48,7 @@
       <HintPath>..\..\..\..\CompiledAssemblies\Softing.OpcUaNetToolkit\1.26\Net40\Softing.Opc.Ua.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,9 +58,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuntimeBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuntimeBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\XnaGeometry\XnaGeometry.csproj">

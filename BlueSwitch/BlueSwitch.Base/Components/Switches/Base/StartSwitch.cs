@@ -1,6 +1,7 @@
 ﻿using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Event;
 using BlueSwitch.Base.Components.Types;
+using BlueSwitch.Base.Meta.Help;
 using BlueSwitch.Base.Processing;
 using BlueSwitch.Base.Trigger.Types;
 
@@ -19,7 +20,12 @@ namespace BlueSwitch.Base.Components.Switches.Base
             Description = "Start";
             AddOutput(new OutputBase(new ActionSignature()));
             IsStart = true;
+        }
 
+        protected override void OnInitializeMetaInformation(Engine engine)
+        {
+            //engine.HelpService.AddOutput(new HelpDescriptionEntry { Title = "Output Trigger"}, this, 0);
+            base.OnInitializeMetaInformation(engine);
         }
 
         public override void OnRegisterEvents(ProcessingTree<SwitchBase> tree, Engine renderingEngine)

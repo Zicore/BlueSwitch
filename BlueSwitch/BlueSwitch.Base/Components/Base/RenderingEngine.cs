@@ -172,6 +172,11 @@ namespace BlueSwitch.Base.Components.Base
                 {
                     item.Draw(g, this, null);
                 }
+
+                foreach (var item in CurrentProject.Items)
+                {
+                    item.DrawHelp(g, this, null);
+                }
             }
 
             // Translated Rectangle Debug Modus
@@ -243,8 +248,8 @@ namespace BlueSwitch.Base.Components.Base
             {
                 var p = new PointF(viewport.Width - 196, 4);
                 var p2 = new PointF(viewport.Width - 194, 5);
-                g.DrawString("DESIGN ◼", FontInfo, Brushes.CornflowerBlue, p2);
-                g.DrawString("DESIGN ◼", FontInfo, Brushes.Black, p);
+                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.CornflowerBlue, p2);
+                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.Black, p);
             }
             else
             {
@@ -302,33 +307,21 @@ namespace BlueSwitch.Base.Components.Base
             Vector2 v1 = new Vector2(p1.X, p1.Y);
             Vector2 v2 = new Vector2(p2.X, p2.Y);
 
-            // Überhang X
-            double overhangX = 
-                (Math.Max(v1.X, v2.X) - Math.Min(v1.X, v2.X)) * 0.95f;
+            float overhangX = (Math.Max(p1.X, p2.X) - Math.Min(p1.X, p2.X)) * 0.85f;
 
-            overhangX = Math.Min(overhangX, 80);
-            overhangX = Math.Max(50, overhangX);
+            overhangX = Math.Min(overhangX, 100);
+            overhangX = Math.Max(30, overhangX);
 
-            // Überhang Y
-            double overhangY = 
-                (Math.Max(v1.Y, v2.Y) - Math.Min(v1.Y, v2.Y)) * 0.25f;
+            float overhangY = (Math.Max(p1.Y, p2.Y) - Math.Min(p1.Y, p2.Y)) * 0.25f;
 
-            // Min Max Werte
-            overhangY = Math.Min(overhangY, 20); 
+            overhangY = Math.Min(overhangY, 20);
             overhangY = Math.Max(2, overhangY);
-            
-            // Überhangpunkte
-            PointF f1 = new PointF(
-                (float)(v1.X - overhangX),
-                (float)(v1.Y - overhangY));
 
-            PointF f2 = new PointF(
-                (float)(v2.X + overhangX),
-                (float)(v2.Y + overhangY));
+            PointF b1 = new PointF(p1.X - overhangX, p1.Y - overhangY);
+            PointF b2 = new PointF(p2.X + overhangX, p2.Y + overhangY);
 
-            // Zeichne Bézierkurve
-            g.DrawBezier(pen2, p1, f1, f2, p2); 
-            g.DrawBezier(pen, p1, f1, f2, p2);
+            g.DrawBezier(pen2, p1, b1, b2, p2);
+            g.DrawBezier(pen, p1, b1, b2, p2);
         }
 
         public static void DrawRect(Graphics g, PointF p)
@@ -369,7 +362,7 @@ namespace BlueSwitch.Base.Components.Base
 
                 CurrentProject.Translation = newTranslation;
 
-                PreventContextMenu = distance > 0.05f || !SelectionService.SelectedItemsAvailable; // Wenn die Distanz beider Punkte > als angegeben ist, soll kein Kontext Menü angezeigt werden.
+                PreventContextMenu = distance > 0.005f || !SelectionService.SelectedItemsAvailable; // Wenn die Distanz beider Punkte > als angegeben ist, soll kein Kontext Menü angezeigt werden.
 
                 Cursor.Current = Cursors.Hand;
 

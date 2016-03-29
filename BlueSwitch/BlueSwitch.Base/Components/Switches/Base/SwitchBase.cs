@@ -603,6 +603,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
             //extendedGraphics.DrawRoundRectangle(DescriptionPen, r.X, r.Y, r.Width, r.Height, radius);
         }
 
+        public virtual void DrawHelp(Graphics g, Engine e, DrawableBase parent)
+        {
+            e.HelpService.Draw(g, this, parent);
+        }
+
         public virtual void DrawSelection(Graphics g, Engine e, DrawableBase parent)
         {
             if (IsMouseOver)
@@ -657,7 +662,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
         }
 
-        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
         {
             UIComponent lastUiComponent = null;
             foreach (var uiComponent in Components)

@@ -119,10 +119,12 @@
     <Compile Include="IO\ValueStore.cs" />
     <Compile Include="IO\Variable.cs" />
     <Compile Include="Meta\Help\HelpDescription.cs" />
+    <Compile Include="Meta\Help\HelpDescriptionEntry.cs" />
     <Compile Include="Meta\Search\SearchDescription.cs" />
     <Compile Include="Meta\Search\SearchEntry.cs" />
     <Compile Include="Meta\Search\SearchTag.cs" />
     <Compile Include="Reflection\TypeExtensions.cs" />
+    <Compile Include="Services\HelpService.cs" />
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
     <Compile Include="Services\SearchService.cs" />

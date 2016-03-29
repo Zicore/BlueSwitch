@@ -40,7 +40,7 @@ namespace BlueSwitch.Monitoring.Components.Switches
 
             var processes = System.Diagnostics.Process.GetProcesses();
 
-            bool isProcessAlive = processes.Any(x => x.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase));
+            bool isProcessAlive = processes.Any(x => x.ProcessName.Contains(processName));
 
             SetData(1, new DataContainer(isProcessAlive));
         }
