@@ -200,6 +200,10 @@
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
+      <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
+      <Name>BlueSwitch.OpcUa</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
       <Name>BlueSwitch.Outlook</Name>
