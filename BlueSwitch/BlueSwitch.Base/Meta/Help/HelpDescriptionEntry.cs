@@ -68,10 +68,11 @@ namespace BlueSwitch.Base.Meta.Help
                 var swBounds = sw.DescriptionBounds;
                 swBounds.Height = maxHelpHeight;
                 StringFormat format = new StringFormat();
-
+                format.FormatFlags = StringFormatFlags.DirectionRightToLeft;
                 var textBounds = g.MeasureString(this.Title, FontTitle, swBounds.Size, format);
                 var swSizeDesc = new SizeF(240, swBounds.Height);
                 var textDescBounds = g.MeasureString(this.Description, FontTitle, swSizeDesc, format);
+                textDescBounds.Height = Math.Max(textDescBounds.Height, 8);
 
                 var rText = new RectangleF(r.X - textBounds.Width - offsetTextX, r.Y, textBounds.Width + offsetWidth, textBounds.Height);
                 var rDesc = new RectangleF(r.X - textDescBounds.Width - offsetTextX, r.Y + textBounds.Height + 2, textDescBounds.Width + offsetWidth, textDescBounds.Height);
@@ -87,8 +88,8 @@ namespace BlueSwitch.Base.Meta.Help
                 extendedGraphics.FillRoundRectangle(brushDesc, rDesc.X, rDesc.Y, rDesc.Width, rDesc.Height, radius);
                 extendedGraphics.DrawRoundRectangle(Pen, rDesc.X, rDesc.Y, rDesc.Width, rDesc.Height, radius);
 
-                rText = new RectangleF(rText.X + 4, rText.Y, rText.Width, rText.Height);
-                rDesc = new RectangleF(rDesc.X + 4, rDesc.Y, rDesc.Width, rDesc.Height);
+                rText = new RectangleF(rText.X , rText.Y, rText.Width, rText.Height);
+                rDesc = new RectangleF(rDesc.X , rDesc.Y, rDesc.Width, rDesc.Height);
 
                 var r1 = new RectangleF(rText.X - 1 + 0.5f, rText.Y + 0.5f, rText.Width, rText.Height);
                 var r2 = new RectangleF(rText.X - 1, rText.Y, rText.Width, rText.Height);
@@ -122,6 +123,7 @@ namespace BlueSwitch.Base.Meta.Help
                 var textBounds = g.MeasureString(this.Title, FontTitle, swBounds.Size, format);
                 var swSizeDesc = new SizeF(240, swBounds.Height);
                 var textDescBounds = g.MeasureString(this.Description, FontTitle, swSizeDesc, format);
+                textDescBounds.Height = Math.Max(textDescBounds.Height, 8);
 
                 var rText = new RectangleF(r.X + offsetTextX + swBounds.Width, r.Y, textBounds.Width + offsetWidth, textBounds.Height);
                 var rDesc = new RectangleF(r.X + offsetTextX + swBounds.Width, r.Y + textBounds.Height + 2, textDescBounds.Width + offsetWidth, textDescBounds.Height);
