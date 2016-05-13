@@ -65,10 +65,6 @@
       <Project>{a4398650-10f4-450f-8e4f-fb3f30a39683}</Project>
       <Name>XnaGeometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Zicore.Settings.Json\Zicore.Settings.Json.csproj">
-      <Project>{831d83a0-7348-4d8c-9857-7b336f7d91ea}</Project>
-      <Name>Zicore.Settings.Json</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Base\BlueSwitch.Base.csproj">
       <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
       <Name>BlueSwitch.Base</Name>

@@ -119,6 +119,7 @@
     <Compile Include="Drawing.Extended\ExtendedGraphics.cs" />
     <Compile Include="IO\ValueStore.cs" />
     <Compile Include="IO\Variable.cs" />
+    <Compile Include="IO\JsonSettings.cs" />
     <Compile Include="Meta\Help\HelpDescription.cs" />
     <Compile Include="Meta\Help\HelpDescriptionEntry.cs" />
     <Compile Include="Meta\Search\SearchDescription.cs" />
@@ -185,10 +186,6 @@
     <ProjectReference Include="..\..\XnaGeometry\XnaGeometry.csproj">
       <Project>{A4398650-10F4-450F-8E4F-FB3F30A39683}</Project>
       <Name>XnaGeometry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Zicore.Settings.Json\Zicore.Settings.Json.csproj">
-      <Project>{831D83A0-7348-4D8C-9857-7B336F7D91EA}</Project>
-      <Name>Zicore.Settings.Json</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

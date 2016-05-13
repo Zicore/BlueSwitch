@@ -18,7 +18,6 @@ using LabelPrinter;
 using Newtonsoft.Json;
 using NLog;
 using WeifenLuo.WinFormsUI.Docking;
-using Zicore.Settings.Json;
 
 namespace BlueSwitch
 {

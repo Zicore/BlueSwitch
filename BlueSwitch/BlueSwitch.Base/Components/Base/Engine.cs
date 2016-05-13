@@ -12,7 +12,6 @@ using BlueSwitch.Base.Trigger;
 using BlueSwitch.Base.Trigger.Types;
 using Newtonsoft.Json;
 using NLog;
-using Zicore.Settings.Json;
 
 namespace BlueSwitch.Base.Components.Base
 {

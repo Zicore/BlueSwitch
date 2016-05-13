@@ -5,7 +5,6 @@ using System.Linq;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
 using Newtonsoft.Json;
-using Zicore.Settings.Json;
 
 namespace BlueSwitch.Base.IO
 {

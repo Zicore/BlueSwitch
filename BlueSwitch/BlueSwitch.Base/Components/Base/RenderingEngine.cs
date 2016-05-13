@@ -13,7 +13,6 @@ using BlueSwitch.Base.Trigger.Types;
 using Newtonsoft.Json;
 using NLog;
 using XnaGeometry;
-using Zicore.Settings.Json;
 using Matrix = System.Drawing.Drawing2D.Matrix;
 
 namespace BlueSwitch.Base.Components.Base
