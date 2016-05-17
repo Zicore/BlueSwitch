@@ -2,15 +2,45 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using BlueSwitch.Base.Components.Switches.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
+using Newtonsoft.Json.Serialization;
 
 namespace BlueSwitch.Base.IO
 {
+    //public class NamespaceMigration
+    //{
+    //    public string FromAssembly { get; set; }
+
+    //    public string FromType { get; set; }
+
+    //    public Type ToType { get; set; }
+    //}
+
+    //public class NamespaceMigrationSerializationBinder : DefaultSerializationBinder
+    //{
+    //    private readonly NamespaceMigration[] _migrations;
+
+    //    public NamespaceMigrationSerializationBinder(params NamespaceMigration[] migrations)
+    //    {
+    //        _migrations = migrations;
+    //    }
+
+    //    public override Type BindToType(string assemblyName, string typeName)
+    //    {
+    //        var migration = _migrations.SingleOrDefault(p => p.FromAssembly == assemblyName && p.FromType == typeName);
+    //        if (migration != null)
+    //        {
+    //            return migration.ToType;
+    //        }
+    //        return base.BindToType(assemblyName, typeName);
+    //    }
+    //}
+
     public class JsonSerializable
     {
         public JsonSerializable()
@@ -53,6 +83,7 @@ namespace BlueSwitch.Base.IO
                 using (var jsonTextReader = new JsonTextReader(sr))
                 {
                     var serializer = new JsonSerializer();
+                    //serializer.Binder = new NamespaceMigrationSerializationBinder(new NamespaceMigration {FromAssembly  = "BlueSwitch.Base", FromType = "", ToType = typeof() });
                     serializer.PreserveReferencesHandling = PreserveReferencesHandling.None;
                     serializer.TypeNameHandling = TypeNameHandling.Auto;
                     //serializer.Error += SerializerOnError;
@@ -62,18 +93,6 @@ namespace BlueSwitch.Base.IO
                 }
             }
         }
-
-        //private static void SerializerOnError(object sender, ErrorEventArgs e)
-        //{
-        //    if (e.ErrorContext.Error is Newtonsoft.Json.JsonSerializationException)
-        //    {
-        //        var list = e.CurrentObject as SwitchBase;
-        //        if (list != null)
-        //        {
-                    
-        //        }
-        //    }
-        //}
 
         public virtual void LoadFrom(string path)
         {

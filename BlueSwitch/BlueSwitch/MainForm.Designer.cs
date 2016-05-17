@@ -319,21 +319,21 @@
             // componentsToolStripMenuItem
             // 
             this.componentsToolStripMenuItem.Name = "componentsToolStripMenuItem";
-            this.componentsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.componentsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.componentsToolStripMenuItem.Text = "Components";
             this.componentsToolStripMenuItem.Click += new System.EventHandler(this.componentsToolStripMenuItem_Click);
             // 
             // metaEditorToolStripMenuItem
             // 
             this.metaEditorToolStripMenuItem.Name = "metaEditorToolStripMenuItem";
-            this.metaEditorToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.metaEditorToolStripMenuItem.Text = "Meta Editor";
+            this.metaEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.metaEditorToolStripMenuItem.Text = "Search Editor";
             this.metaEditorToolStripMenuItem.Click += new System.EventHandler(this.metaEditorToolStripMenuItem_Click);
             // 
             // hToolStripMenuItem
             // 
             this.hToolStripMenuItem.Name = "hToolStripMenuItem";
-            this.hToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.hToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hToolStripMenuItem.Text = "Help Editor";
             this.hToolStripMenuItem.Click += new System.EventHandler(this.helpEditorToolStripMenuItem_Click);
             // 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Types;
@@ -11,9 +12,31 @@ using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Meta.Search;
 using BlueSwitch.Base.Processing;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace BlueSwitch.Base.Components.Switches.Base
 {
+    public class SwitchJsonConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return (objectType == typeof(SwitchBase));
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var value = serializer.Deserialize(reader);
+            return value;
+        }
+    }
+
+    [JsonConverter(typeof(SwitchJsonConverter))]
     [JsonObject("SwitchBase")]
     public abstract class SwitchBase : DrawableBase
     {
@@ -44,7 +67,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         [JsonIgnore]
         public float RowHeight = 18.0f;
-        
+
         [JsonIgnore]
         public bool IsStart { get; set; }
 
@@ -68,9 +91,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get { return ExtraVariableOutputs + MinVariableOutputs; }
         }
-        
+
         public int ExtraVariableInputs { get; set; } = 0;
-        
+
         public int ExtraVariableOutputs { get; set; } = 0;
 
         [JsonIgnore]
@@ -100,7 +123,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected SwitchBase()
         {
-            
+
         }
 
         [JsonIgnore]
@@ -154,7 +177,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         public DataContainer GetData(int index)
         {
             var input = Inputs[index];
-            
+
             if (input.UIComponent != null && !input.IsConnected(RenderingEngine))
             {
                 input.Data = new DataContainer(input.UIComponent.GetData());
@@ -169,7 +192,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             if (data.Value != null)
             {
-                data.Value = (T) Convert.ChangeType(data.Value, typeof (T));
+                data.Value = (T)Convert.ChangeType(data.Value, typeof(T));
             }
             else
             {
@@ -184,7 +207,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             var data = GetData(index);
             if (data?.Value != null)
             {
-                var result = (T) Convert.ChangeType(data.Value, typeof (T));
+                var result = (T)Convert.ChangeType(data.Value, typeof(T));
                 return result;
             }
             else
@@ -211,8 +234,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         public static Pen Pen { get; set; } = new Pen(Color.Black, 1.0f);
 
         [JsonIgnore]
-        public static Pen DescriptionPen { get; set; } = new Pen(Color.FromArgb(180,30,30,30), 0.5f);
-        
+        public static Pen DescriptionPen { get; set; } = new Pen(Color.FromArgb(180, 30, 30, 30), 0.5f);
+
         [JsonIgnore]
         public static Pen MouseOverPen { get; set; } = new Pen(Color.LightCoral, 2.0f);
 
@@ -412,7 +435,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             DrawSelection(g, e, parent);
 
-            DrawDescription(g,e,parent);
+            DrawDescription(g, e, parent);
             DrawGlyph(g, e, parent);
             DrawText(g, e, parent);
 
@@ -530,16 +553,16 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
 
             float radius = 4;
-            
+
             extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
-            extendedGraphics.DrawRoundRectangle(Pen,r.X, r.Y, r.Width, r.Height, radius);
+            extendedGraphics.DrawRoundRectangle(Pen, r.X, r.Y, r.Width, r.Height, radius);
         }
 
         public virtual void DrawComponents(Graphics g, RenderingEngine e, DrawableBase parent)
         {
             foreach (var uiComponent in Components)
             {
-                uiComponent.Draw(g,e,this);
+                uiComponent.Draw(g, e, this);
             }
         }
 
@@ -556,8 +579,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             float radius = 2;
 
-            var brush = new SolidBrush(Color.FromArgb(80,0,0,0));
-            
+            var brush = new SolidBrush(Color.FromArgb(80, 0, 0, 0));
+
             extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
             extendedGraphics.DrawRoundRectangle(DescriptionPen, r.X, r.Y, r.Width, r.Height, radius);
         }
@@ -578,21 +601,21 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             var r = DescriptionBounds;
 
-            StringFormat format = new StringFormat( StringFormatFlags.NoClip);
+            StringFormat format = new StringFormat(StringFormatFlags.NoClip);
 
-            r = new RectangleF(r.X + 2,r.Y +2,r.Width,r.Height);
+            r = new RectangleF(r.X + 2, r.Y + 2, r.Width, r.Height);
 
-            var r1 = new RectangleF(r.X + 0.5f, r.Y + 0.5f, r.Width,r.Height);
-            var r2 = new RectangleF(r.X , r.Y , r.Width, r.Height);
+            var r1 = new RectangleF(r.X + 0.5f, r.Y + 0.5f, r.Width, r.Height);
+            var r2 = new RectangleF(r.X, r.Y, r.Width, r.Height);
 
             g.DrawString(text, FontVerySmall, Brushes.Black, r1, format);
             g.DrawString(text, FontVerySmall, Brushes.White, r2, format);
         }
-        
+
         public virtual void DrawGlyph(Graphics g, Engine e, DrawableBase parent)
         {
             ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
-            
+
             float radius = 2;
 
             var brush = new SolidBrush(Color.FromArgb(30, 0, 0, 0));
@@ -644,7 +667,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             UIComponent lastUiComponent = null;
             foreach (var uiComponent in Components)
             {
-                uiComponent.Update(e,this, lastUiComponent);
+                uiComponent.Update(e, this, lastUiComponent);
                 uiComponent.UpdateMouseService(e);
                 lastUiComponent = uiComponent;
             }
@@ -667,7 +690,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             UIComponent lastUiComponent = null;
             foreach (var uiComponent in Components)
             {
-                uiComponent.UpdateMouseUp(e,this, lastUiComponent);
+                uiComponent.UpdateMouseUp(e, this, lastUiComponent);
                 lastUiComponent = uiComponent;
             }
 
@@ -776,7 +799,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 OnProcessDebug(p, node);
             }
-            OnProcess(p,node);
+            OnProcess(p, node);
             DebugMode = false;
         }
 
@@ -893,7 +916,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             if (e.Button == MouseButtons.Left)
             {
                 AddInput(_addInputPin.Description);
-                ExtraVariableInputs ++;
+                ExtraVariableInputs++;
             }
         }
 
@@ -907,7 +930,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
                     var io = Inputs[index];
                     Inputs.Remove(io);
                     RenderingEngine.CurrentProject.RemoveConnection(io);
-                    ExtraVariableInputs --;
+                    ExtraVariableInputs--;
                 }
             }
         }
@@ -930,7 +953,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         private void AddOutputPinOnClick(object sender, MouseEventArgs e)
         {
             AddOutput(_addOutputPin.Description);
-            ExtraVariableOutputs ++;
+            ExtraVariableOutputs++;
         }
     }
 }
