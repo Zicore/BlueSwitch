@@ -124,6 +124,12 @@ namespace BlueSwitch.Base.Services
             }
         }
 
+        public void ExportDefaultHelpDescription()
+        {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Meta", "Help", "help.meta.json");
+            ExportHelpDescription(path);
+        }
+
         public void ExportHelpDescription(String filePath, string key)
         {
             using (StreamWriter sw = new StreamWriter(filePath))

@@ -95,7 +95,7 @@
             // 
             // textBoxEditor
             // 
-            this.textBoxEditor.Location = new System.Drawing.Point(10, 489);
+            this.textBoxEditor.Location = new System.Drawing.Point(12, 449);
             this.textBoxEditor.Name = "textBoxEditor";
             this.textBoxEditor.Size = new System.Drawing.Size(185, 20);
             this.textBoxEditor.TabIndex = 8;

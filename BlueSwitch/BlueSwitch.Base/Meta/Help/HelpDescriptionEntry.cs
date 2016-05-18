@@ -18,7 +18,7 @@ namespace BlueSwitch.Base.Meta.Help
         public static Font FontTitle = new Font("Calibri", 8);
 
         [JsonIgnore]
-        public static Font FontDescription = new Font("Calibri", 6);
+        public static Font FontDescription = new Font("Calibri", 7);
 
         [JsonIgnore]
         public static Pen Pen { get; set; } = new Pen(Color.Black, 1.0f);
@@ -71,7 +71,7 @@ namespace BlueSwitch.Base.Meta.Help
                 format.FormatFlags = StringFormatFlags.DirectionRightToLeft;
                 var textBounds = g.MeasureString(this.Title, FontTitle, swBounds.Size, format);
                 var swSizeDesc = new SizeF(240, swBounds.Height);
-                var textDescBounds = g.MeasureString(this.Description, FontTitle, swSizeDesc, format);
+                var textDescBounds = g.MeasureString(this.Description, FontDescription, swSizeDesc, format);
                 textDescBounds.Height = Math.Max(textDescBounds.Height, 8);
 
                 var rText = new RectangleF(r.X - textBounds.Width - offsetTextX, r.Y, textBounds.Width + offsetWidth, textBounds.Height);
@@ -122,7 +122,7 @@ namespace BlueSwitch.Base.Meta.Help
 
                 var textBounds = g.MeasureString(this.Title, FontTitle, swBounds.Size, format);
                 var swSizeDesc = new SizeF(240, swBounds.Height);
-                var textDescBounds = g.MeasureString(this.Description, FontTitle, swSizeDesc, format);
+                var textDescBounds = g.MeasureString(this.Description, FontDescription, swSizeDesc, format);
                 textDescBounds.Height = Math.Max(textDescBounds.Height, 8);
 
                 var rText = new RectangleF(r.X + offsetTextX + swBounds.Width, r.Y, textBounds.Width + offsetWidth, textBounds.Height);

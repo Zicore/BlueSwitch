@@ -83,17 +83,7 @@ namespace BlueSwitch.Controls.Docking
             treeView.ExpandAll();
             treeView.EndUpdate();
         }
-
-        //private void treeView_ItemDrag(object sender, ItemDragEventArgs e)
-        //{
-        //    var treeNode = e.Item as TreeNode;
-        //    DrawableBase item = treeNode?.Tag as SwitchBase;
-        //    if (item != null)
-        //    {
-        //        DoDragDrop(e.Item, DragDropEffects.Move);
-        //    }
-        //}
-
+        
         private void tbSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -202,6 +192,7 @@ namespace BlueSwitch.Controls.Docking
             {
                 help.Inputs.Add(index, s);
             }
+            s.Index = index;
         }
 
         private void AddOutputEntry(HelpDescriptionEntry s, int index, bool addNew = false)
@@ -228,6 +219,7 @@ namespace BlueSwitch.Controls.Docking
             {
                 help.Outputs.Add(index, s);
             }
+            s.Index = index;
         }
 
         private HelpDescription UseOrCreateHelp()
@@ -271,11 +263,11 @@ namespace BlueSwitch.Controls.Docking
 
                     var items = RenderingEngine.HelpService.Items[SelectedSwitch.UniqueName];
 
-                    foreach (var s in items.Inputs)
+                    foreach (var s in items.Inputs.OrderBy(x=>x.Key))
                     {
                         AddInputEntry(s.Value, s.Key);
                     }
-                    foreach (var s in items.Outputs)
+                    foreach (var s in items.Outputs.OrderBy(x => x.Key))
                     {
                         AddOutputEntry(s.Value, s.Key);
                     }
@@ -290,6 +282,8 @@ namespace BlueSwitch.Controls.Docking
                 e.Cancel = true;
                 Visible = false;
             }
+
+            RenderingEngine.HelpService.ExportDefaultHelpDescription();
         }
 
         private void btAdd_Click(object sender, EventArgs e)
