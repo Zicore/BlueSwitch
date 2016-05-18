@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
@@ -24,6 +26,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
             return (objectType == typeof(SwitchBase));
         }
 
+        public override bool CanWrite { get {return false;} }
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -31,8 +35,37 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var value = serializer.Deserialize(reader);
-            return value;
+            JToken token = JToken.Load(reader);
+            try
+            {
+                reader = token.CreateReader();
+                var result = serializer.Deserialize(reader);
+                return result;
+            }
+            catch (JsonSerializationException ex)
+            {
+                reader = token.CreateReader();
+                object value = Activator.CreateInstance(typeof(UnknownSwitch));
+                serializer.Populate(reader,value);
+                UnknownSwitch sw = value as UnknownSwitch;
+                
+                if (sw != null)
+                {
+                    var resolved = Engine.StaticNamespaceResolver.Resolve(sw);
+                    if (resolved != null)
+                    {
+                        reader = token.CreateReader();
+                        serializer.Populate(reader, resolved);
+                        return resolved;
+                    }
+                }
+
+                return value;
+            }
+            finally
+            {
+               
+            }
         }
     }
 
@@ -129,6 +162,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public bool HasActionOutput { get; protected set; }
 
+        private string _uniqueNameJson;
         private string _uniqueName;
         private string _displayName;
 
@@ -143,11 +177,43 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 }
                 return _uniqueName;
             }
-            set { _uniqueName = value; }
+            set
+            {
+                _uniqueName = value;
+            }
+        }
+        
+        // Unique Name Json Handling
+        public virtual string UniqueNameJson
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_uniqueNameJson))
+                {
+                    return TypeNameJson;
+                }
+                return _uniqueNameJson;
+            }
+            set { _uniqueNameJson = value; }
         }
 
-        public string TypeName => GetType().Name;
-        public string FullTypeName => GetType().FullName;
+        [JsonIgnore]
+        public string TypeNameJson { get; private set; }
+
+        [JsonIgnore]
+        public string FullTypeNameJson { get; private set; }
+
+        public virtual string TypeName
+        {
+            get { return GetType().Name; }
+            set { TypeNameJson = value; } // Json
+        }
+
+        public virtual string FullTypeName
+        {
+            get { return GetType().FullName; }
+            set { FullTypeNameJson = value; } // Json
+        }
 
         [JsonIgnore]
         public string Description { get; protected set; }

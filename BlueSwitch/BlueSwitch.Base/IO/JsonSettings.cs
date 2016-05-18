@@ -83,10 +83,8 @@ namespace BlueSwitch.Base.IO
                 using (var jsonTextReader = new JsonTextReader(sr))
                 {
                     var serializer = new JsonSerializer();
-                    //serializer.Binder = new NamespaceMigrationSerializationBinder(new NamespaceMigration {FromAssembly  = "BlueSwitch.Base", FromType = "", ToType = typeof() });
                     serializer.PreserveReferencesHandling = PreserveReferencesHandling.None;
                     serializer.TypeNameHandling = TypeNameHandling.Auto;
-                    //serializer.Error += SerializerOnError;
                     var jObject = serializer.Deserialize(jsonTextReader, typeof(T));
                     ((T) jObject).FilePath = path;
                     return (T)jObject;

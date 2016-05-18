@@ -70,6 +70,7 @@
     <Compile Include="Components\Switches\Base\RaiseEventSwitch.cs" />
     <Compile Include="Components\Switches\Base\SetterSwitch.cs" />
     <Compile Include="Components\Switches\Base\NamedEventSwitch.cs" />
+    <Compile Include="Components\Switches\Base\UnknownSwitch.cs" />
     <Compile Include="Components\Switches\Base\TickSwitch.cs" />
     <Compile Include="Components\Switches\Base\VariableSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Meta\Search\SearchTag.cs" />
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Services\HelpService.cs" />
+    <Compile Include="Services\NamespaceResolverService.cs" />
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
     <Compile Include="Services\SearchService.cs" />

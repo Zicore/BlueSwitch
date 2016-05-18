@@ -76,7 +76,6 @@ namespace BlueSwitch
                         }
                     }
                 }
-
             }
             return list;
         }

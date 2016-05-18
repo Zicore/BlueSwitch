@@ -52,7 +52,7 @@
             this.treeView.ContextMenuStrip = this.contextMenuStrip;
             this.treeView.Location = new System.Drawing.Point(0, 27);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(210, 545);
+            this.treeView.Size = new System.Drawing.Size(210, 609);
             this.treeView.TabIndex = 0;
             this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView_ItemDrag);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
@@ -128,7 +128,7 @@
             this.listMetaData.GridLines = true;
             this.listMetaData.Location = new System.Drawing.Point(216, 27);
             this.listMetaData.Name = "listMetaData";
-            this.listMetaData.Size = new System.Drawing.Size(538, 545);
+            this.listMetaData.Size = new System.Drawing.Size(644, 609);
             this.listMetaData.TabIndex = 7;
             this.listMetaData.UseCompatibleStateImageBehavior = false;
             this.listMetaData.View = System.Windows.Forms.View.Details;
@@ -151,7 +151,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSwitch.Location = new System.Drawing.Point(216, 1);
             this.lbSwitch.Name = "lbSwitch";
-            this.lbSwitch.Size = new System.Drawing.Size(538, 20);
+            this.lbSwitch.Size = new System.Drawing.Size(644, 20);
             this.lbSwitch.TabIndex = 11;
             this.lbSwitch.Text = "Select a switch";
             this.lbSwitch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 572);
+            this.ClientSize = new System.Drawing.Size(861, 636);
             this.Controls.Add(this.lbSwitch);
             this.Controls.Add(this.btRemove);
             this.Controls.Add(this.btAdd);

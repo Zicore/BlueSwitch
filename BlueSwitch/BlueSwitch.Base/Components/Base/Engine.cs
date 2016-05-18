@@ -19,10 +19,12 @@ namespace BlueSwitch.Base.Components.Base
     {
         public event EventHandler DebugModeChanged;
 
-        public HelpService HelpService { get; set; }
-        public SearchService SearchService { get; set; }
+        public static NamespaceResolverService StaticNamespaceResolver { get; private set; }
+        public NamespaceResolverService NamespaceResolver { get; }
+        public HelpService HelpService { get; }
+        public SearchService SearchService { get; }
         public BlueSwitchProject CurrentProject { get; set; } = new BlueSwitchProject();
-        public ReflectionService ReflectionService { get; set; } = new ReflectionService();
+        public ReflectionService ReflectionService { get; } = new ReflectionService();
         public EventManager EventManager { get; }
         public ProcessorCompiler ProcessorCompiler { get; }
 
@@ -57,6 +59,8 @@ namespace BlueSwitch.Base.Components.Base
             EventManager = new EventManager(this);
             SearchService = new SearchService(this);
             HelpService = new HelpService(this);
+            NamespaceResolver = new NamespaceResolverService(this);
+            StaticNamespaceResolver = NamespaceResolver; // We need one static instance for resolving at Deserialization Time
         }
 
         public SwitchBase FindSwitch(String key)
@@ -72,7 +76,14 @@ namespace BlueSwitch.Base.Components.Base
         {
             AvailableSwitches = ReflectionService.LoadAddons(this);
 
+            PopulateResolver();
+
             SearchService.Initialize();
+        }
+
+        private void PopulateResolver()
+        {
+            NamespaceResolver.Items.AddRange(AvailableSwitches);
         }
 
         public void AddAvailableSwitch(SwitchBase sw)
