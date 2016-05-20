@@ -187,27 +187,7 @@ namespace BlueSwitch.Base.Services
 
                         if (mouseOverInputOutput != null)
                         {
-                            var selector = new InputOutputSelector(selectedItem, mouseOverInputOutput);
-
-                            if (Input?.InputOutput is InputBase && mouseOverInputOutput is OutputBase)
-                            {
-                                Output = selector;
-                            }
-
-                            if (Input?.InputOutput is OutputBase && mouseOverInputOutput is InputBase)
-                            {
-                                Output = selector;
-                            }
-
-                            if (Output?.InputOutput is InputBase && mouseOverInputOutput is OutputBase)
-                            {
-                                Input = selector;
-                            }
-
-                            if (Output?.InputOutput is OutputBase && mouseOverInputOutput is InputBase)
-                            {
-                                Input = selector;
-                            }
+                            SetSelector(selectedItem, mouseOverInputOutput);
                         }
                     }
 
@@ -247,9 +227,31 @@ namespace BlueSwitch.Base.Services
             }
         }
 
-        private InputOutputSelector GetSelector()
+        private InputOutputSelector SetSelector(SwitchBase sw,InputOutputBase sourceIO)
         {
-            
+            var selector = new InputOutputSelector(sw, sourceIO);
+
+            if (Input?.InputOutput is InputBase && sourceIO is OutputBase)
+            {
+                Output = selector;
+            }
+
+            if (Input?.InputOutput is OutputBase && sourceIO is InputBase)
+            {
+                Output = selector;
+            }
+
+            if (Output?.InputOutput is InputBase && sourceIO is OutputBase)
+            {
+                Input = selector;
+            }
+
+            if (Output?.InputOutput is OutputBase && sourceIO is InputBase)
+            {
+                Input = selector;
+            }
+
+            return selector;
         }
 
         public void FinishContextAction(bool canceled, SwitchBase createSwitch)
@@ -260,6 +262,12 @@ namespace BlueSwitch.Base.Services
             }
             else
             {
+                List<InputOutputBase> inputOutputs = new List<InputOutputBase>();
+
+                inputOutputs.AddRange(createSwitch.Inputs);
+                inputOutputs.AddRange(createSwitch.Outputs);
+
+                SetSelector(createSwitch, inputOutputs.FirstOrDefault());
                 OnCompleted();
             }
             Input = null;
