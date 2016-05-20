@@ -132,6 +132,7 @@
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
     <Compile Include="Services\SearchService.cs" />
+    <Compile Include="ContextActionEventArgs.cs" />
     <Compile Include="Trigger\EventManager.cs" />
     <Compile Include="Trigger\Types\EventBase.cs" />
     <Compile Include="Trigger\Types\EventTypeBase.cs" />

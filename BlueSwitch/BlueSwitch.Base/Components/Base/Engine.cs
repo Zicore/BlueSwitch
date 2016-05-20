@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,26 @@ namespace BlueSwitch.Base.Components.Base
             HelpService = new HelpService(this);
             NamespaceResolver = new NamespaceResolverService(this);
             StaticNamespaceResolver = NamespaceResolver; // We need one static instance for resolving at Deserialization Time
+        }
+
+
+        public SwitchBase AddComponent(SwitchBase sourceComponent, PointF pt)
+        {
+            SwitchBase switchBase = Activator.CreateInstance(sourceComponent.GetType()) as SwitchBase;
+
+            if (sourceComponent is VariableSwitch && switchBase is VariableSwitch)
+            {
+                var variableComponent = switchBase as VariableSwitch;
+                variableComponent.VariableKey = ((VariableSwitch)sourceComponent).VariableKey;
+            }
+
+            if (switchBase != null)
+            {
+                switchBase.Position = pt;
+                CurrentProject.Add(this, switchBase);
+                return switchBase;
+            }
+            return null;
         }
 
         public SwitchBase FindSwitch(String key)

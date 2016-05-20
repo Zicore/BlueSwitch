@@ -221,7 +221,7 @@ namespace BlueSwitch.Controls.Docking
                 SwitchBase sourceComponent = node.Tag as SwitchBase;
                 if (sourceComponent != null)
                 {
-                    AddComponent(sourceComponent);
+                    AddComponent(RenderingEngine,sourceComponent);
                 }
             }
             else if (e.Data.GetDataPresent(typeof (ListViewItem)))
@@ -232,11 +232,11 @@ namespace BlueSwitch.Controls.Docking
                 {
                     if (ModifierKeys == Keys.Control)
                     {
-                        AddComponent(new SetterSwitch { VariableKey = variable.Name });
+                        AddComponent(RenderingEngine, new SetterSwitch { VariableKey = variable.Name });
                     }
                     else
                     {
-                        AddComponent(new GetterSwitch { VariableKey = variable.Name });
+                        AddComponent(RenderingEngine, new GetterSwitch { VariableKey = variable.Name });
                     }
                 }
             }
@@ -288,28 +288,11 @@ namespace BlueSwitch.Controls.Docking
             }
         }
 
-        public void AddComponent(SwitchBase sourceComponent)
+        public void AddComponent(RenderingEngine engine, SwitchBase sourceComponent)
         {
-            AddComponent(sourceComponent, RenderingEngine.TranslatePoint(PointToClient(MousePosition)));
+            engine.AddComponent(sourceComponent, engine.TranslatePoint(PointToClient(MousePosition)));
         }
 
-        public void AddComponent(SwitchBase sourceComponent, PointF pt)
-        {
-            SwitchBase switchBase = Activator.CreateInstance(sourceComponent.GetType()) as SwitchBase;
-            
-            if (sourceComponent is VariableSwitch && switchBase is VariableSwitch)
-            {
-                var variableComponent = switchBase as VariableSwitch;
-                variableComponent.VariableKey = ((VariableSwitch)sourceComponent).VariableKey;
-            }
-
-            if (switchBase != null)
-            {
-                switchBase.Position = pt;
-                RenderingEngine.CurrentProject.Add(RenderingEngine, switchBase);
-            }
-        }
-        
         protected override void OnResize(EventArgs e)
         {
             Invalidate();

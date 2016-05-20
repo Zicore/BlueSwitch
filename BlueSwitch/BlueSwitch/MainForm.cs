@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BlueSwitch.Base;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Processing;
@@ -38,13 +39,36 @@ namespace BlueSwitch
             Renderer.RenderingEngine.ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
 
             Renderer.RenderingEngine.DebugModeChanged += RenderingEngineOnDebugModeChanged;
-            //project.Add(new Input { Position = new PointF(100, 150) });
-            //project.Add(new DateTimeCalculatorSwitch { Position = new PointF(200, 200) });
-            //project.Add(new Input { Position = new PointF(600, 300) });
-            //project.Add(new Input2 { Position = new PointF(800, 300) });
-            //project.Add(new EqualsSwitch { Position = new PointF(800, 200) });
-            //project.Add(new AndSwitch { Position = new PointF(400, 300) });
-            //project.Add(new DisplaySwitch { Position = new PointF(400, 400) });
+            Renderer.RenderingEngine.SelectionService.ContextAction += SelectionServiceOnContextAction;
+        }
+
+        private void SelectionServiceOnContextAction(object sender, ContextActionEventArgs e)
+        {
+            ContextTree contextTree = new ContextTree(Renderer.RenderingEngine, e)
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = Cursor.Position
+            };
+            contextTree.Finished -= ContextTreeOnFinished;
+            contextTree.Finished += ContextTreeOnFinished;
+            contextTree.Show();
+        }
+
+        private void ContextTreeOnFinished(object sender, EventArgs eventArgs)
+        {
+            ContextTree contextTree = sender as ContextTree;
+            bool canceled = contextTree?.SelectedSwitch == null;
+
+            if (!canceled)
+            {
+                var p = contextTree.ContextActionEventArgs.Location;
+                var sw = Renderer.RenderingEngine.AddComponent(contextTree.SelectedSwitch,Renderer.RenderingEngine.TranslatePoint(p));
+                Renderer.RenderingEngine.SelectionService.FinishContextAction(false, sw);
+            }
+            else
+            {
+                Renderer.RenderingEngine.SelectionService.FinishContextAction(true, null);
+            }
         }
 
         private void RenderingEngineOnDebugModeChanged(object sender, EventArgs eventArgs)
@@ -106,7 +130,8 @@ namespace BlueSwitch
             _triggerExample = new TriggerExample(Renderer.RenderingEngine);
             //_properties = new PropertiesEditor(Renderer.RenderingEngine);
             _variableEditor = new VariableEditor(Renderer.RenderingEngine);
-            
+
+
             _switchesTree.HideOnClose = true;
             _switchesTree.Show(dockPanel, DockState.DockLeft);
 
@@ -122,7 +147,7 @@ namespace BlueSwitch
             _variableEditor.Show(dockPanel, DockState.DockRight);
 
             _errorList.HideOnClose = true;
-            _errorList.Show(Renderer.DockPanel, DockState.DockBottom);
+            _errorList.Show(Renderer.DockPanel, DockState.DockBottomAutoHide);
 
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;
@@ -270,8 +295,8 @@ namespace BlueSwitch
             {
                 var x = rnd.Next(2, Renderer.ClientRectangle.Width);
                 var y = rnd.Next(2, Renderer.ClientRectangle.Height);
-                
-                Renderer.AddComponent(sw, new PointF(x, y));
+
+                Renderer.RenderingEngine.AddComponent(sw, new PointF(x, y));
             }
         }
 

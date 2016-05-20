@@ -92,6 +92,12 @@
     <Compile Include="Controls\Docking\MetaEditor.Designer.cs">
       <DependentUpon>MetaEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Docking\ContextTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\ContextTree.Designer.cs">
+      <DependentUpon>ContextTree.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Docking\SwitchesTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\MetaEditor.resx">
       <DependentUpon>MetaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\ContextTree.resx">
+      <DependentUpon>ContextTree.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\SwitchesTree.resx">
       <DependentUpon>SwitchesTree.cs</DependentUpon>
@@ -212,7 +221,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Roadmap.txt" />
-    <Content Include="VersionLog.txt" />
     <Content Include="Images\BlueSwitchDesign.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

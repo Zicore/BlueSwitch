@@ -133,6 +133,10 @@ namespace BlueSwitch.Base.Services
             return SelectedInputOutput.InputOutput.Signature.Matches(io.Signature) || io.Signature.Matches(SelectedInputOutput.InputOutput.Signature); 
         }
 
+        private ContextActionEventArgs _currentActionArgs;
+
+        public event EventHandler<ContextActionEventArgs> ContextAction;
+
         public event EventHandler InComplete;
 
         protected virtual void OnInComplete()
@@ -209,21 +213,28 @@ namespace BlueSwitch.Base.Services
 
                     if (NotComplete || !SignatureMatching)
                     {
-                        OnInComplete();
+                        if (InputOutputAvailable)
+                        {
+                            _currentActionArgs = new ContextActionEventArgs { Selector = SelectedInputOutput, Location = e.Location};
+                            OnContextAction(_currentActionArgs);
+                        }
+                        else
+                        {
+                            OnInComplete();
+                            Input = null;
+                            Output = null;
+                        }
                     }
                     else
                     {
                         OnCompleted();
+                        Input = null;
+                        Output = null;
                     }
-
-                    Input = null;
-                    Output = null;
-
                 }
                 else
                 {
-                    var selectedItems = RenderingEngine.CurrentProject.Items.Where(
-                        x => RectangleF.Intersect(x.Rectangle, SelectionRectangleTranslated) != RectangleF.Empty);
+                    var selectedItems = RenderingEngine.CurrentProject.Items.Where(x => RectangleF.Intersect(x.Rectangle, SelectionRectangleTranslated) != RectangleF.Empty);
 
                     foreach (var selectedItem in selectedItems)
                     {
@@ -234,6 +245,25 @@ namespace BlueSwitch.Base.Services
 
                 StartDrag = false;
             }
+        }
+
+        private InputOutputSelector GetSelector()
+        {
+            
+        }
+
+        public void FinishContextAction(bool canceled, SwitchBase createSwitch)
+        {
+            if (canceled)
+            {
+                OnInComplete();
+            }
+            else
+            {
+                OnCompleted();
+            }
+            Input = null;
+            Output = null;
         }
 
         private void MouseServiceOnMouseDown(object sender, MouseEventArgs e)
@@ -329,6 +359,11 @@ namespace BlueSwitch.Base.Services
                     RenderingEngine.CurrentProject.Remove(sw);
                 }
             }
+        }
+
+        protected virtual void OnContextAction(ContextActionEventArgs e)
+        {
+            ContextAction?.Invoke(this, e);
         }
     }
 }

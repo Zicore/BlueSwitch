@@ -97,6 +97,9 @@ namespace BlueSwitch.Base.Components.Base
                             x =>
                                 x.FromInputOutput.InputOutput == selected.InputOutput ||
                                 x.ToInputOutput.InputOutput == selected.InputOutput);
+
+                    //Kontextmenü Injecten
+
                     if (selector != null)
                     {
                         CurrentProject.RemoveConnection(selector);

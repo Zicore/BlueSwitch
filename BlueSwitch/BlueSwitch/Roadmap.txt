@@ -1,5 +1,1 @@
-﻿+ = Added
-- = Removed
-* = Modified
-
-+ Formular for managing Events
+﻿Siehe YouTrack: http://win8-dev:8080

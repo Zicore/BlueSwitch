@@ -25,14 +25,14 @@ namespace BlueSwitch.Controls.Docking
             InitializeComponent();
             treeView.AllowDrop = true;
 
-            Editors = new Control[] {
+            _editors = new Control[] {
                 textBoxEditor,// for all columns
                 textBoxEditor,
                 textBoxEditor
             };
         }
 
-        private Control[] Editors;
+        private readonly Control[] _editors;
 
         public void UpdateTree()
         {
@@ -108,7 +108,7 @@ namespace BlueSwitch.Controls.Docking
         {
             if (e.SubItem >= 0 || e.SubItem <= 2)
             {
-                listInputs.StartEditing(Editors[e.SubItem], e.Item, e.SubItem);
+                listInputs.StartEditing(_editors[e.SubItem], e.Item, e.SubItem);
             }
         }
 
@@ -369,7 +369,7 @@ namespace BlueSwitch.Controls.Docking
         {
             if (e.SubItem >= 0 || e.SubItem <= 2)
             {
-                listOutputs.StartEditing(Editors[e.SubItem], e.Item, e.SubItem);
+                listOutputs.StartEditing(_editors[e.SubItem], e.Item, e.SubItem);
             }
         }
 

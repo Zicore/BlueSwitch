@@ -103,7 +103,7 @@ namespace BlueSwitch.Base.Services
             }
             return null;
         }
-
+        
         public void Search(IList<SwitchBase> datasource, Dictionary<string, SearchEntry> entries, string query)
         {
             var namedMatches = datasource.Where(x => Contains(x.UniqueName, query, StringComparison.OrdinalIgnoreCase));
@@ -139,12 +139,15 @@ namespace BlueSwitch.Base.Services
 
         public Dictionary<string, SearchEntry> Search(string queryString)
         {
+            return Search(queryString, Engine.AvailableSwitches);
+        }
+
+        public Dictionary<string, SearchEntry> Search(string queryString, IList<SwitchBase> datasource)
+        {
             Dictionary<string, SearchEntry> entries = new Dictionary<string, SearchEntry>();
 
             string[] queries = queryString.Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries); // split by space, so we can make a deep search
-
-            var datasource = Engine.AvailableSwitches;
-
+            
             foreach (var query in queries)
             {
                 entries.Clear();
