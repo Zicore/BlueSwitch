@@ -73,6 +73,7 @@
     <Compile Include="Components\Switches\Base\UnknownSwitch.cs" />
     <Compile Include="Components\Switches\Base\TickSwitch.cs" />
     <Compile Include="Components\Switches\Base\VariableSwitch.cs" />
+    <Compile Include="Components\Switches\CodeFlow\ForeachLoopSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\SequenceSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\ForLoopSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\WhileLoopSwitch.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\CopyFileSwitch.cs" />
+    <Compile Include="Components\Switches\IO\GetFilesSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
     <Compile Include="Components\Switches\Logic\NotSwitch.cs" />
     <Compile Include="Components\Switches\Logic\EitherSwitch.cs" />
@@ -132,7 +134,7 @@
     <Compile Include="Services\ReflectionService.cs" />
     <Compile Include="Services\KeyboardService.cs" />
     <Compile Include="Services\SearchService.cs" />
-    <Compile Include="ContextActionEventArgs.cs" />
+    <Compile Include="Components\Event\ContextActionEventArgs.cs" />
     <Compile Include="Trigger\EventManager.cs" />
     <Compile Include="Trigger\Types\EventBase.cs" />
     <Compile Include="Trigger\Types\EventTypeBase.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base;
 using BlueSwitch.Base.Components.Base;
+using BlueSwitch.Base.Components.Event;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.Services;
 using Newtonsoft.Json;
@@ -160,7 +161,6 @@ namespace BlueSwitch.Controls.Docking
         private void FinishContext()
         {
             SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
-            OnFinished();
             Close();
         }
 

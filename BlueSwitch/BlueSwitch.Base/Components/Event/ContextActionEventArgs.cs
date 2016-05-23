@@ -2,7 +2,7 @@
 using System.Drawing;
 using BlueSwitch.Base.Services;
 
-namespace BlueSwitch.Base
+namespace BlueSwitch.Base.Components.Event
 {
     public class ContextActionEventArgs : EventArgs
     {

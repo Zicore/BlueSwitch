@@ -19,7 +19,8 @@ namespace BlueSwitch.Base.Services
         [JsonIgnore]
         public bool IsInput
         {
-            get { return _isInput; }
+            //get { return _isInput; } // Test
+            get { return IsInputJson; } // Test
         }
 
         public int OriginId { get; set; }

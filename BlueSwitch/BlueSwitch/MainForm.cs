@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BlueSwitch.Base;
+using BlueSwitch.Base.Components.Event;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Processing;

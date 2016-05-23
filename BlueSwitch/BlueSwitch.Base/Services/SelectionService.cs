@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
+using BlueSwitch.Base.Components.Event;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.Utils;
 using XnaGeometry;
@@ -109,7 +110,7 @@ namespace BlueSwitch.Base.Services
         {
             get { return Input != null || Output != null; }
         }
-
+        
         public bool NotComplete
         {
             get { return Input == null || Output == null; }
@@ -165,7 +166,17 @@ namespace BlueSwitch.Base.Services
                 }
             }
         }
-        
+
+        public static bool SelectorOriginEquals(InputOutputSelector sel1, InputOutputSelector sel2)
+        {
+            return sel1?.OriginId == sel2?.OriginId;
+        }
+
+        public static bool SelectorEquals(InputOutputSelector sel1, InputOutputSelector sel2)
+        {
+            return sel1?.OriginId == sel2?.OriginId && sel1?.InputOutputId == sel2?.InputOutputId;
+        }
+
         private void MouseServiceOnMouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -173,7 +184,7 @@ namespace BlueSwitch.Base.Services
                 if (!StartSelectionRectangle)
                 {
                     var mouseOverItems = RenderingEngine.CurrentProject.Items.Where(x => x.IsMouseOver);
-
+                    InputOutputSelector selector = null;
                     foreach (var selectedItem in mouseOverItems)
                     {
                         selectedItem.IsSelected = true;
@@ -187,13 +198,14 @@ namespace BlueSwitch.Base.Services
 
                         if (mouseOverInputOutput != null)
                         {
-                            SetSelector(selectedItem, mouseOverInputOutput);
+                            selector = SetSelector(selectedItem, mouseOverInputOutput);
+                            break;
                         }
                     }
 
                     if (NotComplete || !SignatureMatching)
                     {
-                        if (InputOutputAvailable)
+                        if (InputOutputAvailable && !SelectorEquals(SelectedInputOutput, selector))
                         {
                             _currentActionArgs = new ContextActionEventArgs { Selector = SelectedInputOutput, Location = e.Location};
                             OnContextAction(_currentActionArgs);
@@ -263,13 +275,20 @@ namespace BlueSwitch.Base.Services
             else
             {
                 List<InputOutputBase> inputOutputs = new List<InputOutputBase>();
-
-                inputOutputs.AddRange(createSwitch.Inputs);
-                inputOutputs.AddRange(createSwitch.Outputs);
-
-                SetSelector(createSwitch, inputOutputs.FirstOrDefault());
+                if (Input != null)
+                {
+                    inputOutputs.AddRange(createSwitch.Outputs);
+                }
+                else
+                {
+                    inputOutputs.AddRange(createSwitch.Inputs);
+                }
+                var matchingIO =
+                    inputOutputs.FirstOrDefault(x => x.Signature.Matches(SelectedInputOutput.InputOutput.Signature));
+                SetSelector(createSwitch, matchingIO);
                 OnCompleted();
             }
+
             Input = null;
             Output = null;
         }
