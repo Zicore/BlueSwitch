@@ -171,7 +171,6 @@ namespace BlueSwitch.Controls.Docking
 
         private void ContextTree_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
             OnFinished();
         }
     }

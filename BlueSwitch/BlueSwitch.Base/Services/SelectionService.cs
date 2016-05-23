@@ -18,6 +18,8 @@ namespace BlueSwitch.Base.Services
             get { return CurrentSelection.Count > 0; }
         }
 
+        private PointF _lastDestinationPoint;
+
         public RenderingEngine RenderingEngine { get; set; }
 
         public PointF MouseRightDownMoveTranslationPositionLast { get; set; } = new PointF(0, 0);
@@ -29,6 +31,13 @@ namespace BlueSwitch.Base.Services
         public PointF SelectionRectangleEnd { get; set; } = new PointF();
 
         IList<SwitchBase> CurrentSelection { get; set; } = new List<SwitchBase>();
+
+        private bool _actionActive = false;
+
+        public bool ActionActive
+        {
+            get { return _actionActive; }
+        }
 
         public RectangleF SelectionRectangle
         {
@@ -167,6 +176,21 @@ namespace BlueSwitch.Base.Services
             }
         }
 
+        public PointF DestinationConnectionPosition
+        {
+            get
+            {
+                if (ActionActive)
+                {
+                    return _lastDestinationPoint;
+                }
+                else
+                {
+                    return RenderingEngine.TranslatedMousePosition;
+                }
+            }
+        }
+
         public static bool SelectorOriginEquals(InputOutputSelector sel1, InputOutputSelector sel2)
         {
             return sel1?.OriginId == sel2?.OriginId;
@@ -207,21 +231,21 @@ namespace BlueSwitch.Base.Services
                     {
                         if (InputOutputAvailable && !SelectorEquals(SelectedInputOutput, selector))
                         {
+                            _lastDestinationPoint = RenderingEngine.TranslatedMousePosition;
                             _currentActionArgs = new ContextActionEventArgs { Selector = SelectedInputOutput, Location = e.Location};
                             OnContextAction(_currentActionArgs);
+                            _actionActive = true;
                         }
                         else
                         {
                             OnInComplete();
-                            Input = null;
-                            Output = null;
+                            FinishContextActionIntern();
                         }
                     }
                     else
                     {
                         OnCompleted();
-                        Input = null;
-                        Output = null;
+                        FinishContextActionIntern();
                     }
                 }
                 else
@@ -283,12 +307,16 @@ namespace BlueSwitch.Base.Services
                 {
                     inputOutputs.AddRange(createSwitch.Inputs);
                 }
-                var matchingIO =
-                    inputOutputs.FirstOrDefault(x => x.Signature.Matches(SelectedInputOutput.InputOutput.Signature));
+                var matchingIO = inputOutputs.FirstOrDefault(x => x.Signature.Matches(SelectedInputOutput.InputOutput.Signature));
                 SetSelector(createSwitch, matchingIO);
                 OnCompleted();
             }
+            FinishContextActionIntern();
+        }
 
+        private void FinishContextActionIntern()
+        {
+            _actionActive = false;
             Input = null;
             Output = null;
         }

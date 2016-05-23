@@ -45,14 +45,17 @@ namespace BlueSwitch
 
         private void SelectionServiceOnContextAction(object sender, ContextActionEventArgs e)
         {
-            ContextTree contextTree = new ContextTree(Renderer.RenderingEngine, e)
+            if (!Renderer.RenderingEngine.SelectionService.ActionActive)
             {
-                StartPosition = FormStartPosition.Manual,
-                Location = Cursor.Position
-            };
-            contextTree.Finished -= ContextTreeOnFinished;
-            contextTree.Finished += ContextTreeOnFinished;
-            contextTree.Show();
+                ContextTree contextTree = new ContextTree(Renderer.RenderingEngine, e)
+                {
+                    StartPosition = FormStartPosition.Manual,
+                    Location = Cursor.Position
+                };
+                contextTree.Finished -= ContextTreeOnFinished;
+                contextTree.Finished += ContextTreeOnFinished;
+                contextTree.Show();
+            }
         }
 
         private void ContextTreeOnFinished(object sender, EventArgs eventArgs)

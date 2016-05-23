@@ -164,9 +164,16 @@ namespace BlueSwitch.Base.Components.Base
                     var io = SelectionService.SelectedInputOutput;
                     if (io != null)
                     {
-                        var p1 = TranslatedMousePosition;
+                        var p1 = SelectionService.DestinationConnectionPosition;
                         var p2 = io.InputOutput.GetTranslationCenter(io.Origin);
-                        DrawConnection(g, io.InputOutput.Signature.Pen, _linePen, p1, p2);
+                        if (!io.IsInput)
+                        {
+                            DrawConnection(g, io.InputOutput.Signature.Pen, _linePen, p1, p2);
+                        }
+                        else
+                        {
+                            DrawConnection(g, io.InputOutput.Signature.Pen, _linePen, p2, p1);
+                        }
                     }
                 }
 
