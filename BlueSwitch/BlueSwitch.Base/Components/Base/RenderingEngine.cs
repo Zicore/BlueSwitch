@@ -155,8 +155,9 @@ namespace BlueSwitch.Base.Components.Base
                     var p1 =
                         connection.FromInputOutput.InputOutput.GetTranslationCenter(connection.FromInputOutput.Origin);
                     var p2 = connection.ToInputOutput.InputOutput.GetTranslationCenter(connection.ToInputOutput.Origin);
+                    connection.Draw(this,g);
 
-                    DrawConnection(g, connection.ToInputOutput.InputOutput.Signature.Pen, _linePen, p1, p2);
+                    //DrawConnection(g, connection.ToInputOutput.InputOutput.Signature.Pen, _linePen, p1, p2);
                 }
 
                 if (SelectionService.InputOutputAvailable)
@@ -257,15 +258,15 @@ namespace BlueSwitch.Base.Components.Base
             {
                 var p = new PointF(viewport.Width - 196, 4);
                 var p2 = new PointF(viewport.Width - 194, 5);
-                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.CornflowerBlue, p2);
-                g.DrawString("DESIGN ❚❚", FontInfo, Brushes.Black, p);
+                g.DrawString("DESIGN ⏸", FontInfo, Brushes.CornflowerBlue, p2);
+                g.DrawString("DESIGN ⏸", FontInfo, Brushes.Black, p);
             }
             else
             {
                 var p = new PointF(viewport.Width - 286, 4);
                 var p2 = new PointF(viewport.Width - 284, 5);
-                g.DrawString("SIMULATION ▶", FontInfo, Brushes.OrangeRed, p2);
-                g.DrawString("SIMULATION ▶", FontInfo, Brushes.Black, p);
+                g.DrawString("SIMULATION ⏵", FontInfo, Brushes.OrangeRed, p2);
+                g.DrawString("SIMULATION ⏵", FontInfo, Brushes.Black, p);
             }
         }
 
@@ -329,8 +330,22 @@ namespace BlueSwitch.Base.Components.Base
             PointF b1 = new PointF(p1.X - overhangX, p1.Y - overhangY);
             PointF b2 = new PointF(p2.X + overhangX, p2.Y + overhangY);
 
-            g.DrawBezier(pen2, p1, b1, b2, p2);
-            g.DrawBezier(pen, p1, b1, b2, p2);
+            GraphicsPath p = new GraphicsPath();
+            p.AddBezier(p1, b1, b2, p2);
+            GraphicsPath pHit = new GraphicsPath();
+            pHit.AddBezier(p1, b1, b2, p2);
+            pHit.Widen(new Pen(Color.Black, 8));
+
+            if (pHit.IsVisible(TranslatedMousePosition))
+            {
+                g.DrawPath(pen2, p);
+                g.DrawPath(Pens.Lime, p);
+            }
+            else
+            {
+                g.DrawPath(pen2, p);
+                g.DrawPath(pen, p);
+            }
         }
 
         public static void DrawRect(Graphics g, PointF p)
