@@ -18,6 +18,7 @@ namespace BlueSwitch.Controls.Docking
     public partial class VariableEditor : DockContent
     {
         public RenderingEngine RenderingEngine { get; set; }
+        public Variable SelectedVariable { get; set;}
 
         public VariableEditor(RenderingEngine renderingEngine)
         {
@@ -90,6 +91,7 @@ namespace BlueSwitch.Controls.Docking
                     var valueType = (BlueSwitch.Base.IO.ValueType)types.GetValue(comboBoxEditor.SelectedIndex);
                     variable.ValueType = valueType;
                     variable.Value = TypeExtensions.GetDefault(variable.NetValueType);
+                    RefreshValues();
                 }
                 else if (e.SubItem == 1)
                 {
@@ -102,6 +104,7 @@ namespace BlueSwitch.Controls.Docking
                         }
                     }
                 }
+                
             }
         }
 
@@ -144,16 +147,74 @@ namespace BlueSwitch.Controls.Docking
 
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            var selectedItems = listVariables.SelectedItems;
-            foreach (ListViewItem selectedItem in selectedItems)
+            RefreshValues();
+        }
+
+        private void RefreshValues()
+        {
+            var items = listVariables.Items;
+            foreach (ListViewItem item in items)
             {
-                var variable = selectedItem.Tag as Variable;
+                var variable = item.Tag as Variable;
                 if (variable != null)
                 {
-                    selectedItem.SubItems[2].Text = variable.Value?.ToString();
+                    item.SubItems[2].Text = variable.Value?.ToString();
                 }
             }
-            listVariables.EndEditing(false);
+        }
+
+        private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            SelectedVariable = null;
+            var selectedItems = listVariables.SelectedItems;
+            bool cancel = true;
+            if (listVariables.SelectedItems.Count == 1)
+            {
+                foreach (ListViewItem selectedItem in selectedItems)
+                {
+                    var variable = selectedItem.Tag as Variable;
+                    SelectedVariable = variable;
+                    if (SelectedVariable != null)
+                    {
+                        if (SelectedVariable.NetValueType == typeof (string))
+                        {
+                            cancel = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            e.Cancel = cancel;
+        }
+
+        private void pickFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedVariable != null)
+            {
+                if (SelectedVariable.NetValueType == typeof (string))
+                {
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectedVariable.Value = saveFileDialog.FileName;
+                        RefreshValues();
+                    }
+                }
+            }
+        }
+
+        private void pickFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedVariable != null)
+            {
+                if (SelectedVariable.NetValueType == typeof(string))
+                {
+                    if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectedVariable.Value = folderBrowserDialog.SelectedPath;
+                        RefreshValues();
+                    }
+                }
+            }
         }
     }
 }

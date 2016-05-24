@@ -28,15 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btAdd = new System.Windows.Forms.Button();
             this.textBoxEditor = new System.Windows.Forms.TextBox();
             this.comboBoxEditor = new System.Windows.Forms.ComboBox();
             this.btRemove = new System.Windows.Forms.Button();
             this.btRefresh = new System.Windows.Forms.Button();
-            this.listVariables = new ListViewEx();
+            this.listVariables = new BlueSwitch.Controls.ListViewEx();
             this.columnType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pickFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pickFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // btAdd
@@ -55,7 +62,7 @@
             // 
             this.textBoxEditor.Location = new System.Drawing.Point(12, 506);
             this.textBoxEditor.Name = "textBoxEditor";
-            this.textBoxEditor.Size = new System.Drawing.Size(200, 20);
+            this.textBoxEditor.Size = new System.Drawing.Size(236, 20);
             this.textBoxEditor.TabIndex = 4;
             this.textBoxEditor.Visible = false;
             // 
@@ -65,7 +72,7 @@
             this.comboBoxEditor.FormattingEnabled = true;
             this.comboBoxEditor.Location = new System.Drawing.Point(12, 479);
             this.comboBoxEditor.Name = "comboBoxEditor";
-            this.comboBoxEditor.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxEditor.Size = new System.Drawing.Size(236, 21);
             this.comboBoxEditor.TabIndex = 5;
             this.comboBoxEditor.Visible = false;
             // 
@@ -103,6 +110,7 @@
             this.columnType,
             this.columnName,
             this.columnValue});
+            this.listVariables.ContextMenuStrip = this.contextMenuStrip;
             this.listVariables.DoubleClickActivation = true;
             this.listVariables.FullRowSelect = true;
             this.listVariables.GridLines = true;
@@ -112,9 +120,9 @@
             this.listVariables.TabIndex = 2;
             this.listVariables.UseCompatibleStateImageBehavior = false;
             this.listVariables.View = System.Windows.Forms.View.Details;
-            this.listVariables.SubItemClicked += new SubItemEventHandler(this.listVariables_SubItemClicked);
-            this.listVariables.SubItemBeginEditing += new SubItemEventHandler(this.listVariables_SubItemBeginEditing);
-            this.listVariables.SubItemEndEditing += new SubItemEndEditingEventHandler(this.listVariables_SubItemEndEditing);
+            this.listVariables.SubItemClicked += new BlueSwitch.Controls.SubItemEventHandler(this.listVariables_SubItemClicked);
+            this.listVariables.SubItemBeginEditing += new BlueSwitch.Controls.SubItemEventHandler(this.listVariables_SubItemBeginEditing);
+            this.listVariables.SubItemEndEditing += new BlueSwitch.Controls.SubItemEndEditingEventHandler(this.listVariables_SubItemEndEditing);
             this.listVariables.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listVariables_ItemDrag);
             // 
             // columnType
@@ -132,6 +140,29 @@
             this.columnValue.Text = "Value";
             this.columnValue.Width = 90;
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pickFileToolStripMenuItem,
+            this.pickFolderToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(133, 48);
+            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
+            // 
+            // pickFileToolStripMenuItem
+            // 
+            this.pickFileToolStripMenuItem.Name = "pickFileToolStripMenuItem";
+            this.pickFileToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.pickFileToolStripMenuItem.Text = "Pick File";
+            this.pickFileToolStripMenuItem.Click += new System.EventHandler(this.pickFileToolStripMenuItem_Click);
+            // 
+            // pickFolderToolStripMenuItem
+            // 
+            this.pickFolderToolStripMenuItem.Name = "pickFolderToolStripMenuItem";
+            this.pickFolderToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.pickFolderToolStripMenuItem.Text = "Pick Folder";
+            this.pickFolderToolStripMenuItem.Click += new System.EventHandler(this.pickFolderToolStripMenuItem_Click);
+            // 
             // VariableEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +177,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "VariableEditor";
             this.Text = "Variables";
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,5 +193,10 @@
         private System.Windows.Forms.Button btRemove;
         private System.Windows.Forms.ColumnHeader columnValue;
         private System.Windows.Forms.Button btRefresh;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem pickFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pickFolderToolStripMenuItem;
     }
 }
