@@ -42,7 +42,7 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
 
         public override GroupBase OnSetGroup()
         {
-            return Groups.File;
+            return Groups.FileSystem;
         }
     }
 }

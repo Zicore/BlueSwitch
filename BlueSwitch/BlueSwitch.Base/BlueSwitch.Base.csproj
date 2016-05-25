@@ -87,7 +87,8 @@
     <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\CopyFileSwitch.cs" />
-    <Compile Include="Components\Switches\IO\GetFilesSwitch.cs" />
+    <Compile Include="Components\Switches\FileSystem\FileInfoSwitch.cs" />
+    <Compile Include="Components\Switches\FileSystem\GetFilesSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
     <Compile Include="Components\Switches\Logic\NotSwitch.cs" />
     <Compile Include="Components\Switches\Logic\EitherSwitch.cs" />

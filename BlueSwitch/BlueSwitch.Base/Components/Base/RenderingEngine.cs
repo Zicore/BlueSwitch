@@ -60,14 +60,14 @@ namespace BlueSwitch.Base.Components.Base
             ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
 
-            
+
         }
 
         private void TickerProviderOnTick(object sender, EventArgs e)
         {
             EventManager.Run(EventTypeBase.TimerTick);
         }
-        
+
 
         public MouseService MouseService { get; set; }
         public KeyboardService KeyboardService { get; set; }
@@ -139,7 +139,7 @@ namespace BlueSwitch.Base.Components.Base
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             DrawRenderingInfo(g, viewport);
-            
+
 
             var mat = new Matrix();
             mat.Translate(CurrentProject.Translation.X, CurrentProject.Translation.Y);
@@ -155,7 +155,7 @@ namespace BlueSwitch.Base.Components.Base
                     var p1 =
                         connection.FromInputOutput.InputOutput.GetTranslationCenter(connection.FromInputOutput.Origin);
                     var p2 = connection.ToInputOutput.InputOutput.GetTranslationCenter(connection.ToInputOutput.Origin);
-                    connection.Draw(this,g);
+                    connection.Draw(this, g);
 
                     //DrawConnection(g, connection.ToInputOutput.InputOutput.Signature.Pen, _linePen, p1, p2);
                 }
@@ -167,13 +167,14 @@ namespace BlueSwitch.Base.Components.Base
                     {
                         var p1 = SelectionService.DestinationConnectionPosition;
                         var p2 = io.InputOutput.GetTranslationCenter(io.Origin);
+                        var pen = io.InputOutput.Signature.Pen;
                         if (!io.IsInput)
                         {
-                            DrawConnection(g, io.InputOutput.Signature.Pen, _linePen, p1, p2);
+                            Connection.Draw(this, g, pen, p1, p2);
                         }
                         else
                         {
-                            DrawConnection(g, io.InputOutput.Signature.Pen, _linePen, p2, p1);
+                            Connection.Draw(this, g, pen, p2, p1);
                         }
                     }
                 }
@@ -209,7 +210,7 @@ namespace BlueSwitch.Base.Components.Base
             var pen = new Pen(Brushes.Gray, 1 / CurrentProject.Zoom);
             var penBlack = new Pen(Brushes.Black, 1 / CurrentProject.Zoom);
 
-            RectangleF grid = new RectangleF(0, 0, 100,100);
+            RectangleF grid = new RectangleF(0, 0, 100, 100);
             viewport = new RectangleF(-CurrentProject.Translation.X, -CurrentProject.Translation.Y, viewport.Width / zoom, viewport.Height / zoom);
 
             int maxGridX = (int)Math.Floor(viewport.Width / grid.Width) + 1;
@@ -312,41 +313,41 @@ namespace BlueSwitch.Base.Components.Base
         //}
 
         // Abhängig von X Achse
-        public void DrawConnection(Graphics g, Pen pen, Pen pen2, PointF p1, PointF p2)
-        {
-            Vector2 v1 = new Vector2(p1.X, p1.Y);
-            Vector2 v2 = new Vector2(p2.X, p2.Y);
+        //public void DrawConnection(Graphics g, Pen pen, Pen pen2, PointF p1, PointF p2)
+        //{
+        //    Vector2 v1 = new Vector2(p1.X, p1.Y);
+        //    Vector2 v2 = new Vector2(p2.X, p2.Y);
 
-            float overhangX = (Math.Max(p1.X, p2.X) - Math.Min(p1.X, p2.X)) * 0.85f;
+        //    float overhangX = (Math.Max(p1.X, p2.X) - Math.Min(p1.X, p2.X)) * 0.85f;
 
-            overhangX = Math.Min(overhangX, 100);
-            overhangX = Math.Max(30, overhangX);
+        //    overhangX = Math.Min(overhangX, 100);
+        //    overhangX = Math.Max(30, overhangX);
 
-            float overhangY = (Math.Max(p1.Y, p2.Y) - Math.Min(p1.Y, p2.Y)) * 0.25f;
+        //    float overhangY = (Math.Max(p1.Y, p2.Y) - Math.Min(p1.Y, p2.Y)) * 0.25f;
 
-            overhangY = Math.Min(overhangY, 20);
-            overhangY = Math.Max(2, overhangY);
+        //    overhangY = Math.Min(overhangY, 20);
+        //    overhangY = Math.Max(2, overhangY);
 
-            PointF b1 = new PointF(p1.X - overhangX, p1.Y - overhangY);
-            PointF b2 = new PointF(p2.X + overhangX, p2.Y + overhangY);
+        //    PointF b1 = new PointF(p1.X - overhangX, p1.Y - overhangY);
+        //    PointF b2 = new PointF(p2.X + overhangX, p2.Y + overhangY);
 
-            GraphicsPath p = new GraphicsPath();
-            p.AddBezier(p1, b1, b2, p2);
-            GraphicsPath pHit = new GraphicsPath();
-            pHit.AddBezier(p1, b1, b2, p2);
-            pHit.Widen(new Pen(Color.Black, 8));
+        //    GraphicsPath p = new GraphicsPath();
+        //    p.AddBezier(p1, b1, b2, p2);
+        //    GraphicsPath pHit = new GraphicsPath();
+        //    pHit.AddBezier(p1, b1, b2, p2);
+        //    pHit.Widen(new Pen(Color.Black, 8));
 
-            if (pHit.IsVisible(TranslatedMousePosition))
-            {
-                g.DrawPath(pen2, p);
-                g.DrawPath(Pens.Lime, p);
-            }
-            else
-            {
-                g.DrawPath(pen2, p);
-                g.DrawPath(pen, p);
-            }
-        }
+        //    if (pHit.IsVisible(TranslatedMousePosition))
+        //    {
+        //        g.DrawPath(pen2, p);
+        //        g.DrawPath(Pens.Lime, p);
+        //    }
+        //    else
+        //    {
+        //        g.DrawPath(pen2, p);
+        //        g.DrawPath(pen, p);
+        //    }
+        //}
 
         public static void DrawRect(Graphics g, PointF p)
         {

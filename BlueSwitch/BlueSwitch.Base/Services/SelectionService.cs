@@ -18,6 +18,10 @@ namespace BlueSwitch.Base.Services
             get { return CurrentSelection.Count > 0; }
         }
 
+        public bool SelectedItemsConnectionAvailable
+        {
+            get { return CurrentSelectionConnection.Count > 0; }
+        }
         private PointF _lastDestinationPoint;
 
         public RenderingEngine RenderingEngine { get; set; }
@@ -31,6 +35,7 @@ namespace BlueSwitch.Base.Services
         public PointF SelectionRectangleEnd { get; set; } = new PointF();
 
         IList<SwitchBase> CurrentSelection { get; set; } = new List<SwitchBase>();
+        IList<Connection> CurrentSelectionConnection { get; set; } = new List<Connection>();
 
         private bool _actionActive = false;
 
@@ -114,12 +119,12 @@ namespace BlueSwitch.Base.Services
         public bool StartDrag { get; set; } = false;
         public InputOutputSelector Input { get; set; }
         public InputOutputSelector Output { get; set; }
-        
+
         public bool InputOutputAvailable
         {
             get { return Input != null || Output != null; }
         }
-        
+
         public bool NotComplete
         {
             get { return Input == null || Output == null; }
@@ -140,7 +145,7 @@ namespace BlueSwitch.Base.Services
                 return false;
             }
             // This makes sure we are allways checking both types
-            return SelectedInputOutput.InputOutput.Signature.Matches(io.Signature) || io.Signature.Matches(SelectedInputOutput.InputOutput.Signature); 
+            return SelectedInputOutput.InputOutput.Signature.Matches(io.Signature) || io.Signature.Matches(SelectedInputOutput.InputOutput.Signature);
         }
 
         private ContextActionEventArgs _currentActionArgs;
@@ -155,7 +160,7 @@ namespace BlueSwitch.Base.Services
         }
 
         public event EventHandler Completed;
-        
+
         protected virtual void OnCompleted()
         {
             Completed?.Invoke(this, EventArgs.Empty);
@@ -232,7 +237,7 @@ namespace BlueSwitch.Base.Services
                         if (InputOutputAvailable && !SelectorEquals(SelectedInputOutput, selector))
                         {
                             _lastDestinationPoint = RenderingEngine.TranslatedMousePosition;
-                            _currentActionArgs = new ContextActionEventArgs { Selector = SelectedInputOutput, Location = e.Location};
+                            _currentActionArgs = new ContextActionEventArgs { Selector = SelectedInputOutput, Location = e.Location };
                             OnContextAction(_currentActionArgs);
                             _actionActive = true;
                         }
@@ -263,7 +268,7 @@ namespace BlueSwitch.Base.Services
             }
         }
 
-        private InputOutputSelector SetSelector(SwitchBase sw,InputOutputBase sourceIO)
+        private InputOutputSelector SetSelector(SwitchBase sw, InputOutputBase sourceIO)
         {
             var selector = new InputOutputSelector(sw, sourceIO);
 
@@ -338,10 +343,11 @@ namespace BlueSwitch.Base.Services
                 {
                     Input = null;
                     Output = null;
-                    
-                    var mouseOverItems = RenderingEngine.CurrentProject.Items.Where(x => x.IsMouseOver).ToList();
 
-                    if (mouseOverItems.Count == 0)
+                    var mouseOverItems = RenderingEngine.CurrentProject.Items.Where(x => x.IsMouseOver).ToList();
+                    var mouseOverConnections = RenderingEngine.CurrentProject.Connections.Where(x => x.IsMouseOver).ToList();
+
+                    if (mouseOverItems.Count == 0 && mouseOverConnections.Count == 0)
                     {
                         DeselectAll();
                     }
@@ -377,6 +383,19 @@ namespace BlueSwitch.Base.Services
                             }
                         }
                     }
+
+                    if (mouseOverConnections.Count > 0)
+                    {
+                        foreach (var selectedItem in mouseOverConnections)
+                        {
+                            if (!CurrentSelectionConnection.Contains(selectedItem))
+                            {
+                                DeselectAll();
+                                CurrentSelectionConnection.Add(selectedItem);
+                            }
+                            selectedItem.IsSelected = true;
+                        }
+                    }
                 }
 
                 if (!SelectedItemsAvailable)
@@ -400,6 +419,12 @@ namespace BlueSwitch.Base.Services
                 item.IsSelected = false;
             }
             CurrentSelection.Clear();
+
+            foreach (var item in RenderingEngine.CurrentProject.Connections)
+            {
+                item.IsSelected = false;
+            }
+            CurrentSelectionConnection.Clear();
         }
 
         public void RemoveSelected()

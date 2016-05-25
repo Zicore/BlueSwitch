@@ -40,6 +40,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
 
             UniqueName = $"{NamePrefix} {NameSuffix}";
+
+            if (variable != null)
+            {
+                VariableKey = variable.Name;
+            }
         }
 
         protected override void OnInitialize(Engine renderingEngine)

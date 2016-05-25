@@ -12,7 +12,7 @@ namespace BlueSwitch.Base.Components.Base
         public static readonly GroupBase Math = new GroupBase { Name = "Math", DisplayName = "Math" };
         public static readonly GroupBase Debug = new GroupBase { Name = "Debug", DisplayName = "Debug" };
         public static readonly GroupBase IO = new GroupBase { Name = "IO", DisplayName = "IO" };
-        public static readonly GroupBase File = new GroupBase { Name = "File", DisplayName = "File" };
+        public static readonly GroupBase FileSystem = new GroupBase { Name = "FileSystem", DisplayName = "FileSystem" };
         public static readonly GroupBase OpcUa = new GroupBase { Name = "OpcUa", DisplayName = "OPC UA" };
         public static readonly GroupBase SocialMedia = new GroupBase { Name = "SocialMedia", DisplayName = "Social Media" };
         public static readonly GroupBase Variable = new GroupBase { Name = "Variable", DisplayName = "Variable" };

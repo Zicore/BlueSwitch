@@ -68,22 +68,22 @@ namespace BlueSwitch.Base.IO
                 Variables.Remove(oldName);
                 variable.Name = newName;
                 Variables.Add(variable.Name, variable);
-                UpdateVariableSwitches(variable);
+                UpdateVariableSwitches(variable, oldName);
                 return true;
             }
             return false;
         }
 
-        private void UpdateVariableSwitches(Variable variable)
+        private void UpdateVariableSwitches(Variable variable, string oldName)
         {
             var switches = Items.Where(x => x is VariableSwitch);
 
             foreach (var sw in switches)
             {
                 VariableSwitch vsw = sw as VariableSwitch;
-                if (vsw != null)
+                if (vsw?.VariableKey == oldName)
                 {
-                    vsw.UpdateVariable(variable);
+                    vsw?.UpdateVariable(variable);
                 }
             }
         }

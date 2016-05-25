@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
-using BlueSwitch.Base.Components.Types;
 using BlueSwitch.Base.Components.UI;
 using BlueSwitch.Base.Processing;
 
-namespace BlueSwitch.Base.Components.Switches.IO
+namespace BlueSwitch.Base.Components.Switches.FileSystem
 {
     public class GetFilesSwitch : SwitchBase
     {
         public override GroupBase OnSetGroup()
         {
-            return Groups.IO;
+            return Groups.FileSystem;
         }
 
         protected override void OnInitialize(Engine renderingEngine)

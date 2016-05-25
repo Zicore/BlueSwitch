@@ -4,15 +4,16 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Services;
+using Newtonsoft.Json;
 using XnaGeometry;
 
 namespace BlueSwitch.Base.Components.Base
 {
-    public class Connection
+    public class Connection : DrawableBase
     {
         private InputOutputSelector _fromInputOutput;
         private InputOutputSelector _toInputOutput;
-        
+
         public Connection()
         {
 
@@ -23,7 +24,7 @@ namespace BlueSwitch.Base.Components.Base
             FromInputOutput = fromInputOutput;
             ToInputOutput = toInputOutput;
         }
-        
+
         public InputOutputSelector FromInputOutput
         {
             get { return _fromInputOutput; }
@@ -32,7 +33,7 @@ namespace BlueSwitch.Base.Components.Base
                 _fromInputOutput = value;
             }
         }
-        
+
         public InputOutputSelector ToInputOutput
         {
             get { return _toInputOutput; }
@@ -67,8 +68,26 @@ namespace BlueSwitch.Base.Components.Base
 
         // Graphics Calculation below
 
+        const float offsetYH = 5.0f;
+        const float offsetXH = 5.0f;
+
+        const float offsetY = 10.0f;
+        const float offsetX = 10.0f;
+
+        [JsonIgnore]
         protected static Pen LinePen = new Pen(Color.FromArgb(200, 30, 30, 30), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
-        protected static Pen LinePenHighlight = new Pen(Color.FromArgb(200, 80, 80, 80), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
+
+        [JsonIgnore]
+        protected static Pen LinePenHighlight = new Pen(Color.FromArgb(255, 0, 255, 0), 2.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
+
+        [JsonIgnore]
+        protected static Pen LinePenSelected = new Pen(Color.FromArgb(255, 0, 150, 255), 2.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
+        
+        [JsonIgnore]
+        public static Pen MouseOverPen { get; set; } = new Pen(Color.LightCoral, 2.0f);
+
+        [JsonIgnore]
+        public static Pen SelectedPen { get; set; } = new Pen(Color.LimeGreen, 2.0f);
 
         public static float CalculateExtensionX(PointF p1, PointF p2)
         {
@@ -102,23 +121,37 @@ namespace BlueSwitch.Base.Components.Base
         {
             var p1 = FromInputOutput.InputOutput.GetTranslationCenter(FromInputOutput.Origin);
             var p2 = ToInputOutput.InputOutput.GetTranslationCenter(ToInputOutput.Origin);
-
-            var extX = CalculateExtensionX(p1, p2);
-            var extY = CalculateExtensionY(p1, p2);
-            var b1 = CalculateB1(p1, p2, extX, extY);
-            var b2 = CalculateB2(p1, p2, extX, extY);
             var pen = ToInputOutput.InputOutput.Signature.Pen;
+            var p = CalculatePath(e, g, pen, p1, p2);
+            IsMouseOver = UpdatePathMouseOver(e, p);
+            Draw(e,g,pen,p,p1,p2,this);
+        }
 
-            GraphicsPath p = new GraphicsPath();
-            p.AddBezier(p1, b1, b2, p2);
-            GraphicsPath pHit = new GraphicsPath();
-            pHit.AddBezier(p1, b1, b2, p2);
-            pHit.Widen(new Pen(Color.Black, 8));
+        public static void Draw(RenderingEngine e, Graphics g, Pen pen, PointF p1, PointF p2)
+        {
+            var p = CalculatePath(e, g, pen, p1, p2);
+            Draw(e,g,pen, p, p1, p2);
+        }
 
-            if (pHit.IsVisible(e.TranslatedMousePosition))
+        public static void Draw(RenderingEngine e,Graphics g, Pen pen, GraphicsPath p, PointF p1, PointF p2, Connection c = null)
+        {
+            if (c != null && (c.IsMouseOver || c.IsSelected))
             {
-                g.DrawPath(LinePen, p);
-                g.DrawPath(Pens.Lime, p);
+                var r = CalculateSelectionBounds(e, g, p1, p2);
+                if (c.IsMouseOver)
+                {
+                    g.DrawPath(LinePen, p);
+                    g.DrawPath(LinePenHighlight, p);
+
+                    g.DrawRectangle(MouseOverPen, r.X,r.Y,r.Width,r.Height);
+                }
+                else
+                {
+                    g.DrawPath(LinePen, p);
+                    g.DrawPath(LinePenSelected, p);
+
+                    g.DrawRectangle(SelectedPen, r.X, r.Y, r.Width, r.Height);
+                }
             }
             else
             {
@@ -127,9 +160,35 @@ namespace BlueSwitch.Base.Components.Base
             }
         }
 
-        public static void DrawRaw(Connection c,RenderingEngine e, Graphics g, PointF p2)
+        public static GraphicsPath CalculatePath(RenderingEngine e, Graphics g, Pen pen, PointF p1, PointF p2)
         {
-            
+            var extX = CalculateExtensionX(p1, p2);
+            var extY = CalculateExtensionY(p1, p2);
+            var b1 = CalculateB1(p1, p2, extX, extY);
+            var b2 = CalculateB2(p1, p2, extX, extY);
+
+            GraphicsPath p = new GraphicsPath();
+            p.AddBezier(p1, b1, b2, p2);
+            return p;
+        }
+
+        public static RectangleF CalculateSelectionBounds(RenderingEngine e, Graphics g, PointF p1, PointF p2)
+        {
+            var x = Math.Min(p1.X, p2.X);
+            var width = Math.Max(p1.X, p2.X) - x;
+
+            var y = Math.Min(p1.Y, p2.Y);
+            var height = Math.Max(p1.Y, p2.Y) - y;
+
+            return new RectangleF(x - offsetXH,y - offsetYH,width + offsetX, height+ offsetY);
+        }
+
+        private static bool UpdatePathMouseOver(RenderingEngine e, GraphicsPath path)
+        {
+            GraphicsPath pHit = new GraphicsPath();
+            pHit.AddBezier(path.PathPoints[0], path.PathPoints[1], path.PathPoints[2], path.PathPoints[3]);
+            pHit.Widen(new Pen(Color.Black, 8));
+            return pHit.IsVisible(e.TranslatedMousePosition);
         }
     }
 }
