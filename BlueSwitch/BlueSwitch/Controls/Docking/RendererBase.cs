@@ -307,5 +307,13 @@ namespace BlueSwitch.Controls.Docking
         {
             e.Cancel = RenderingEngine.PreventContextMenu;
         }
+
+        private void RendererBase_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                RenderingEngine.SelectionService.RemoveSelected();
+            }
+        }
     }
 }

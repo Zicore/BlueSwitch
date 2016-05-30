@@ -312,9 +312,16 @@ namespace BlueSwitch.Base.Services
                 {
                     inputOutputs.AddRange(createSwitch.Inputs);
                 }
-                var matchingIO = inputOutputs.FirstOrDefault(x => x.Signature.Matches(SelectedInputOutput.InputOutput.Signature));
-                SetSelector(createSwitch, matchingIO);
-                OnCompleted();
+                var matchingIo = inputOutputs.FirstOrDefault(x => x.Signature.Matches(SelectedInputOutput.InputOutput.Signature));
+                if (matchingIo != null)
+                {
+                    SetSelector(createSwitch, matchingIo);
+                    OnCompleted();
+                }
+                else
+                {
+                    OnInComplete();
+                }
             }
             FinishContextActionIntern();
         }
@@ -437,6 +444,13 @@ namespace BlueSwitch.Base.Services
                 foreach (var sw in selected)
                 {
                     RenderingEngine.CurrentProject.Remove(sw);
+                }
+
+                var selectedConnections = p.Connections.Where(x => x.IsSelected).ToList();
+
+                foreach (var selectedConnection in selectedConnections)
+                {
+                    RenderingEngine.CurrentProject.RemoveConnection(selectedConnection);
                 }
             }
         }

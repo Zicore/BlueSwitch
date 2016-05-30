@@ -78,6 +78,7 @@
     <Compile Include="Components\Switches\CodeFlow\ForLoopSwitch.cs" />
     <Compile Include="Components\Switches\CodeFlow\WhileLoopSwitch.cs" />
     <Compile Include="Components\Switches\Converter\DateTimeToStringSwitch.cs" />
+    <Compile Include="Components\Switches\Converter\ObjectToStringSwitch.cs" />
     <Compile Include="Components\Switches\Converter\ObjectToAnySwitch.cs" />
     <Compile Include="Components\Switches\Converter\AnyToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Converter\Int32ToObjectSwitch.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Components\Switches\Debug\DownloadSimulatorSwitch.cs" />
     <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
+    <Compile Include="Components\Switches\FileSystem\CombinePathSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\CopyFileSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\FileInfoSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\GetFilesSwitch.cs" />

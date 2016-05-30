@@ -35,8 +35,8 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
 
             SetData(0,new DataContainer(fi.FullName));
             SetData(1, new DataContainer(fi.Name));
-            SetData(2, new DataContainer(fi.Directory));
-            SetData(3, new DataContainer(fi.DirectoryName));
+            SetData(2, new DataContainer(fi.Directory.FullName));
+            SetData(3, new DataContainer(fi.Directory.Name));
             SetData(4, new DataContainer(fi.Extension));
 
             base.OnProcess(p, node);

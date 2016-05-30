@@ -387,7 +387,7 @@ namespace BlueSwitch.Base.Components.Base
 
                 CurrentProject.Translation = newTranslation;
 
-                PreventContextMenu = distance > 0.005f || !SelectionService.SelectedItemsAvailable; // Wenn die Distanz beider Punkte > als angegeben ist, soll kein Kontext Menü angezeigt werden.
+                PreventContextMenu = distance > 0.01f || (!SelectionService.SelectedItemsAvailable && !SelectionService.SelectedItemsConnectionAvailable); // Wenn die Distanz beider Punkte > als angegeben ist, soll kein Kontext Menü angezeigt werden.
 
                 Cursor.Current = Cursors.Hand;
 
