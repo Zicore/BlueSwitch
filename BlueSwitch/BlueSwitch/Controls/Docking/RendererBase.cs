@@ -25,14 +25,12 @@ namespace BlueSwitch.Controls.Docking
             GotFocus += OnGotFocus;
             LostFocus += OnLostFocus;
             AllowDrop = true;
-            
         }
 
         public void InitializeEngine()
         {
             RenderingEngine.ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             RenderingEngine.ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
-
             RenderingEngine.LoadAddons();
         }
 
