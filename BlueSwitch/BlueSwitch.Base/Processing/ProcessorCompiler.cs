@@ -194,7 +194,7 @@ namespace BlueSwitch.Base.Processing
                 finally
                 {
                     processingTree.IsActive = false;
-                    //processingTree.OnFinished();
+                    processingTree.OnFinished();
                 }
 
             }, tokenSource.Token);

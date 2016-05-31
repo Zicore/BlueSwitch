@@ -78,10 +78,10 @@ namespace BlueSwitch.Base.Components.Base
         protected static Pen LinePen = new Pen(Color.FromArgb(200, 30, 30, 30), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
 
         [JsonIgnore]
-        protected static Pen LinePenHighlight = new Pen(Color.FromArgb(255, 0, 255, 0), 2.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
+        protected static Pen LinePenHighlight = new Pen(Color.LightCoral, 2.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
 
         [JsonIgnore]
-        protected static Pen LinePenSelected = new Pen(Color.FromArgb(255, 0, 150, 255), 2.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
+        protected static Pen LinePenSelected = new Pen(Color.LimeGreen, 2.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
         
         [JsonIgnore]
         public static Pen MouseOverPen { get; set; } = new Pen(Color.LightCoral, 2.0f);
@@ -187,7 +187,7 @@ namespace BlueSwitch.Base.Components.Base
         {
             GraphicsPath pHit = new GraphicsPath();
             pHit.AddBezier(path.PathPoints[0], path.PathPoints[1], path.PathPoints[2], path.PathPoints[3]);
-            pHit.Widen(new Pen(Color.Black, 8));
+            pHit.Widen(new Pen(Color.Black, 9));
             return pHit.IsVisible(e.TranslatedMousePosition);
         }
     }

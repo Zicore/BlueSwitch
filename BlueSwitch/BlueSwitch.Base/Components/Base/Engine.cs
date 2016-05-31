@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,25 @@ namespace BlueSwitch.Base.Components.Base
 {
     public abstract class Engine
     {
+        public string GetRuntimePath()
+        {
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            return Path.Combine(path, "BlueSwitch.Runtime.exe");
+        }
+
+        public void StartInRuntime()
+        {
+            var processPath = GetRuntimePath();
+            try
+            {
+                Process.Start(processPath, CurrentProject.FilePath);
+            }
+            catch(Exception ex)
+            {
+                _log.Warn(ex);
+            }
+        }
+
         public event EventHandler DebugModeChanged;
 
         public static NamespaceResolverService StaticNamespaceResolver { get; private set; }
@@ -28,6 +49,11 @@ namespace BlueSwitch.Base.Components.Base
         public ReflectionService ReflectionService { get; } = new ReflectionService();
         public EventManager EventManager { get; }
         public ProcessorCompiler ProcessorCompiler { get; }
+
+        public bool Running
+        {
+            get { return ProcessorCompiler.Items.Count(x => x.IsActive) > 0; }
+        }
 
         protected Logger _log = LogManager.GetCurrentClassLogger();
 

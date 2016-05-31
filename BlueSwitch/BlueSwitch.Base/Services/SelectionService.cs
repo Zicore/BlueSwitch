@@ -297,7 +297,7 @@ namespace BlueSwitch.Base.Services
 
         public void FinishContextAction(bool canceled, SwitchBase createSwitch)
         {
-            if (canceled)
+            if (canceled || !InputOutputAvailable)
             {
                 OnInComplete();
             }

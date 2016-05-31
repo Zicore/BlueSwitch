@@ -46,7 +46,7 @@ namespace BlueSwitch.Controls.Docking
 
         private void ProcessorCompilerOnFinished(object sender, EventArgs eventArgs)
         {
-            if (RenderingEngine.ProcessorCompiler.Items.Count(x => x.IsActive) == 0)
+            if (!RenderingEngine.Running)
             {
                 if (InvokeRequired)
                 {
@@ -66,7 +66,7 @@ namespace BlueSwitch.Controls.Docking
 
         private void ProcessorCompilerOnCompileStart(object sender, EventArgs eventArgs)
         {
-            if (RenderingEngine.ProcessorCompiler.Items.Count(x => x.IsActive) > 0)
+            if (RenderingEngine.Running)
             {
                 if (InvokeRequired)
                 {

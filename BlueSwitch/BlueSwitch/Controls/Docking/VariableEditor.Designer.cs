@@ -39,6 +39,8 @@
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.pickFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pickFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -143,23 +145,37 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
+            this.toolStripSeparator1,
             this.pickFileToolStripMenuItem,
             this.pickFolderToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(133, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 98);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // pickFileToolStripMenuItem
             // 
             this.pickFileToolStripMenuItem.Name = "pickFileToolStripMenuItem";
-            this.pickFileToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.pickFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pickFileToolStripMenuItem.Text = "Pick File";
             this.pickFileToolStripMenuItem.Click += new System.EventHandler(this.pickFileToolStripMenuItem_Click);
             // 
             // pickFolderToolStripMenuItem
             // 
             this.pickFolderToolStripMenuItem.Name = "pickFolderToolStripMenuItem";
-            this.pickFolderToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.pickFolderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pickFolderToolStripMenuItem.Text = "Pick Folder";
             this.pickFolderToolStripMenuItem.Click += new System.EventHandler(this.pickFolderToolStripMenuItem_Click);
             // 
@@ -198,5 +214,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem pickFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pickFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

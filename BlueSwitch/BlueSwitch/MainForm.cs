@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,7 @@ using BlueSwitch.Base.Processing;
 using BlueSwitch.Base.Services;
 using BlueSwitch.Base.Trigger.Types;
 using BlueSwitch.Controls.Docking;
+using BlueSwitch.Runtime;
 using LabelPrinter;
 using Newtonsoft.Json;
 using NLog;
@@ -106,9 +108,7 @@ namespace BlueSwitch
         private SwitchesTree _switchesTree;
         private MetaEditor _metaEditor;
         private HelpEditor _helpEditor;
-
-        private PropertiesEditor _properties;
-
+        
         private ErrorList _errorList;
 
         private VariableEditor _variableEditor;
@@ -132,7 +132,6 @@ namespace BlueSwitch
             _switchesTree = new SwitchesTree(Renderer.RenderingEngine);
             _errorList = new ErrorList(Renderer.RenderingEngine);
             _triggerExample = new TriggerExample(Renderer.RenderingEngine);
-            //_properties = new PropertiesEditor(Renderer.RenderingEngine);
             _variableEditor = new VariableEditor(Renderer.RenderingEngine);
 
 
@@ -144,8 +143,6 @@ namespace BlueSwitch
 
             _triggerExample.HideOnClose = true;
             _triggerExample.Show(dockPanel, DockState.DockRight);
-
-            //_properties.HideOnClose = true;
             
             _variableEditor.HideOnClose = true;
             _variableEditor.Show(dockPanel, DockState.DockRight);
@@ -228,12 +225,7 @@ namespace BlueSwitch
         {
             _switchesTree.Show(dockPanel, DockState.DockLeft);
         }
-
-        private void iOEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _properties.Show(dockPanel, DockState.DockRight);
-        }
-
+        
         private void rendererToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Renderer.Show(dockPanel, DockState.Document);
@@ -370,6 +362,22 @@ namespace BlueSwitch
         private void importHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialogHelp.ShowDialog();
+        }
+
+        private void startToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Renderer.RenderingEngine.StartInRuntime();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProjectProperties p = new ProjectProperties(Renderer.RenderingEngine);
+            p.ShowDialog();
         }
     }
 }

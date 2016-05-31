@@ -54,7 +54,7 @@ namespace BlueSwitch.Runtime
 
             task = Task.Factory.StartNew(() =>
             {
-                while (true)
+                while (engine.Running)
                 {
                     task.Wait(100);
                 }

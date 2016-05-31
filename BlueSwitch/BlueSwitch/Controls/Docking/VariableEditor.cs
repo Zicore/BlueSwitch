@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Reflection;
+using BlueSwitch.Controls.ValuePicker;
 using WeifenLuo.WinFormsUI.Docking;
 using ValueType = BlueSwitch.Base.IO.ValueType;
 
@@ -211,6 +212,22 @@ namespace BlueSwitch.Controls.Docking
                     if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                     {
                         SelectedVariable.Value = folderBrowserDialog.SelectedPath;
+                        RefreshValues();
+                    }
+                }
+            }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedVariable != null)
+            {
+                if (SelectedVariable.NetValueType == typeof(string))
+                {
+                    StringPicker p = new StringPicker(SelectedVariable.Value);
+                    if (p.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectedVariable.Value = p.Value;
                         RefreshValues();
                     }
                 }

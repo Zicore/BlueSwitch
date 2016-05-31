@@ -37,7 +37,10 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
             string destination = GetDataValueOrDefault<string>(2);
             bool overwrite = GetDataValueOrDefault<bool>(3);
 
-            File.Copy(source,destination, overwrite);
+            if (!File.Exists(destination))
+            {
+                File.Copy(source, destination, overwrite);
+            }
         }
 
         public override GroupBase OnSetGroup()

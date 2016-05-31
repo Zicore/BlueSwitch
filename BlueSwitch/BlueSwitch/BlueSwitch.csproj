@@ -68,17 +68,17 @@
     <Compile Include="Controls\Docking\ErrorList.Designer.cs">
       <DependentUpon>ErrorList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Docking\ProjectProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Docking\ProjectProperties.Designer.cs">
+      <DependentUpon>ProjectProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Docking\HelpEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\Docking\HelpEditor.Designer.cs">
       <DependentUpon>HelpEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Docking\PropertiesEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\Docking\PropertiesEditor.Designer.cs">
-      <DependentUpon>PropertiesEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Docking\RendererBase.cs">
       <SubType>Form</SubType>
@@ -117,6 +117,12 @@
       <DependentUpon>VariableEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListViewEx.cs" />
+    <Compile Include="Controls\ValuePicker\StringPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ValuePicker\StringPicker.Designer.cs">
+      <DependentUpon>StringPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,11 +134,11 @@
     <EmbeddedResource Include="Controls\Docking\ErrorList.resx">
       <DependentUpon>ErrorList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Docking\ProjectProperties.resx">
+      <DependentUpon>ProjectProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\HelpEditor.resx">
       <DependentUpon>HelpEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Docking\PropertiesEditor.resx">
-      <DependentUpon>PropertiesEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\RendererBase.resx">
       <DependentUpon>RendererBase.cs</DependentUpon>
@@ -155,6 +161,9 @@
     <EmbeddedResource Include="Controls\ListViewEx.resx">
       <DependentUpon>ListViewEx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ValuePicker\StringPicker.resx">
+      <DependentUpon>StringPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -169,12 +178,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Images\BlueSwitchOverview.pdn" />
-    <None Include="Meta\Help\help.meta.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Meta\Search\search.meta.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Meta\Help\help.meta.json" />
+    <None Include="Meta\Search\search.meta.json" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -209,6 +214,10 @@
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
       <Name>BlueSwitch.Outlook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Runtime\BlueSwitch.Runtime.csproj">
+      <Project>{1a660075-42d4-453c-a302-d54ed17ac62a}</Project>
+      <Name>BlueSwitch.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Twitter\BlueSwitch.Twitter.csproj">
       <Project>{9b1bce96-df71-435d-b8f4-1dcdd38d4d3e}</Project>

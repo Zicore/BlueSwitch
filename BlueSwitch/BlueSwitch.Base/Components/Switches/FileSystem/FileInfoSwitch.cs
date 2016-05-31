@@ -19,7 +19,7 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
             UniqueName = "FileInfo";
             DisplayName = "File Info";
 
-            AddInput(typeof (string), new TextEdit());
+            AddInput(typeof (string));
             AddOutput(typeof(string));
             AddOutput(typeof(string));
             AddOutput(typeof(string));
@@ -33,7 +33,7 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
 
             FileInfo fi = new FileInfo(path);
 
-            SetData(0,new DataContainer(fi.FullName));
+            SetData(0 ,new DataContainer(fi.FullName));
             SetData(1, new DataContainer(fi.Name));
             SetData(2, new DataContainer(fi.Directory.FullName));
             SetData(3, new DataContainer(fi.Directory.Name));
