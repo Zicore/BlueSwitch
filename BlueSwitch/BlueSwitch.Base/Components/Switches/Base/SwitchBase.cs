@@ -235,6 +235,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public GroupBase Group { get; set; } = Groups.Base;
 
+        public void SetData(int index, object value)
+        {
+            SetData(index, new DataContainer(value));
+        }
+
         public void SetData(int index, DataContainer data)
         {
             Outputs[index].Data = data;

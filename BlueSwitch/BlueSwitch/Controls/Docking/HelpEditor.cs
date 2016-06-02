@@ -8,6 +8,7 @@ using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Meta.Help;
 using BlueSwitch.Base.Meta.Search;
 using BlueSwitch.Base.Reflection;
+using BlueSwitch.Controls.Helper;
 using Newtonsoft.Json;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -52,36 +53,7 @@ namespace BlueSwitch.Controls.Docking
                 }
             }
 
-            treeView.BeginUpdate();
-            treeView.Nodes.Clear();
-
-            Dictionary<String, GroupBase> groups = new Dictionary<string, GroupBase>();
-
-            foreach (var switchBase in items)
-            {
-                if (!groups.ContainsKey(switchBase.Group.Name))
-                {
-                    groups.Add(switchBase.Group.Name, switchBase.Group);
-                }
-            }
-
-            foreach (var g in groups.OrderBy(x => x.Key))
-            {
-                var groupNode = treeView.Nodes.Add(g.Value.Name, g.Value.Name);
-                groupNode.Tag = g.Value;
-
-                foreach (var switchBase in items)
-                {
-                    if (switchBase.Group.Name == g.Value.Name)
-                    {
-                        var node = groupNode.Nodes.Add(switchBase.UniqueName, switchBase.UniqueName);
-                        node.Tag = switchBase;
-                    }
-                }
-            }
-
-            treeView.ExpandAll();
-            treeView.EndUpdate();
+            TreeViewHelper.UpdateTree(treeView, items);
         }
         
         private void tbSearch_KeyUp(object sender, KeyEventArgs e)

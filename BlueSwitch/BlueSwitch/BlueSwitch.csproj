@@ -86,11 +86,11 @@
     <Compile Include="Controls\Docking\RendererBase.Designer.cs">
       <DependentUpon>RendererBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Docking\MetaEditor.cs">
+    <Compile Include="Controls\Docking\SearchEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Docking\MetaEditor.Designer.cs">
-      <DependentUpon>MetaEditor.cs</DependentUpon>
+    <Compile Include="Controls\Docking\SearchEditor.Designer.cs">
+      <DependentUpon>SearchEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Docking\ContextTree.cs">
       <SubType>Form</SubType>
@@ -116,6 +116,7 @@
     <Compile Include="Controls\Docking\VariableEditor.Designer.cs">
       <DependentUpon>VariableEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Helper\TreeViewHelper.cs" />
     <Compile Include="Controls\ListViewEx.cs" />
     <Compile Include="Controls\ValuePicker\StringPicker.cs">
       <SubType>Form</SubType>
@@ -143,8 +144,8 @@
     <EmbeddedResource Include="Controls\Docking\RendererBase.resx">
       <DependentUpon>RendererBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Docking\MetaEditor.resx">
-      <DependentUpon>MetaEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Docking\SearchEditor.resx">
+      <DependentUpon>SearchEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Docking\ContextTree.resx">
       <DependentUpon>ContextTree.cs</DependentUpon>
@@ -214,6 +215,10 @@
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
       <Name>BlueSwitch.Outlook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Regex\BlueSwitch.Regex.csproj">
+      <Project>{b1b7b203-f73b-479c-84a6-6d68d23d8efb}</Project>
+      <Name>BlueSwitch.Regex</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Runtime\BlueSwitch.Runtime.csproj">
       <Project>{1a660075-42d4-453c-a302-d54ed17ac62a}</Project>

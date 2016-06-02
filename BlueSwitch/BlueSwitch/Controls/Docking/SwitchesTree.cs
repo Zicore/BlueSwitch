@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Controls.Helper;
 using Newtonsoft.Json;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -56,33 +57,6 @@ namespace BlueSwitch.Controls.Docking
 
         public void UpdateTree()
         {
-            //var av = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x=>!x.AutoDiscoverDisabled));
-
-            //if (TradeFairMode)
-            //{
-            //    switches.Clear();
-            //    switches.Add(av.First(x => x.UniqueName == "Start"));
-            //    switches.Add(av.First(x => x.UniqueName == "Branch"));
-            //    switches.Add(av.First(x => x.UniqueName == "Delay"));
-            //    switches.Add(av.First(x => x.UniqueName == "Restart"));
-
-            //    switches.Add(av.First(x => x.UniqueName == "Display"));
-            //    switches.Add(av.First(x => x.UniqueName == "OpcUa Connection"));
-            //    switches.Add(av.First(x => x.UniqueName == "Read OpcUa Variable"));
-            //    switches.Add(av.First(x => x.UniqueName == "Write OpcUa Variable"));
-
-            //    switches.Add(av.First(x => x.UniqueName == "Tweet.Available"));
-            //    switches.Add(av.First(x => x.UniqueName == "Tweet.Display"));
-
-            //    switches.Add(av.First(x => x.UniqueName == "Or"));
-            //    switches.Add(av.First(x => x.UniqueName == "And"));
-
-            //    switches.Add(av.First(x => x.UniqueName == "String"));
-            //    switches.Add(av.First(x => x.UniqueName == "Description"));
-
-            //    switches.Add(av.First(x => x.UniqueName == "Increment"));
-            //}
-            
             var items = new List<SwitchBase>(RenderingEngine.AvailableSwitches.Where(x => !x.AutoDiscoverDisabled));
 
             var query = tbSearch.Text;
@@ -99,36 +73,7 @@ namespace BlueSwitch.Controls.Docking
                 }
             }
 
-            treeView.BeginUpdate();
-            treeView.Nodes.Clear();
-
-            Dictionary<String, GroupBase> groups = new Dictionary<string, GroupBase>();
-
-            foreach (var switchBase in items)
-            {
-                if (!groups.ContainsKey(switchBase.Group.Name))
-                {
-                    groups.Add(switchBase.Group.Name, switchBase.Group);
-                }
-            }
-
-            foreach (var g in groups.OrderBy(x => x.Key))
-            {
-                var groupNode = treeView.Nodes.Add(g.Value.Name, g.Value.Name);
-                groupNode.Tag = g.Value;
-
-                foreach (var switchBase in items)
-                {
-                    if (switchBase.Group.Name == g.Value.Name)
-                    {
-                        var node = groupNode.Nodes.Add(switchBase.UniqueName, switchBase.UniqueName);
-                        node.Tag = switchBase;
-                    }
-                }
-            }
-
-            treeView.ExpandAll();
-            treeView.EndUpdate();
+            TreeViewHelper.UpdateTree(treeView,items);
         }
 
         private void treeView_ItemDrag(object sender, ItemDragEventArgs e)
@@ -154,11 +99,6 @@ namespace BlueSwitch.Controls.Docking
         private void btnDebug_CheckedChanged(object sender, EventArgs e)
         {
             RenderingEngine.DebugMode = !RenderingEngine.DebugMode;
-        }
-
-        private void tbProject_TextChanged(object sender, EventArgs e)
-        {
-            //RenderingEngine.CurrentProject.Name = tbProject.Text;
         }
 
         private void tbSearch_KeyUp(object sender, KeyEventArgs e)

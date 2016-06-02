@@ -90,7 +90,7 @@ namespace BlueSwitch.Controls.Docking
                 {
                     if (switchBase.Group.Name == g.Value.Name)
                     {
-                        var node = groupNode.Nodes.Add(switchBase.UniqueName, switchBase.UniqueName);
+                        var node = groupNode.Nodes.Add(switchBase.UniqueName, switchBase.DisplayName);
                         node.Tag = switchBase;
                     }
                 }

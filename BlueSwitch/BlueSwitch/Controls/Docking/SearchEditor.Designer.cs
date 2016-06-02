@@ -1,6 +1,6 @@
 ﻿namespace BlueSwitch.Controls.Docking
 {
-    partial class MetaEditor
+    partial class SearchEditor
     {
         /// <summary> 
         /// Erforderliche Designervariable.

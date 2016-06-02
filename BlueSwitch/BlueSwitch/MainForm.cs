@@ -106,7 +106,7 @@ namespace BlueSwitch
 
         private RendererBase Renderer;
         private SwitchesTree _switchesTree;
-        private MetaEditor _metaEditor;
+        private SearchEditor _metaEditor;
         private HelpEditor _helpEditor;
         
         private ErrorList _errorList;
@@ -127,7 +127,7 @@ namespace BlueSwitch
             Renderer.AllowDrop = true;
             Renderer.HideOnClose = true;
             
-            _metaEditor = new MetaEditor(Renderer.RenderingEngine);
+            _metaEditor = new SearchEditor(Renderer.RenderingEngine);
             _helpEditor = new HelpEditor(Renderer.RenderingEngine);
             _switchesTree = new SwitchesTree(Renderer.RenderingEngine);
             _errorList = new ErrorList(Renderer.RenderingEngine);
@@ -378,6 +378,11 @@ namespace BlueSwitch
         {
             ProjectProperties p = new ProjectProperties(Renderer.RenderingEngine);
             p.ShowDialog();
+        }
+
+        private void toolStripButtonLoad_Click(object sender, EventArgs e)
+        {
+            openFileDialog.ShowDialog();
         }
     }
 }
