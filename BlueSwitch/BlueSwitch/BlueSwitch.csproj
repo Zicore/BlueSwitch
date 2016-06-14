@@ -178,6 +178,28 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Examples\alarm.bs - Kopie.json" />
+    <None Include="Examples\alarm.bs.json" />
+    <None Include="Examples\CopyFiles.bs.json" />
+    <None Include="Examples\help.meta.json" />
+    <None Include="Examples\istwert.bs.json" />
+    <None Include="Examples\LabelPrinter.bs.json" />
+    <None Include="Examples\LabelPrinter2.bs.json" />
+    <None Include="Examples\Letzer Tweet.bs.json" />
+    <None Include="Examples\opc.bs.json" />
+    <None Include="Examples\opcuaevent.bs.json" />
+    <None Include="Examples\outlook.bs.json" />
+    <None Include="Examples\randomstring.bs.json" />
+    <None Include="Examples\redraw.meta.json" />
+    <None Include="Examples\scenario.bs - Kopie.json" />
+    <None Include="Examples\scenario.bs.json" />
+    <None Include="Examples\scenario_standard.bs.json" />
+    <None Include="Examples\scenario_tests.bs.json" />
+    <None Include="Examples\skype.bs.json" />
+    <None Include="Examples\tags.meta.json" />
+    <None Include="Examples\test.bs.json" />
+    <None Include="Examples\test1.bs.json" />
+    <None Include="Examples\variables.bs.json" />
     <None Include="Images\BlueSwitchOverview.pdn" />
     <None Include="Meta\Help\help.meta.json" />
     <None Include="Meta\Search\search.meta.json" />

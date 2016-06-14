@@ -11,7 +11,7 @@ using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Monitoring.Components.Switches
 {
-    public class ProcessMonitorSwitch : SwitchBase
+    public class ProcessRunningSwitch : SwitchBase
     {
         public override GroupBase OnSetGroup()
         {
@@ -22,7 +22,8 @@ namespace BlueSwitch.Monitoring.Components.Switches
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "Process Running";
+            UniqueName = "Monitoring.Process.Running";
+            DisplayName = "Process Running";
             Description = "Checks if process is running";
 
             AddInput(new ActionSignature());

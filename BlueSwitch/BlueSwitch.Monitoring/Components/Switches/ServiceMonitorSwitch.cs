@@ -23,7 +23,8 @@ namespace BlueSwitch.Monitoring.Components.Switches
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "Service Status";
+            UniqueName = "Monitoring.Service.Status";
+            DisplayName = "Service Status";
             Description = "Checks if service is running";
 
             AddInput(new ActionSignature());
