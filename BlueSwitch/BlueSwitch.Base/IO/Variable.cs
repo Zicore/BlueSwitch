@@ -36,6 +36,21 @@ namespace BlueSwitch.Base.IO
         public object Value { get; set; }
         public bool IsReadOnly { get; set; }
 
+        public static bool IsNumber(ValueType type)
+        {
+            switch (type)
+            {
+                case ValueType.Byte:
+                case ValueType.Int:
+                case ValueType.Long:
+                case ValueType.Float:
+                case ValueType.Double:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         public static Type GetTypeByIndex(ValueType type)
         {
             switch (type)

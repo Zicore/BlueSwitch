@@ -175,9 +175,30 @@ namespace BlueSwitch.Controls.Docking
                 {
                     var variable = selectedItem.Tag as Variable;
                     SelectedVariable = variable;
+                   
                     if (SelectedVariable != null)
                     {
-                        if (SelectedVariable.NetValueType == typeof (string))
+                        var type = SelectedVariable.NetValueType;
+
+                        pickFileToolStripMenuItem.Visible = false;
+                        pickFolderToolStripMenuItem.Visible = false;
+                        contextSeperator.Visible = false;
+
+                        if (type == typeof (string))
+                        {
+                            pickFileToolStripMenuItem.Visible = true;
+                            pickFolderToolStripMenuItem.Visible = true;
+                            contextSeperator.Visible = true;
+
+                            cancel = false;
+                            break;
+                        }
+                        else if (type == typeof(bool))
+                        {
+                            cancel = false;
+                            break;
+                        }
+                        else if (Variable.IsNumber(SelectedVariable.ValueType))
                         {
                             cancel = false;
                             break;
@@ -222,9 +243,32 @@ namespace BlueSwitch.Controls.Docking
         {
             if (SelectedVariable != null)
             {
-                if (SelectedVariable.NetValueType == typeof(string))
+                var type = SelectedVariable.NetValueType;
+                if (type == typeof(string))
                 {
                     StringPicker p = new StringPicker(SelectedVariable.Value);
+                    if (p.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectedVariable.Value = p.Value;
+                        RefreshValues();
+                    }
+                }
+                else if (type == typeof(bool))
+                {
+                    if (SelectedVariable.Value == null)
+                    {
+                        SelectedVariable.Value = false;
+                    }
+                    else
+                    {
+                        SelectedVariable.Value = !(bool) SelectedVariable.Value;
+                    }
+                    RefreshValues();
+                }
+                else if (Variable.IsNumber(SelectedVariable.ValueType))
+                {
+                    NumberPicker p = new NumberPicker(SelectedVariable.Value);
+                    p.PrepareByType(SelectedVariable.NetValueType);
                     if (p.ShowDialog() == DialogResult.OK)
                     {
                         SelectedVariable.Value = p.Value;

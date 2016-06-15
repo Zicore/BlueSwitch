@@ -17,23 +17,12 @@ namespace BlueSwitch.Base.Processing
         public ProcessingNode<SwitchBase> CurrentNode { get; set; }
         public ProcessingNode<SwitchBase> CurrentDataNode { get; set; }
 
-        private int _step;
+        public int Step { get; set; }
 
-        public int Step
-        {
-            get { return _step; }
-            set { _step = value; }
-        }
+        private readonly CancellationTokenSource _cancellationTokenSource;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        public List<ProcessingNode<SwitchBase>> Connections { get; set; } = new List<ProcessingNode<SwitchBase>>();
 
-        List<ProcessingNode<SwitchBase>> _connections = new List<ProcessingNode<SwitchBase>>();
-        public List<ProcessingNode<SwitchBase>> Connections
-        {
-            get { return _connections; }
-            set { _connections = value; }
-        }
-        
         public Engine RenderingEngine { get; set; }
 
         public void Redraw()
@@ -41,13 +30,9 @@ namespace BlueSwitch.Base.Processing
             RenderingEngine.RequestRedraw();
         }
 
-        private bool _restarting;
+        public bool Restarting { get; protected set; }
 
-        public bool Restarting
-        {
-            get { return _restarting; }
-            protected set { _restarting = value; }
-        }
+        public bool IsCancellationRequested => _cancellationTokenSource.IsCancellationRequested;
 
         public void MarkForRestart()
         {
@@ -56,7 +41,6 @@ namespace BlueSwitch.Base.Processing
 
         public void Wait(TimeSpan ts)
         {
-            //Thread.Sleep(ts);
             _cancellationTokenSource.Token.WaitHandle.WaitOne(ts);
         }
 

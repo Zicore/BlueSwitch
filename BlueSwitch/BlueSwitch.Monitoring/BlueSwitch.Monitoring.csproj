@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Groups.cs" />
+    <Compile Include="Components\Switches\ProcessGuardSwitch.cs" />
     <Compile Include="Components\Switches\ProcessStartSwitch.cs" />
     <Compile Include="Components\Switches\ServiceMonitorSwitch.cs" />
     <Compile Include="Components\Switches\ProcessRunningSwitch.cs" />
