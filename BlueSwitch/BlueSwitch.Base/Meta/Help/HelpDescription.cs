@@ -22,14 +22,14 @@ namespace BlueSwitch.Base.Meta.Help
         public Dictionary<int, HelpDescriptionEntry> Inputs { get; set; } = new Dictionary<int, HelpDescriptionEntry>();
         public Dictionary<int, HelpDescriptionEntry> Outputs { get; set; } = new Dictionary<int, HelpDescriptionEntry>();
 
-        public void Draw(Graphics g, SwitchBase sw, DrawableBase parent)
+        public void Draw(Graphics g, SwitchBase sw, DrawableBase parent, RenderingEngine e)
         {
-            MainEntry.Draw(g,sw,parent);
+            MainEntry.Draw(g,sw,parent, e);
             for (int i = 0; i < sw.Inputs.Count; i++)
             {
                 if (Inputs.ContainsKey(i))
                 {
-                    Inputs[i].DrawInput(g,sw,i);
+                    Inputs[i].DrawInput(g,sw,i, e);
                 }
             }
 
@@ -37,7 +37,7 @@ namespace BlueSwitch.Base.Meta.Help
             {
                 if (Outputs.ContainsKey(i))
                 {
-                    Outputs[i].DrawOutput(g, sw, i);
+                    Outputs[i].DrawOutput(g, sw, i, e);
                 }
             }
         }

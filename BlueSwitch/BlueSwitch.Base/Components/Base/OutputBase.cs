@@ -41,12 +41,14 @@ namespace BlueSwitch.Base.Components.Base
 
         public override PointF GetTranslation(DrawableBase parent)
         {
-            return new PointF( parent.Position.X + parent.Size.Width - Size.Width, parent.DescriptionHeight + parent.Position.Y + Size.Height * Index);
+            var descHeight = parent.InputOutputDescriptionHeight;
+            return new PointF( parent.Position.X + parent.Size.Width - Size.Width, descHeight + parent.Position.Y + Size.Height * Index);
         }
 
         public override PointF GetTranslationCenter(DrawableBase parent)
         {
-            return new PointF((parent.Position.X + parent.Size.Width - Size.Width) + Size.Width * 0.5f, (parent.DescriptionHeight + parent.Position.Y + Size.Height * Index) + Size.Height * 0.5f);
+            var descHeight = parent.InputOutputDescriptionHeight;
+            return new PointF((parent.Position.X + parent.Size.Width - Size.Width) + Size.Width * 0.5f, (descHeight + parent.Position.Y + Size.Height * Index) + Size.Height * 0.5f);
         }
     }
 }

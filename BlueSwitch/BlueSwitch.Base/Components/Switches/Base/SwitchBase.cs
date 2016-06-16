@@ -26,7 +26,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             return (objectType == typeof(SwitchBase));
         }
 
-        public override bool CanWrite { get {return false;} }
+        public override bool CanWrite { get { return false; } }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -46,9 +46,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 reader = token.CreateReader();
                 object value = Activator.CreateInstance(typeof(UnknownSwitch));
-                serializer.Populate(reader,value);
+                serializer.Populate(reader, value);
                 UnknownSwitch sw = value as UnknownSwitch;
-                
+
                 if (sw != null)
                 {
                     var resolved = Engine.StaticNamespaceResolver.Resolve(sw);
@@ -64,7 +64,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
             finally
             {
-               
+
             }
         }
     }
@@ -86,11 +86,12 @@ namespace BlueSwitch.Base.Components.Switches.Base
         /// </summary>
         public ValueStore ValueStore { get; } = new ValueStore();
 
-        [JsonIgnore]
-        public bool DebugMode { get; set; } = false;
 
         [JsonIgnore]
-        public bool DebugDataMode { get; set; } = false;
+        public bool DebugMode { get; set; }
+
+        [JsonIgnore]
+        public bool DebugDataMode { get; set; }
 
         [JsonIgnore]
         public int ExtraRows { get; set; } = 0;
@@ -182,7 +183,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 _uniqueName = value;
             }
         }
-        
+
         // Unique Name Json Handling
         public virtual string UniqueNameJson
         {
@@ -316,7 +317,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public static Brush MouseOverBrush { get; set; } = new SolidBrush(Color.LightGreen);
 
-        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 9, FontStyle.Regular);
+        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 8, FontStyle.Regular);
+        protected static Font FontSmall2 = new Font(new FontFamily("Calibri"), 9, FontStyle.Regular);
 
         protected static Font FontVerySmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
 
@@ -329,12 +331,17 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public List<UIComponent> Components { get; set; } = new List<UIComponent>();
 
+        public int RowModifier
+        {
+            get { return IsCompact ? -1 : 0; }
+        }
+
         [JsonIgnore]
         public override SizeF Size
         {
             get
             {
-                var rows = Math.Max(Math.Max(Inputs.Count, Outputs.Count), MinRows) + ExtraRows;
+                var rows = Math.Max(Math.Max(Inputs.Count, Outputs.Count), MinRows) + ExtraRows + RowModifier;
                 return new SizeF(ColumnWidth, DescriptionHeight + rows * RowHeight);
             }
         }
@@ -344,9 +351,15 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get
             {
-                var rows = Math.Max(Math.Max(Inputs.Count, Outputs.Count), MinRows);
+                var rows = Math.Max(Math.Max(Inputs.Count, Outputs.Count), MinRows) + RowModifier;
                 return new SizeF(ColumnWidth, DescriptionHeight + rows * RowHeight);
             }
+        }
+
+        [JsonIgnore]
+        public virtual float DescriptionOffsetLeftCompact
+        {
+            get { return IsCompact ? DescriptionOffsetLeft : 0; }
         }
 
         [JsonIgnore]
@@ -360,6 +373,12 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 }
                 return 2.0f;
             }
+        }
+
+        [JsonIgnore]
+        public virtual float DescriptionOffsetRightCompact
+        {
+            get { return IsCompact ? DescriptionOffsetRight : 0; }
         }
 
         [JsonIgnore]
@@ -507,7 +526,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
             DrawSelection(g, e, parent);
 
             DrawDescription(g, e, parent);
+            
             DrawGlyph(g, e, parent);
+            
             DrawText(g, e, parent);
 
             DrawComponents(g, e, parent);
@@ -541,66 +562,98 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 lastOutput = output;
             }
         }
-
-        public virtual Brush GetMainBrush(RectangleF rectangle)
+        
+        public virtual Brush GetMainBrush(RectangleF rectangle, RenderingEngine e)
         {
-            var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
-            ColorBlend cb = new ColorBlend();
+                ColorBlend cb = new ColorBlend();
 
-            cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
-            cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 0, 0, 0), Color.FromArgb(80, 0, 0, 0), Color.FromArgb(60, 30, 160, 255) };
+                cb.Positions = new[] {0, 0.2f, 0.5f, 1};
+                cb.Colors = new Color[]
+                {
+                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 0, 0, 0), Color.FromArgb(80, 0, 0, 0),
+                    Color.FromArgb(60, 30, 160, 255)
+                };
 
-            brush.InterpolationColors = cb;
+                brush.InterpolationColors = cb;
 
-            return brush;
+                return brush;
+            }
+
+            return Brushes.SteelBlue;
         }
 
-        public virtual Brush GetDebugBrush(RectangleF rectangle)
+        public virtual Brush GetDebugBrush(RectangleF rectangle, RenderingEngine e)
         {
-            var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
-            ColorBlend cb = new ColorBlend();
+                ColorBlend cb = new ColorBlend();
 
-            cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
-            cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(60, 30, 160, 255) };
+                cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
+                cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(60, 30, 160, 255) };
 
-            brush.InterpolationColors = cb;
+                brush.InterpolationColors = cb;
 
-            return brush;
+                return brush;
+            }
+
+            return Brushes.IndianRed;
         }
 
-        public virtual Brush GetDebugDataBrush(RectangleF rectangle)
+        public virtual Brush GetDebugDataBrush(RectangleF rectangle, RenderingEngine e)
         {
-            var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
-            ColorBlend cb = new ColorBlend();
+                ColorBlend cb = new ColorBlend();
 
-            cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
-            cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(160, 180, 10, 0), Color.FromArgb(160, 180, 10, 0), Color.FromArgb(60, 30, 160, 255) };
+                cb.Positions = new[] {0, 0.2f, 0.5f, 1};
+                cb.Colors = new Color[]
+                {
+                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(160, 180, 10, 0), Color.FromArgb(160, 180, 10, 0),
+                    Color.FromArgb(60, 30, 160, 255)
+                };
 
-            brush.InterpolationColors = cb;
+                brush.InterpolationColors = cb;
 
-            return brush;
+                return brush;
+            }
+
+            return Brushes.DarkRed;
         }
 
-        public virtual Brush GetMainSelectionBrush(RectangleF rectangle)
+        public virtual Brush GetMainSelectionBrush(RectangleF rectangle, RenderingEngine e)
         {
-            var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
-            ColorBlend cb = new ColorBlend();
+                ColorBlend cb = new ColorBlend();
 
-            cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
-            cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 30, 144, 255), Color.FromArgb(80, 30, 144, 255), Color.FromArgb(60, 30, 160, 255) };
+                cb.Positions = new[] {0, 0.2f, 0.5f, 1};
+                cb.Colors = new Color[]
+                {
+                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 30, 144, 255), Color.FromArgb(80, 30, 144, 255),
+                    Color.FromArgb(60, 30, 160, 255)
+                };
 
-            brush.InterpolationColors = cb;
+                brush.InterpolationColors = cb;
 
-            return brush;
+                return brush;
+            }
+            
+            return new SolidBrush(Color.FromArgb(30, 144, 255));
         }
 
-        public virtual void DrawBody(Graphics g, Engine e, DrawableBase parent)
+        public virtual void DrawBody(Graphics g, RenderingEngine e, DrawableBase parent)
         {
-            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
+            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g,e);
 
             var r = Rectangle;
 
@@ -608,22 +661,22 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             if (IsSelected)
             {
-                brush = GetMainSelectionBrush(r);
+                brush = GetMainSelectionBrush(r,e);
             }
             else if (DebugMode)
             {
-                brush = GetDebugBrush(r);
+                brush = GetDebugBrush(r, e);
             }
             else if (DebugDataMode)
             {
-                brush = GetDebugDataBrush(r);
+                brush = GetDebugDataBrush(r, e);
             }
             else
             {
-                brush = GetMainBrush(r);
+                brush = GetMainBrush(r, e);
             }
 
-            float radius = 4;
+            const float radius = 4;
 
             extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
             extendedGraphics.DrawRoundRectangle(Pen, r.X, r.Y, r.Width, r.Height, radius);
@@ -637,16 +690,24 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
         }
 
-        public virtual void DrawDescription(Graphics g, Engine e, DrawableBase parent)
+        public float CompactOffsetX
         {
-            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
+            get { return IsCompact ? 15 : 0; }
+        }
+
+        public virtual void DrawDescription(Graphics g, RenderingEngine e, DrawableBase parent)
+        {
+            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
 
             var rect = Rectangle;
 
             const float offset = 2f;
             const float offset2 = 4f;
 
-            var r = new RectangleF(rect.X + offset, rect.Y + offset, rect.Width - offset2, DescriptionHeight - offset2);
+            float compactOffset = DescriptionOffsetLeftCompact;
+            float compactOffset2 = DescriptionOffsetLeftCompact + DescriptionOffsetRightCompact;
+
+            var r = new RectangleF(rect.X + offset + compactOffset, rect.Y + offset, rect.Width - offset2 - compactOffset2, DescriptionHeight - offset2);
 
             float radius = 2;
 
@@ -656,19 +717,22 @@ namespace BlueSwitch.Base.Components.Switches.Base
             extendedGraphics.DrawRoundRectangle(DescriptionPen, r.X, r.Y, r.Width, r.Height, radius);
         }
 
-        public virtual void DrawText(Graphics g, Engine e, DrawableBase parent)
+        public virtual void DrawText(Graphics g, RenderingEngine e, DrawableBase parent)
         {
             var transform = g.Transform;
 
-            g.TranslateTransform(Position.X, Position.Y);
+            float compactOffset = DescriptionOffsetLeftCompact;
+            float compactOffset2 = DescriptionOffsetLeftCompact + DescriptionOffsetRightCompact;
+
+            g.TranslateTransform(Position.X + compactOffset, Position.Y + 1);
 
             g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.Black, new PointF(3, 1));
-            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(2, 0));
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(2.5f, 0.5f));
 
             g.Transform = transform;
         }
 
-        public virtual void DrawDescriptionText(Graphics g, Engine e, DrawableBase parent, String text)
+        public virtual void DrawDescriptionText(Graphics g, RenderingEngine e, DrawableBase parent, String text)
         {
             var r = DescriptionBounds;
 
@@ -683,23 +747,23 @@ namespace BlueSwitch.Base.Components.Switches.Base
             g.DrawString(text, FontVerySmall, Brushes.White, r2, format);
         }
 
-        public virtual void DrawGlyph(Graphics g, Engine e, DrawableBase parent)
+        public virtual void DrawGlyph(Graphics g, RenderingEngine e, DrawableBase parent)
         {
-            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
-
-            float radius = 2;
-
-            var brush = new SolidBrush(Color.FromArgb(30, 0, 0, 0));
-
             var r = DescriptionBounds;
+            if (r.Height > 0)
+            {
+                ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
 
-            extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
-            //extendedGraphics.DrawRoundRectangle(DescriptionPen, r.X, r.Y, r.Width, r.Height, radius);
+                float radius = 2;
+
+                var brush = new SolidBrush(Color.FromArgb(30, 0, 0, 0));
+                extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
+            }
         }
 
-        public virtual void DrawHelp(Graphics g, Engine e, DrawableBase parent)
+        public virtual void DrawHelp(Graphics g, RenderingEngine e, DrawableBase parent)
         {
-            e.HelpService.Draw(g, this, parent);
+            e.HelpService.Draw(g, this, parent, e);
         }
 
         public virtual void DrawSelection(Graphics g, Engine e, DrawableBase parent)

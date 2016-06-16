@@ -50,7 +50,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         protected override void OnInitialize(Engine renderingEngine)
         {
             AutoDiscoverDisabled = true;
-
+            IsCompact = true;
+            ColumnWidth = 120;
             base.OnInitialize(renderingEngine);
             Variable = renderingEngine.CurrentProject.GetVariable(VariableKey);
         }

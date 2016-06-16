@@ -8,7 +8,10 @@ namespace BlueSwitch.Base.Components.Base
     {
         private PointF _position;
         private SizeF _size;
-        
+
+        [JsonIgnore]
+        public bool IsCompact { get; set; }
+
         [JsonIgnore]
         public Engine RenderingEngine { get; protected set; }
 
@@ -57,7 +60,7 @@ namespace BlueSwitch.Base.Components.Base
             {
                 var rect = Rectangle;
 
-                var r = new RectangleF(rect.X + DescriptionOffsetLeft, rect.Y + DescriptionHeight + DescriptionOffsetTop, rect.Width - DescriptionOffsetRight - DescriptionOffsetLeft, rect.Height - DescriptionHeight - DescriptionOffsetBottom  - DescriptionOffsetTop);
+                var r = new RectangleF(rect.X + DescriptionOffsetLeft, rect.Y + InputOutputDescriptionHeight + DescriptionOffsetTop, rect.Width - DescriptionOffsetRight - DescriptionOffsetLeft, rect.Height - InputOutputDescriptionHeight - DescriptionOffsetBottom  - DescriptionOffsetTop);
                 return r;
             }
         }
@@ -69,6 +72,20 @@ namespace BlueSwitch.Base.Components.Base
 
         [JsonIgnore]
         public float DescriptionHeight { get; set; } = 16;
+
+        [JsonIgnore]
+        public virtual float InputOutputDescriptionHeight
+        {
+            get
+            {
+                float descriptionHeight = DescriptionHeight;
+                if (IsCompact)
+                {
+                    descriptionHeight = -1;
+                }
+                return descriptionHeight;
+            }
+        }
 
         [JsonIgnore]
         public PointF Center

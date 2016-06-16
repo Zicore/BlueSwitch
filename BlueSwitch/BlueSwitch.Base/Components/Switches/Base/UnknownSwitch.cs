@@ -58,7 +58,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         }
         
 
-        public override Brush GetMainBrush(RectangleF rectangle)
+        public override Brush GetMainBrush(RectangleF rectangle, RenderingEngine e)
         {
             var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 

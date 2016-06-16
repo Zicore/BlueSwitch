@@ -105,13 +105,13 @@ namespace BlueSwitch.Base.Services
             AddOutput(helpEntry, sw.UniqueName, index);
         }
 
-        public void Draw(Graphics g, SwitchBase sw, DrawableBase parent)
+        public void Draw(Graphics g, SwitchBase sw, DrawableBase parent, RenderingEngine e)
         {
             if (Enabled)
             {
                 if (Items.ContainsKey(sw.UniqueName) && sw.IsMouseOver)
                 {
-                    Items[sw.UniqueName].Draw(g, sw, parent);
+                    Items[sw.UniqueName].Draw(g, sw, parent , e);
                 }
             }
         }

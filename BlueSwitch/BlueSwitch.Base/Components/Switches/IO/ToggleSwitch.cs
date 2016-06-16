@@ -23,7 +23,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
 
         private bool _active = false;
 
-        public override Brush GetMainBrush(RectangleF rectangle)
+        public override Brush GetMainBrush(RectangleF rectangle, RenderingEngine e)
         {
             if (_active)
             {
@@ -44,11 +44,11 @@ namespace BlueSwitch.Base.Components.Switches.IO
             }
             else
             {
-                return base.GetMainBrush(rectangle);
+                return base.GetMainBrush(rectangle, e);
             }
         }
 
-        public override Brush GetMainSelectionBrush(RectangleF rectangle)
+        public override Brush GetMainSelectionBrush(RectangleF rectangle, RenderingEngine e)
         {
             if (_active)
             {
@@ -68,7 +68,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
             }
             else
             {
-                return base.GetMainBrush(rectangle);
+                return base.GetMainBrush(rectangle, e);
             }
         }
 

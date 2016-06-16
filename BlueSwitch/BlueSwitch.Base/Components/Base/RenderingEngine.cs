@@ -17,8 +17,17 @@ using Matrix = System.Drawing.Drawing2D.Matrix;
 
 namespace BlueSwitch.Base.Components.Base
 {
+    public enum PerformanceMode
+    {
+        HighQuality = 1,
+        Balanced = 2,
+        HighPerformance = 4
+    }
+
     public class RenderingEngine : Engine
     {
+        public PerformanceMode PerformanceMode { get; set; } = PerformanceMode.HighPerformance;
+
         public override event EventHandler DebugValueUpdated;
 
         protected Timer _tickerProvider = new Timer { Interval = 100, Enabled = true };
@@ -33,11 +42,7 @@ namespace BlueSwitch.Base.Components.Base
 
         [JsonIgnore]
         protected static Font FontInfo = new Font(new FontFamily("Calibri"), 30, FontStyle.Bold);
-
-
-        // empty
-
-
+        
         protected static Pen _linePen = new Pen(Color.FromArgb(200, 30, 30, 30), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
 
 

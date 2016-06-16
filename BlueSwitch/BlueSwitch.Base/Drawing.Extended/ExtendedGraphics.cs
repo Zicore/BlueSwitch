@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using BlueSwitch.Base.Components.Base;
 
 // A simple extension to the Graphics class for extended 
 // graphic routines, such, 
@@ -30,55 +32,63 @@ namespace BlueSwitch.Base.Drawing.Extended
             set { this.mGraphics = value; }
         }
 
+        private RenderingEngine RenderingEngine { get; set; }
 
-        public ExtendedGraphics(System.Drawing.Graphics graphics)
+        public ExtendedGraphics(System.Drawing.Graphics graphics, RenderingEngine engine)
         {
             this.Graphics = graphics;
+            this.RenderingEngine = engine;
         }
 
+
+        //public void FillRoundRectangle(System.Drawing.Brush brush,int x, int y,int width, int height, int radius)
+        //{
+
+        //    float fx = Convert.ToSingle(x);
+        //    float fy = Convert.ToSingle(y);
+        //    float fwidth = Convert.ToSingle(width);
+        //    float fheight = Convert.ToSingle(height);
+        //    float fradius = Convert.ToSingle(radius);
+        //    this.FillRoundRectangle(brush, fx, fy,
+        //      fwidth, fheight, fradius);
+        //}
         
-        public void FillRoundRectangle(System.Drawing.Brush brush,int x, int y,int width, int height, int radius)
-        {
-
-            float fx = Convert.ToSingle(x);
-            float fy = Convert.ToSingle(y);
-            float fwidth = Convert.ToSingle(width);
-            float fheight = Convert.ToSingle(height);
-            float fradius = Convert.ToSingle(radius);
-            this.FillRoundRectangle(brush, fx, fy,
-              fwidth, fheight, fradius);
-
-        }
+        ////#region Draws a Rounded Rectangle border with integers. 
+        //public void DrawRoundRectangle(System.Drawing.Pen pen, int x, int y,int width, int height, int radius)
+        //{
+        //    float fx = Convert.ToSingle(x);
+        //    float fy = Convert.ToSingle(y);
+        //    float fwidth = Convert.ToSingle(width);
+        //    float fheight = Convert.ToSingle(height);
+        //    float fradius = Convert.ToSingle(radius);
+        //    this.DrawRoundRectangle(pen, fx, fy, fwidth, fheight, fradius);
+        //}
+        ////#endregion 
 
 
         //#region Fills a Rounded Rectangle with continuous numbers.
-        public void FillRoundRectangle(System.Drawing.Brush brush,
-          float x, float y,
-          float width, float height, float radius)
+        public void FillRoundRectangle(System.Drawing.Brush brush,float x, float y,float width, float height, float radius)
         {
+            if (RenderingEngine.PerformanceMode == PerformanceMode.HighPerformance)
+            {
+                radius = 0;
+            }
+
             RectangleF rectangle = new RectangleF(x, y, width, height);
             GraphicsPath path = this.GetRoundedRect(rectangle, radius);
+
             this.Graphics.FillPath(brush, path);
         }
         //#endregion
-
-
-        //#region Draws a Rounded Rectangle border with integers. 
-        public void DrawRoundRectangle(System.Drawing.Pen pen, int x, int y,int width, int height, int radius)
-        {
-            float fx = Convert.ToSingle(x);
-            float fy = Convert.ToSingle(y);
-            float fwidth = Convert.ToSingle(width);
-            float fheight = Convert.ToSingle(height);
-            float fradius = Convert.ToSingle(radius);
-            this.DrawRoundRectangle(pen, fx, fy, fwidth, fheight, fradius);
-        }
-        //#endregion 
-
-
+        
         //#region Draws a Rounded Rectangle border with continuous numbers. 
         public void DrawRoundRectangle(System.Drawing.Pen pen,float x, float y,float width, float height, float radius)
         {
+            if (RenderingEngine.PerformanceMode == PerformanceMode.HighPerformance)
+            {
+                radius = 0;
+            }
+
             RectangleF rectangle = new RectangleF(x, y, width, height);
             GraphicsPath path = this.GetRoundedRect(rectangle, radius);
             this.Graphics.DrawPath(pen, path);
@@ -143,7 +153,12 @@ namespace BlueSwitch.Base.Drawing.Extended
                 if (baseRect.Width > baseRect.Height)
                 {
                     // return horizontal capsule 
-                    diameter = baseRect.Height;
+                    if (baseRect.Height < 0)
+                    {
+                        Debugger.Break();
+                    }
+
+                    diameter = Math.Max(baseRect.Height,1);
                     SizeF sizeF = new SizeF(diameter, diameter);
                     arc = new RectangleF(baseRect.Location, sizeF);
                     path.AddArc(arc, 90, 180);
@@ -165,10 +180,6 @@ namespace BlueSwitch.Base.Drawing.Extended
                     // return circle 
                     path.AddEllipse(baseRect);
                 }
-            }
-            catch (Exception)
-            {
-                path.AddEllipse(baseRect);
             }
             finally
             {

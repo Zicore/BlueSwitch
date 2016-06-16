@@ -334,7 +334,7 @@ namespace BlueSwitch.Base.Components.UI
         }
         public override void Draw(Graphics g, RenderingEngine e, DrawableBase parent)
         {
-            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
+            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g,e);
 
             var r = DescriptionBounds;
 

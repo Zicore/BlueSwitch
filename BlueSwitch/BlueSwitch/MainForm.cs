@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BlueSwitch.Base;
+using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Event;
 using BlueSwitch.Base.Components.Switches.Base;
 using BlueSwitch.Base.IO;
@@ -383,6 +384,23 @@ namespace BlueSwitch
         private void toolStripButtonLoad_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog();
+        }
+
+        private void highQualityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            highPerformanceToolStripMenuItem.Checked = false;
+
+            Renderer.RenderingEngine.PerformanceMode = PerformanceMode.HighQuality;
+            Renderer.RenderingEngine.RequestRedraw();
+        }
+
+        private void highPerformanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            highQualityToolStripMenuItem.Checked = false;
+
+            Renderer.RenderingEngine.PerformanceMode = PerformanceMode.HighPerformance;
+
+            Renderer.RenderingEngine.RequestRedraw();
         }
     }
 }

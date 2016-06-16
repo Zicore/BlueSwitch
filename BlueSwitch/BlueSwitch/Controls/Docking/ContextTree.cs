@@ -138,29 +138,33 @@ namespace BlueSwitch.Controls.Docking
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
+            //SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
         }
 
         private void treeView_DoubleClick(object sender, EventArgs e)
         {
-            FinishContext();
+            FinishContext(false);
         }
 
         private void treeView_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                FinishContext();
+                FinishContext(false);
             }
             if (e.KeyCode == Keys.Escape)
             {
-                Close();
+                FinishContext(true);
             }
         }
 
-        private void FinishContext()
+        private void FinishContext(bool cancel)
         {
-            SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
+            SelectedSwitch = null;
+            if (!cancel)
+            {
+                SelectedSwitch = treeView.SelectedNode?.Tag as SwitchBase;
+            }
             Close();
         }
 

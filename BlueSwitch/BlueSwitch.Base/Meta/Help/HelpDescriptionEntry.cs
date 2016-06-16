@@ -27,7 +27,7 @@ namespace BlueSwitch.Base.Meta.Help
         public string Description { get; set; }
         public int Index { get; set; }
 
-        public void Draw(Graphics g, SwitchBase sw, DrawableBase parent)
+        public void Draw(Graphics g, SwitchBase sw, DrawableBase parent, RenderingEngine e)
         {
             const float offset = 10;
             const float radius = 4;
@@ -39,7 +39,7 @@ namespace BlueSwitch.Base.Meta.Help
 
             r = new RectangleF(r.X, r.Y - offset - textBounds.Height, r.Width, textBounds.Height);
 
-            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
+            ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
 
             var brush = GetMainBrush(r);
 
@@ -55,7 +55,7 @@ namespace BlueSwitch.Base.Meta.Help
             g.DrawString(Title, FontTitle, Brushes.White, r2, format);
         }
 
-        public void DrawInput(Graphics g, SwitchBase sw, int index)
+        public void DrawInput(Graphics g, SwitchBase sw, int index, RenderingEngine e)
         {
             const float maxHelpHeight = 400;
             const float offsetWidth = 5;
@@ -68,7 +68,7 @@ namespace BlueSwitch.Base.Meta.Help
                 var swBounds = sw.DescriptionBounds;
                 swBounds.Height = maxHelpHeight;
                 StringFormat format = new StringFormat();
-                format.FormatFlags = StringFormatFlags.DirectionRightToLeft;
+                //format.FormatFlags = StringFormatFlags;
                 var textBounds = g.MeasureString(this.Title, FontTitle, swBounds.Size, format);
                 var swSizeDesc = new SizeF(240, swBounds.Height);
                 var textDescBounds = g.MeasureString(this.Description, FontDescription, swSizeDesc, format);
@@ -77,7 +77,7 @@ namespace BlueSwitch.Base.Meta.Help
                 var rText = new RectangleF(r.X - textBounds.Width - offsetTextX, r.Y, textBounds.Width + offsetWidth, textBounds.Height);
                 var rDesc = new RectangleF(r.X - textDescBounds.Width - offsetTextX, r.Y + textBounds.Height + 2, textDescBounds.Width + offsetWidth, textDescBounds.Height);
 
-                ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
+                ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
 
                 var brush = GetMainBrush(rText);
                 var brushDesc = GetMainBrush(rDesc);
@@ -91,11 +91,11 @@ namespace BlueSwitch.Base.Meta.Help
                 rText = new RectangleF(rText.X , rText.Y, rText.Width, rText.Height);
                 rDesc = new RectangleF(rDesc.X , rDesc.Y, rDesc.Width, rDesc.Height);
 
-                var r1 = new RectangleF(rText.X - 1 + 0.5f, rText.Y + 0.5f, rText.Width, rText.Height);
-                var r2 = new RectangleF(rText.X - 1, rText.Y, rText.Width, rText.Height);
+                var r1 = new RectangleF(rText.X + 4 + 0.5f, rText.Y + 0.5f, rText.Width, rText.Height);
+                var r2 = new RectangleF(rText.X + 4, rText.Y, rText.Width, rText.Height);
 
-                var r3 = new RectangleF(rDesc.X - 1 + 0.5f, rDesc.Y + 0.5f, rDesc.Width, rDesc.Height);
-                var r4 = new RectangleF(rDesc.X - 1, rDesc.Y, rDesc.Width, rDesc.Height);
+                var r3 = new RectangleF(rDesc.X + 4 + 0.5f, rDesc.Y + 0.5f, rDesc.Width, rDesc.Height);
+                var r4 = new RectangleF(rDesc.X + 4, rDesc.Y, rDesc.Width, rDesc.Height);
 
                 g.DrawString(Title, FontTitle, Brushes.Black, r1, format);
                 g.DrawString(Title, FontTitle, Brushes.White, r2, format);
@@ -105,7 +105,7 @@ namespace BlueSwitch.Base.Meta.Help
             }
         }
 
-        public void DrawOutput(Graphics g, SwitchBase sw, int index)
+        public void DrawOutput(Graphics g, SwitchBase sw, int index, RenderingEngine e)
         {
             const float maxHelpHeight = 400;
             const float offsetWidth = 5;
@@ -128,7 +128,7 @@ namespace BlueSwitch.Base.Meta.Help
                 var rText = new RectangleF(r.X + offsetTextX + swBounds.Width, r.Y, textBounds.Width + offsetWidth, textBounds.Height);
                 var rDesc = new RectangleF(r.X + offsetTextX + swBounds.Width, r.Y + textBounds.Height + 2, textDescBounds.Width + offsetWidth, textDescBounds.Height);
 
-                ExtendedGraphics extendedGraphics = new ExtendedGraphics(g);
+                ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
 
                 var brush = GetMainBrush(rText);
                 var brushDesc = GetMainBrush(rDesc);

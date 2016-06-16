@@ -39,7 +39,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
             base.OnProcess(p, node);
         }
 
-        public override void DrawText(Graphics g, Engine e, DrawableBase parent)
+        public override void DrawText(Graphics g, RenderingEngine e, DrawableBase parent)
         {
             var data = GetData(1);
 
