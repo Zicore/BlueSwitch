@@ -47,11 +47,29 @@ namespace BlueSwitch.Base.Components.Base
                 return new RectangleF(Position,Size);
             }
         }
+        [JsonIgnore]
+        public virtual float DescriptionOffsetTop { get; set; } = 2;
 
-        public virtual float DescriptionOffsetTop { get; set; } = 4;
-        public virtual float DescriptionOffsetLeft { get; set; } = 18;
-        public virtual float DescriptionOffsetRight { get; set; } = 18;
-        public virtual float DescriptionOffsetBottom { get; set; } = 4;
+        [JsonIgnore]
+        public virtual float DescriptionOffsetLeft { get; set; } = 16;
+
+        [JsonIgnore]
+        public virtual float DescriptionOffsetRight { get; set; } = 16;
+
+        [JsonIgnore]
+        public virtual float DescriptionOffsetBottom { get; set; } = 2;
+        
+        [JsonIgnore]
+        public virtual float DescriptionOffsetLeftCompact
+        {
+            get { return IsCompact ? DescriptionOffsetLeft : 2; }
+        }
+
+        [JsonIgnore]
+        public virtual float DescriptionOffsetRightCompact
+        {
+            get { return IsCompact ? DescriptionOffsetRight : 2; }
+        }
 
         [JsonIgnore]
         public virtual RectangleF DescriptionBounds

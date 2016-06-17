@@ -357,12 +357,6 @@ namespace BlueSwitch.Base.Components.Switches.Base
         }
 
         [JsonIgnore]
-        public virtual float DescriptionOffsetLeftCompact
-        {
-            get { return IsCompact ? DescriptionOffsetLeft : 0; }
-        }
-
-        [JsonIgnore]
         public override float DescriptionOffsetLeft
         {
             get
@@ -375,11 +369,6 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
         }
 
-        [JsonIgnore]
-        public virtual float DescriptionOffsetRightCompact
-        {
-            get { return IsCompact ? DescriptionOffsetRight : 0; }
-        }
 
         [JsonIgnore]
         public override float DescriptionOffsetRight
@@ -562,94 +551,6 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 lastOutput = output;
             }
         }
-        
-        public virtual Brush GetMainBrush(RectangleF rectangle, RenderingEngine e)
-        {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
-            {
-                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
-
-                ColorBlend cb = new ColorBlend();
-
-                cb.Positions = new[] {0, 0.2f, 0.5f, 1};
-                cb.Colors = new Color[]
-                {
-                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 0, 0, 0), Color.FromArgb(80, 0, 0, 0),
-                    Color.FromArgb(60, 30, 160, 255)
-                };
-
-                brush.InterpolationColors = cb;
-
-                return brush;
-            }
-
-            return Brushes.SteelBlue;
-        }
-
-        public virtual Brush GetDebugBrush(RectangleF rectangle, RenderingEngine e)
-        {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
-            {
-                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
-
-                ColorBlend cb = new ColorBlend();
-
-                cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
-                cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(60, 30, 160, 255) };
-
-                brush.InterpolationColors = cb;
-
-                return brush;
-            }
-
-            return Brushes.IndianRed;
-        }
-
-        public virtual Brush GetDebugDataBrush(RectangleF rectangle, RenderingEngine e)
-        {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
-            {
-                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
-
-                ColorBlend cb = new ColorBlend();
-
-                cb.Positions = new[] {0, 0.2f, 0.5f, 1};
-                cb.Colors = new Color[]
-                {
-                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(160, 180, 10, 0), Color.FromArgb(160, 180, 10, 0),
-                    Color.FromArgb(60, 30, 160, 255)
-                };
-
-                brush.InterpolationColors = cb;
-
-                return brush;
-            }
-
-            return Brushes.DarkRed;
-        }
-
-        public virtual Brush GetMainSelectionBrush(RectangleF rectangle, RenderingEngine e)
-        {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
-            {
-                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
-
-                ColorBlend cb = new ColorBlend();
-
-                cb.Positions = new[] {0, 0.2f, 0.5f, 1};
-                cb.Colors = new Color[]
-                {
-                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 30, 144, 255), Color.FromArgb(80, 30, 144, 255),
-                    Color.FromArgb(60, 30, 160, 255)
-                };
-
-                brush.InterpolationColors = cb;
-
-                return brush;
-            }
-            
-            return new SolidBrush(Color.FromArgb(30, 144, 255));
-        }
 
         public virtual void DrawBody(Graphics g, RenderingEngine e, DrawableBase parent)
         {
@@ -676,7 +577,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 brush = GetMainBrush(r, e);
             }
 
-            const float radius = 4;
+            const float radius = 3;
 
             extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
             extendedGraphics.DrawRoundRectangle(Pen, r.X, r.Y, r.Width, r.Height, radius);
@@ -689,12 +590,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 uiComponent.Draw(g, e, this);
             }
         }
-
-        public float CompactOffsetX
-        {
-            get { return IsCompact ? 15 : 0; }
-        }
-
+        
         public virtual void DrawDescription(Graphics g, RenderingEngine e, DrawableBase parent)
         {
             ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
@@ -707,7 +603,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             float compactOffset = DescriptionOffsetLeftCompact;
             float compactOffset2 = DescriptionOffsetLeftCompact + DescriptionOffsetRightCompact;
 
-            var r = new RectangleF(rect.X + offset + compactOffset, rect.Y + offset, rect.Width - offset2 - compactOffset2, DescriptionHeight - offset2);
+            var r = new RectangleF(rect.X + compactOffset, rect.Y + offset, rect.Width - compactOffset2, DescriptionHeight - offset2);
 
             float radius = 2;
 
@@ -777,6 +673,98 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 DrawSelection(g, e, parent, SelectedPen);
             }
+        }
+
+
+
+
+
+        public virtual Brush GetMainBrush(RectangleF rectangle, RenderingEngine e)
+        {
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+
+                ColorBlend cb = new ColorBlend();
+
+                cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
+                cb.Colors = new Color[]
+                {
+                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 0, 0, 0), Color.FromArgb(80, 0, 0, 0),
+                    Color.FromArgb(60, 30, 160, 255)
+                };
+
+                brush.InterpolationColors = cb;
+
+                return brush;
+            }
+
+            return Brushes.SteelBlue;
+        }
+
+        public virtual Brush GetDebugBrush(RectangleF rectangle, RenderingEngine e)
+        {
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+
+                ColorBlend cb = new ColorBlend();
+
+                cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
+                cb.Colors = new Color[] { Color.FromArgb(120, 0, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(150, 255, 0, 0), Color.FromArgb(60, 30, 160, 255) };
+
+                brush.InterpolationColors = cb;
+
+                return brush;
+            }
+
+            return Brushes.IndianRed;
+        }
+
+        public virtual Brush GetDebugDataBrush(RectangleF rectangle, RenderingEngine e)
+        {
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+
+                ColorBlend cb = new ColorBlend();
+
+                cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
+                cb.Colors = new Color[]
+                {
+                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(160, 180, 10, 0), Color.FromArgb(160, 180, 10, 0),
+                    Color.FromArgb(60, 30, 160, 255)
+                };
+
+                brush.InterpolationColors = cb;
+
+                return brush;
+            }
+
+            return Brushes.DarkRed;
+        }
+
+        public virtual Brush GetMainSelectionBrush(RectangleF rectangle, RenderingEngine e)
+        {
+            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            {
+                var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
+
+                ColorBlend cb = new ColorBlend();
+
+                cb.Positions = new[] { 0, 0.2f, 0.5f, 1 };
+                cb.Colors = new Color[]
+                {
+                    Color.FromArgb(120, 0, 0, 0), Color.FromArgb(80, 30, 144, 255), Color.FromArgb(80, 30, 144, 255),
+                    Color.FromArgb(60, 30, 160, 255)
+                };
+
+                brush.InterpolationColors = cb;
+
+                return brush;
+            }
+
+            return new SolidBrush(Color.FromArgb(30, 144, 255));
         }
 
         // --------------------------------------------------------------------------------

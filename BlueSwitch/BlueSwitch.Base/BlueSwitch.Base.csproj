@@ -123,6 +123,7 @@
     <Compile Include="Diagnostics\ExceptionEntry.cs" />
     <Compile Include="Diagnostics\ExceptionEntryEventArgs.cs" />
     <Compile Include="Drawing.Extended\ExtendedGraphics.cs" />
+    <Compile Include="IO\EngineSettings.cs" />
     <Compile Include="IO\ValueStore.cs" />
     <Compile Include="IO\Variable.cs" />
     <Compile Include="IO\JsonSettings.cs" />

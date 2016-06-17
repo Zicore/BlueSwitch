@@ -20,6 +20,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             Description = "Start";
             AddOutput(new OutputBase(new ActionSignature()));
             IsStart = true;
+            IsCompact = true;
         }
 
         protected override void OnInitializeMetaInformation(Engine engine)

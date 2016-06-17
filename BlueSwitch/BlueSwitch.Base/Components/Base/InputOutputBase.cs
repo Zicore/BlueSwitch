@@ -56,6 +56,12 @@ namespace BlueSwitch.Base.Components.Base
         public static Pen Pen { get; set; } = new Pen(Color.Black, 1.0f);
 
         [JsonIgnore]
+        public static Pen PenWhiteSmall { get; set; } = new Pen(Color.DimGray, 1.2f);
+
+        [JsonIgnore]
+        public static Pen PenSmall { get; set; } = new Pen(Color.Black, 1.0f);
+
+        [JsonIgnore]
         public static Brush Brush { get; set; } = new SolidBrush(Color.SkyBlue);
 
         [JsonIgnore]
@@ -105,20 +111,64 @@ namespace BlueSwitch.Base.Components.Base
 
         
 
-        protected virtual void DrawInputOutput(Graphics g, Engine e, DrawableBase parent, InputOutputBase previous)
+        protected virtual void DrawInputOutput(Graphics g, RenderingEngine e, DrawableBase parent, InputOutputBase previous)
         {
             var r = Rectangle;
+            
+            if (Signature is ActionSignature)
+            {
+               DrawAction(g,e,parent,previous,r);
+            }
+            else
+            {
+                DrawData(g, e, parent, previous, r);
+            }
+        }
+
+        protected void DrawAction(Graphics g, Engine e, DrawableBase parent, InputOutputBase previous, RectangleF r)
+        {
             float marginOffset = 0.15f;
 
             float marginHeight = r.Height * marginOffset;
+            var poly = new PointF[]
+               {
+                    new PointF(r.Left, r.Top + marginHeight),
+                    new PointF(r.Left + 4, r.Top + marginHeight),
+                    new PointF(r.Right - r.Width*0.25f, r.Y + r.Height*0.5f),
+                    new PointF(r.Left + 4, r.Bottom - marginHeight),
+                    new PointF(r.Left, r.Bottom - marginHeight),
+               };
 
+
+            if (SignatureCheckFailed)
+            {
+                g.FillPolygon(SignatureCheckBrush, poly);
+            }
+            else if (IsMouseOver)
+            {
+                g.FillPolygon(MouseOverBrush, poly);
+            }
+            else
+            {
+                g.FillPolygon(Signature.Brush, poly);
+            }
+
+            Pen.LineJoin = LineJoin.Round;
+            PenWhite.LineJoin = LineJoin.Round;
+
+            g.DrawPolygon(PenWhite, poly);
+            g.DrawPolygon(Pen, poly);
+        }
+
+        public void DrawData(Graphics g, RenderingEngine e, DrawableBase parent, InputOutputBase previous, RectangleF r)
+        {
+            float leftOffset = 5.5f;
+            var marginHeight = r.Height * 0.35f;
             var poly = new PointF[]
             {
-                new PointF(r.Left, r.Top + marginHeight),
-                new PointF(r.Left + 4, r.Top + marginHeight),
-                new PointF(r.Right - r.Width * 0.25f, r.Y + r.Height * 0.5f),
-                new PointF(r.Left + 4, r.Bottom - marginHeight),
-                new PointF(r.Left, r.Bottom - marginHeight),
+                    new PointF(r.Left + r.Width - leftOffset, r.Top + marginHeight),
+                    new PointF(r.Right + r.Width*0.28f - leftOffset, r.Y + r.Height*0.5f),
+                    new PointF(r.Left + r.Width- leftOffset, r.Bottom - marginHeight),
             };
 
             if (SignatureCheckFailed)
@@ -131,17 +181,35 @@ namespace BlueSwitch.Base.Components.Base
             }
             else
             {
-                //if (Parent != null && IsConnected(e))
-                //{
-                    g.FillPolygon(Signature.Brush, poly);
-                //}
+                g.FillPolygon(Signature.Brush, poly);
             }
-            
-            Pen.LineJoin = LineJoin.Round;
-            PenWhite.LineJoin = LineJoin.Round;
 
-            g.DrawPolygon(PenWhite, poly);
-            g.DrawPolygon(Pen, poly);
+            PenSmall.LineJoin = LineJoin.Round;
+            PenWhiteSmall.LineJoin = LineJoin.Round;
+
+            g.DrawPolygon(PenWhiteSmall, poly);
+            g.DrawPolygon(PenSmall, poly);
+            
+            var radius = r.Height * 0.40f;
+            var marginHeightCircle = r.Height * 0.5f - radius * 0.5f;
+
+            var circle = new RectangleF(r.X, r.Y + marginHeightCircle, radius, radius);
+
+            if (SignatureCheckFailed)
+            {
+                g.FillEllipse(SignatureCheckBrush, circle);
+            }
+            else if (IsMouseOver)
+            {
+                g.FillEllipse(MouseOverBrush, circle);
+            }
+            else
+            {
+                g.FillEllipse(Signature.Brush, circle);
+            }
+
+            g.DrawEllipse(PenWhite, circle);
+            g.DrawEllipse(Pen, circle);
         }
 
         public virtual void Draw(Graphics g, RenderingEngine e, DrawableBase parent, InputOutputBase previous)
