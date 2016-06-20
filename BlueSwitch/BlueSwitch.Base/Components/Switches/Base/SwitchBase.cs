@@ -243,12 +243,12 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public void SetData(int index, DataContainer data)
         {
-            Outputs[index].Data = data;
+            OutputsSet[index].Data = data;
         }
 
         public DataContainer GetData(int index)
         {
-            var input = Inputs[index];
+            var input = InputsSet[index];
 
             if (input.UIComponent != null && !input.IsConnected(RenderingEngine))
             {
@@ -279,6 +279,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
             var data = GetData(index);
             if (data?.Value != null)
             {
+                if (data.Value is T)
+                {
+                    return (T)data.Value;
+                }
+
                 var result = (T)Convert.ChangeType(data.Value, typeof(T));
                 return result;
             }
@@ -290,7 +295,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public DataContainer GetOutputData(int index)
         {
-            return Outputs[index].Data;
+            return OutputsSet[index].Data;
         }
 
         public abstract GroupBase OnSetGroup();
@@ -323,10 +328,21 @@ namespace BlueSwitch.Base.Components.Switches.Base
         protected static Font FontVerySmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
 
         [JsonIgnore]
-        public List<InputBase> Inputs { get; set; } = new List<InputBase>();
+        public Dictionary<int,InputBase> InputsSet { get; set; } = new Dictionary<int, InputBase>();
 
         [JsonIgnore]
-        public List<OutputBase> Outputs { get; set; } = new List<OutputBase>();
+        public IEnumerable<InputBase> Inputs {
+            get { return InputsSet.Values; }
+        }
+
+        [JsonIgnore]
+        public Dictionary<int, OutputBase> OutputsSet { get; set; } = new Dictionary<int,OutputBase>();
+
+        [JsonIgnore]
+        public IEnumerable<OutputBase> Outputs
+        {
+            get { return OutputsSet.Values; }
+        }
 
         [JsonIgnore]
         public List<UIComponent> Components { get; set; } = new List<UIComponent>();
@@ -341,7 +357,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get
             {
-                var rows = Math.Max(Math.Max(Inputs.Count, Outputs.Count), MinRows) + ExtraRows + RowModifier;
+                var rows = Math.Max(Math.Max(InputsSet.Count, OutputsSet.Count), MinRows) + ExtraRows + RowModifier;
                 return new SizeF(ColumnWidth, DescriptionHeight + rows * RowHeight);
             }
         }
@@ -351,7 +367,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get
             {
-                var rows = Math.Max(Math.Max(Inputs.Count, Outputs.Count), MinRows) + RowModifier;
+                var rows = Math.Max(Math.Max(InputsSet.Count, OutputsSet.Count), MinRows) + RowModifier;
                 return new SizeF(ColumnWidth, DescriptionHeight + rows * RowHeight);
             }
         }
@@ -361,7 +377,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get
             {
-                if (Inputs.Count > 0)
+                if (InputsSet.Count > 0)
                 {
                     return 16.0f;
                 }
@@ -375,7 +391,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             get
             {
-                if (Outputs.Count > 0)
+                if (OutputsSet.Count > 0)
                 {
                     return 16.0f;
                 }
@@ -443,18 +459,18 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public InputBase AddInput(InputBase input, UIComponent uiComponent = null)
         {
-            int index = Inputs.Count;
+            int index = InputsSet.Count;
             input.Index = index;
             input.UIComponent = uiComponent;
-            Inputs.Add(input);
+            InputsSet.Add(index,input);
             return input;
         }
 
         public OutputBase AddOutput(OutputBase output, UIComponent uiComponent = null)
         {
-            int index = Outputs.Count;
+            int index = OutputsSet.Count;
             output.Index = index;
-            Outputs.Add(output);
+            OutputsSet.Add(index,output);
             output.UIComponent = uiComponent;
             if (output.Signature is ActionSignature)
             {
@@ -1049,9 +1065,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 if (ExtraVariableInputs > 0)
                 {
-                    int index = Inputs.Count - 1;
-                    var io = Inputs[index];
-                    Inputs.Remove(io);
+                    int index = InputsSet.Count - 1;
+                    var io = InputsSet[index];
+                    InputsSet.Remove(index);
                     RenderingEngine.CurrentProject.RemoveConnection(io);
                     ExtraVariableInputs--;
                 }
@@ -1064,9 +1080,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 if (ExtraVariableOutputs > 0)
                 {
-                    int index = Outputs.Count - 1;
-                    var io = Outputs[index];
-                    Outputs.Remove(io);
+                    int index = OutputsSet.Count - 1;
+                    var io = OutputsSet[index];
+                    OutputsSet.Remove(index);
                     RenderingEngine.CurrentProject.RemoveConnection(io);
                     ExtraVariableOutputs--;
                 }

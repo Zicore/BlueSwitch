@@ -61,7 +61,7 @@ namespace BlueSwitch.Base.Meta.Help
             const float offsetWidth = 5;
             const float offsetTextX = 32;
             const float radius = 4;
-            var io = sw.Inputs[index];
+            var io = sw.InputsSet[index];
             if (io.IsMouseOver)
             {
                 var r = io.DescriptionBounds;
@@ -112,7 +112,7 @@ namespace BlueSwitch.Base.Meta.Help
             const float offsetTextX = 24;
             const float radius = 4;
 
-            var io = sw.Outputs[index];
+            var io = sw.OutputsSet[index];
             if (io.IsMouseOver)
             {
                 var r = io.DescriptionBounds;

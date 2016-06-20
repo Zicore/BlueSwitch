@@ -25,7 +25,7 @@ namespace BlueSwitch.Base.Meta.Help
         public void Draw(Graphics g, SwitchBase sw, DrawableBase parent, RenderingEngine e)
         {
             MainEntry.Draw(g,sw,parent, e);
-            for (int i = 0; i < sw.Inputs.Count; i++)
+            for (int i = 0; i < sw.InputsSet.Count; i++)
             {
                 if (Inputs.ContainsKey(i))
                 {
@@ -33,7 +33,7 @@ namespace BlueSwitch.Base.Meta.Help
                 }
             }
 
-            for (int i = 0; i < sw.Outputs.Count; i++)
+            for (int i = 0; i < sw.OutputsSet.Count; i++)
             {
                 if (Outputs.ContainsKey(i))
                 {

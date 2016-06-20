@@ -402,5 +402,10 @@ namespace BlueSwitch
 
             Renderer.RenderingEngine.RequestRedraw();
         }
+
+        private void rendererToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

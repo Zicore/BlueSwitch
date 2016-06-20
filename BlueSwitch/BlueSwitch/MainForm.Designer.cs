@@ -80,6 +80,9 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpEnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.performanceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.highQualityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.highPerformanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runtimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProjectInRuntime = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -100,9 +103,7 @@
             this.openFileDialogTags = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogHelp = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogHelp = new System.Windows.Forms.OpenFileDialog();
-            this.performanceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.highQualityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.highPerformanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -351,7 +352,8 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.componentsToolStripMenuItem,
             this.metaEditorToolStripMenuItem,
-            this.hToolStripMenuItem});
+            this.hToolStripMenuItem,
+            this.rendererToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -393,15 +395,40 @@
             this.helpEnabledToolStripMenuItem.CheckOnClick = true;
             this.helpEnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.helpEnabledToolStripMenuItem.Name = "helpEnabledToolStripMenuItem";
-            this.helpEnabledToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.helpEnabledToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.helpEnabledToolStripMenuItem.Text = "Help Enabled";
             this.helpEnabledToolStripMenuItem.Click += new System.EventHandler(this.helpEnabledToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // performanceToolStripMenuItem1
+            // 
+            this.performanceToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.highQualityToolStripMenuItem,
+            this.highPerformanceToolStripMenuItem});
+            this.performanceToolStripMenuItem1.Name = "performanceToolStripMenuItem1";
+            this.performanceToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.performanceToolStripMenuItem1.Text = "Performance";
+            // 
+            // highQualityToolStripMenuItem
+            // 
+            this.highQualityToolStripMenuItem.CheckOnClick = true;
+            this.highQualityToolStripMenuItem.Name = "highQualityToolStripMenuItem";
+            this.highQualityToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.highQualityToolStripMenuItem.Text = "High Quality";
+            this.highQualityToolStripMenuItem.Click += new System.EventHandler(this.highQualityToolStripMenuItem_Click);
+            // 
+            // highPerformanceToolStripMenuItem
+            // 
+            this.highPerformanceToolStripMenuItem.CheckOnClick = true;
+            this.highPerformanceToolStripMenuItem.Name = "highPerformanceToolStripMenuItem";
+            this.highPerformanceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.highPerformanceToolStripMenuItem.Text = "High Performance";
+            this.highPerformanceToolStripMenuItem.Click += new System.EventHandler(this.highPerformanceToolStripMenuItem_Click);
             // 
             // runtimeToolStripMenuItem
             // 
@@ -605,30 +632,12 @@
             this.openFileDialogHelp.Filter = "Meta Json Dateien|*.meta.json";
             this.openFileDialogHelp.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogHelp_FileOk);
             // 
-            // performanceToolStripMenuItem1
+            // rendererToolStripMenuItem
             // 
-            this.performanceToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.highQualityToolStripMenuItem,
-            this.highPerformanceToolStripMenuItem});
-            this.performanceToolStripMenuItem1.Name = "performanceToolStripMenuItem1";
-            this.performanceToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.performanceToolStripMenuItem1.Text = "Performance";
-            // 
-            // highQualityToolStripMenuItem
-            // 
-            this.highQualityToolStripMenuItem.CheckOnClick = true;
-            this.highQualityToolStripMenuItem.Name = "highQualityToolStripMenuItem";
-            this.highQualityToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.highQualityToolStripMenuItem.Text = "High Quality";
-            this.highQualityToolStripMenuItem.Click += new System.EventHandler(this.highQualityToolStripMenuItem_Click);
-            // 
-            // highPerformanceToolStripMenuItem
-            // 
-            this.highPerformanceToolStripMenuItem.CheckOnClick = true;
-            this.highPerformanceToolStripMenuItem.Name = "highPerformanceToolStripMenuItem";
-            this.highPerformanceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.highPerformanceToolStripMenuItem.Text = "High Performance";
-            this.highPerformanceToolStripMenuItem.Click += new System.EventHandler(this.highPerformanceToolStripMenuItem_Click);
+            this.rendererToolStripMenuItem.Name = "rendererToolStripMenuItem";
+            this.rendererToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rendererToolStripMenuItem.Text = "Renderer";
+            this.rendererToolStripMenuItem.Click += new System.EventHandler(this.rendererToolStripMenuItem_Click_1);
             // 
             // MainForm
             // 
@@ -718,6 +727,7 @@
         private System.Windows.Forms.ToolStripMenuItem performanceToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem highQualityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem highPerformanceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rendererToolStripMenuItem;
     }
 }
 
