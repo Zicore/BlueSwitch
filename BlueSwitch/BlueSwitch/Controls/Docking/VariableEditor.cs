@@ -267,8 +267,8 @@ namespace BlueSwitch.Controls.Docking
                 }
                 else if (Variable.IsNumber(SelectedVariable.ValueType))
                 {
-                    NumberPicker p = new NumberPicker(SelectedVariable.Value);
-                    p.PrepareByType(SelectedVariable.NetValueType);
+                    NumberPicker p = new NumberPicker(SelectedVariable.NetValueType, SelectedVariable.Value);
+                    //p.PrepareByType(SelectedVariable.NetValueType);
                     if (p.ShowDialog() == DialogResult.OK)
                     {
                         SelectedVariable.Value = p.Value;

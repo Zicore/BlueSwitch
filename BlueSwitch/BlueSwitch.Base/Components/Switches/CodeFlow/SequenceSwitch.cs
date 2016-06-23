@@ -15,6 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
             AddInput(new ActionSignature());
 
             ActivateOutputAdd(new PinDescription(new ActionSignature(), UIType.None), 2);
+            IsCompact = true;
         }
 
         public override GroupBase OnSetGroup()

@@ -14,8 +14,10 @@ namespace BlueSwitch.Base.Components.Switches.Converter
         protected override void OnInitialize(Engine renderingEngine)
         {
             UniqueName = "Boolean.ToObject";
+            DisplayName = "Bool->Object";
             AddInput(typeof (bool));
             AddOutput(typeof (object));
+            IsCompact = true;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

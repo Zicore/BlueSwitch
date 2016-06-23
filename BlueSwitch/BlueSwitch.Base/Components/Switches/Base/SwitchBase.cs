@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Runtime.Serialization;
@@ -638,8 +639,13 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             g.TranslateTransform(Position.X + compactOffset, Position.Y + 1);
 
-            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.Black, new PointF(3, 1));
-            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(2.5f, 0.5f));
+            var renderingHint = g.TextRenderingHint;
+            g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.Black, new PointF(-1, 1));
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(-0.5f, 0.5f));
+
+            g.TextRenderingHint = renderingHint;
 
             g.Transform = transform;
         }
@@ -655,8 +661,13 @@ namespace BlueSwitch.Base.Components.Switches.Base
             var r1 = new RectangleF(r.X + 0.5f, r.Y + 0.5f, r.Width, r.Height);
             var r2 = new RectangleF(r.X, r.Y, r.Width, r.Height);
 
+            var renderingHint = g.TextRenderingHint;
+            g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
             g.DrawString(text, FontVerySmall, Brushes.Black, r1, format);
             g.DrawString(text, FontVerySmall, Brushes.White, r2, format);
+
+            g.TextRenderingHint = renderingHint;
         }
 
         public virtual void DrawGlyph(Graphics g, RenderingEngine e, DrawableBase parent)

@@ -252,9 +252,7 @@ namespace BlueSwitch.Controls.Docking
                 Vector2 center = new Vector2(ClientSize.Width / 2.0f, ClientSize.Height / 2.0f);
                 Vector2 maus = new Vector2(m.X, m.Y);
                 Vector2 abweichung = center - maus;
-
                 
-
                 RenderingEngine.CurrentProject.Zoom += zoom;
 
                 abweichung = (abweichung * zoom * 0.4f);

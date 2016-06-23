@@ -14,6 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
         protected override void OnInitialize(Engine renderingEngine)
         {
             UniqueName = "Float.ToString";
+            DisplayName = "Float->String";
             AddInput(typeof (float));
             AddOutput(typeof (string));
         }

@@ -371,8 +371,8 @@ namespace BlueSwitch.Base.Components.UI
             var renderingHint = g.TextRenderingHint;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            RectangleF fontRect1 = new RectangleF(fontPoint.X, fontPoint.Y, r.Width, r.Height);
-            RectangleF fontRect2 = new RectangleF(fontPoint.X + 0.5f, fontPoint.Y + 0.5f, r.Width, r.Height);
+            RectangleF fontRect1 = new RectangleF(fontPoint.X - 1, fontPoint.Y, r.Width, r.Height);
+            RectangleF fontRect2 = new RectangleF(fontPoint.X - 0.5f, fontPoint.Y + 0.5f, r.Width, r.Height);
 
             g.DrawString(Text, FontSmall, Brushes.Black, fontRect1, StringFormat);
             g.DrawString(Text, FontSmall, Brushes.White, fontRect2, StringFormat);

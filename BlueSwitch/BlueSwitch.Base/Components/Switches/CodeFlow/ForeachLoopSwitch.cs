@@ -24,6 +24,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
             AddOutput(new ActionSignature());
             AddOutput(new AnySignature());
             AddOutput(new ActionSignature());
+            IsCompact = true;
         }
 
         public override GroupBase OnSetGroup()

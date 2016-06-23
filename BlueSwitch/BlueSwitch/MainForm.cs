@@ -169,7 +169,7 @@ namespace BlueSwitch
 
         private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            Renderer.RenderingEngine.CurrentProject.Save(saveFileDialog.FileName);
+            Renderer.RenderingEngine.Save(saveFileDialog.FileName);
         }
 
         private void LoadFile(String filePath)
@@ -188,7 +188,7 @@ namespace BlueSwitch
             {
                 try
                 {
-                    Renderer.RenderingEngine.CurrentProject.Save(Renderer.RenderingEngine.CurrentProject.FilePath);
+                    Renderer.RenderingEngine.Save(Renderer.RenderingEngine.CurrentProject.FilePath);
                 }
                 catch
                 {

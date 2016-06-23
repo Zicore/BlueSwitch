@@ -455,5 +455,11 @@ namespace BlueSwitch.Base.Components.Base
             Update();
             UpdateMouseMove(e);
         }
+
+        public void Save(string fileName)
+        {
+            CurrentProject.FilePath = fileName;
+            CurrentProject.Save(fileName);
+        }
     }
 }

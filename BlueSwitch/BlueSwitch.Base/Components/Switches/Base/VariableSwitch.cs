@@ -51,7 +51,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             AutoDiscoverDisabled = true;
             IsCompact = true;
-            ColumnWidth = 120;
+            //ColumnWidth = 120;
             base.OnInitialize(renderingEngine);
             Variable = renderingEngine.CurrentProject.GetVariable(VariableKey);
         }

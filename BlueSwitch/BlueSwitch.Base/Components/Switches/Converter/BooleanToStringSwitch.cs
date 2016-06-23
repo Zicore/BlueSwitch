@@ -14,6 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
         protected override void OnInitialize(Engine renderingEngine)
         {
             UniqueName = "Boolean.ToString";
+            DisplayName = "String->Object";
             AddInput(typeof (bool));
             AddOutput(typeof (string));
         }

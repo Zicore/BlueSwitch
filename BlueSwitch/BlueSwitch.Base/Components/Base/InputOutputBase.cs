@@ -127,8 +127,9 @@ namespace BlueSwitch.Base.Components.Base
 
         protected void DrawAction(Graphics g, Engine e, DrawableBase parent, InputOutputBase previous, RectangleF r)
         {
-            float marginOffset = 0.15f;
+            float marginOffset = 0.20f;
 
+            // Arrow Polygon
             float marginHeight = r.Height * marginOffset;
             var poly = new PointF[]
                {
@@ -162,34 +163,40 @@ namespace BlueSwitch.Base.Components.Base
 
         public void DrawData(Graphics g, RenderingEngine e, DrawableBase parent, InputOutputBase previous, RectangleF r)
         {
-            float leftOffset = 5.5f;
-            var marginHeight = r.Height * 0.35f;
-            var poly = new PointF[]
-            {
+            //if (e.PerformanceMode == PerformanceMode.HighQuality)
+            //{
+                float leftOffset = 5.5f;
+                var marginHeight = r.Height*0.35f;
+
+                // Small Arrow Polygon
+                var poly = new PointF[]
+                {
                     new PointF(r.Left + r.Width - leftOffset, r.Top + marginHeight),
-                    new PointF(r.Right + r.Width*0.28f - leftOffset, r.Y + r.Height*0.5f),
-                    new PointF(r.Left + r.Width- leftOffset, r.Bottom - marginHeight),
-            };
+                    new PointF(r.Right + r.Width*0.24f - leftOffset, r.Y + r.Height*0.5f),
+                    new PointF(r.Left + r.Width - leftOffset, r.Bottom - marginHeight),
+                };
 
-            if (SignatureCheckFailed)
-            {
-                g.FillPolygon(SignatureCheckBrush, poly);
-            }
-            else if (IsMouseOver)
-            {
-                g.FillPolygon(MouseOverBrush, poly);
-            }
-            else
-            {
-                g.FillPolygon(Signature.Brush, poly);
-            }
+                if (SignatureCheckFailed)
+                {
+                    g.FillPolygon(SignatureCheckBrush, poly);
+                }
+                else if (IsMouseOver)
+                {
+                    g.FillPolygon(MouseOverBrush, poly);
+                }
+                else
+                {
+                    g.FillPolygon(Signature.Brush, poly);
+                }
 
-            PenSmall.LineJoin = LineJoin.Round;
-            PenWhiteSmall.LineJoin = LineJoin.Round;
+                PenSmall.LineJoin = LineJoin.Round;
+                PenWhiteSmall.LineJoin = LineJoin.Round;
 
-            g.DrawPolygon(PenWhiteSmall, poly);
-            g.DrawPolygon(PenSmall, poly);
-            
+                g.DrawPolygon(PenWhiteSmall, poly);
+                g.DrawPolygon(PenSmall, poly);
+            //}
+
+            // Small Circle
             var radius = r.Height * 0.40f;
             var marginHeightCircle = r.Height * 0.5f - radius * 0.5f;
 

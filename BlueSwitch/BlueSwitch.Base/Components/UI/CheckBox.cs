@@ -119,7 +119,7 @@ namespace BlueSwitch.Base.Components.UI
 
             extendedGraphics.DrawRoundRectangle(DescriptionPen, r.X, r.Y, r.Width, r.Height, radius);
 
-            PointF fontPoint = new PointF(r.X + 1, r.Y - 2);
+            PointF fontPoint = new PointF(r.X - 1, r.Y - 2);
 
             var renderingHint = g.TextRenderingHint;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;

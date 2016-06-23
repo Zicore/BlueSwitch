@@ -13,9 +13,10 @@ namespace BlueSwitch.Controls.ValuePicker
 {
     public partial class NumberPicker : DockContent
     {
-        public NumberPicker(object value)
+        public NumberPicker(Type type,object value)
         {
             InitializeComponent();
+            PrepareByType(type);
             if (value == null)
             {
                 tbValue.Value = 0;
@@ -28,6 +29,9 @@ namespace BlueSwitch.Controls.ValuePicker
 
         public void PrepareByType(Type type)
         {
+            tbValue.Maximum = int.MaxValue;
+            tbValue.Minimum = int.MinValue;
+
             if (type == typeof(int))
             {
                 tbValue.Maximum = int.MaxValue;

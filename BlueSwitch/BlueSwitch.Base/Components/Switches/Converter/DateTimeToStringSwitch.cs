@@ -15,6 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
         protected override void OnInitialize(Engine renderingEngine)
         {
             UniqueName = "DateTime.ToString";
+            DisplayName = "DateTime->String";
             AddInput(typeof (DateTime));
             AddInput(typeof(string));
             AddOutput(typeof (string));
