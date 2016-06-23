@@ -16,7 +16,6 @@ namespace BlueSwitch.Base.Components.Switches.IO
         protected override void OnInitialize(Engine renderingEngine)
         {
             UniqueName = "ConsoleWriteLine";
-            ColumnWidth = 100;
             AddInput(new ActionSignature());
 
             AddInput(typeof(string));

@@ -10,7 +10,7 @@ namespace BlueSwitch.Base.Components.Base
         private SizeF _size;
 
         [JsonIgnore]
-        public bool IsCompact { get; set; }
+        public bool IsCompact { get; set; } = false;
 
         [JsonIgnore]
         public Engine RenderingEngine { get; protected set; }
@@ -25,7 +25,7 @@ namespace BlueSwitch.Base.Components.Base
         }
 
         [JsonIgnore]
-        public float ColumnWidth { get; set; } = 100.0f;
+        public float ColumnWidth { get; set; } = 110.0f;
 
         [JsonIgnore]
         public virtual SizeF Size
