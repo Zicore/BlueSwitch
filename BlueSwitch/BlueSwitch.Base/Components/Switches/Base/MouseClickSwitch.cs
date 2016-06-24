@@ -26,12 +26,12 @@ namespace BlueSwitch.Base.Components.Switches.Base
             renderingEngine.EventManager.Register(EventTypeBase.MouseClick, new EventBase(tree));
         }
 
-        protected virtual void OnClickTrigger(Engine renderingEngine, TriggerEventArgs e)
+        protected virtual void OnClickTrigger(RenderingEngine renderingEngine, TriggerEventArgs e)
         {
             renderingEngine.EventManager.Run(EventTypeBase.MouseClick);
         }
 
-        public override void UpdateMouseUp(Engine renderingEngine, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine renderingEngine, DrawableBase parent, DrawableBase previous)
         {
             if (this.IsMouseOver)
             {

@@ -77,7 +77,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
             SetData(0,new DataContainer(_active));
         }
 
-        public override void UpdateMouseDown(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseDown(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             if (IsMouseOver && IsSelected)
             {

@@ -246,7 +246,7 @@ namespace BlueSwitch.Base.Components.Base
             }
         }
 
-        public override void UpdateMouseDown(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseDown(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             base.UpdateMouseDown(e, parent, previous);
             if (UIComponent != null && !IsConnected(e))
@@ -264,7 +264,7 @@ namespace BlueSwitch.Base.Components.Base
             }
         }
 
-        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             base.UpdateMouseUp(e, parent, previous);
             if (UIComponent != null && !IsConnected(e))

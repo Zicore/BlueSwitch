@@ -69,6 +69,8 @@ namespace BlueSwitch.Base.Services
 
         public void Up(MouseEventArgs e)
         {
+            OnMouseUp(e);
+
             if (e.Button == MouseButtons.Left)
             {
                 LeftMouseDown = false;
@@ -81,7 +83,6 @@ namespace BlueSwitch.Base.Services
             {
                 MiddleMouseDown = false;
             }
-            OnMouseUp(e);
         }
 
         public void Down(MouseEventArgs e)

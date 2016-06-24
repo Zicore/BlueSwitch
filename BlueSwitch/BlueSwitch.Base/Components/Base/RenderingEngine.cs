@@ -39,6 +39,8 @@ namespace BlueSwitch.Base.Components.Base
         [JsonIgnore]
         public bool PreventContextMenu { get; protected set; } = false;
 
+        [JsonIgnore]
+        public EngineSettings Settings { get; set; } = new EngineSettings();
 
         [JsonIgnore]
         protected static Font FontInfo = new Font(new FontFamily("Calibri"), 30, FontStyle.Bold);
@@ -52,7 +54,6 @@ namespace BlueSwitch.Base.Components.Base
             KeyboardService = new KeyboardService(this);
             SelectionService = new SelectionService(this);
 
-
             SelectionService.Completed += SelectionServiceOnCompleted;
             SelectionService.InComplete += SelectionServiceOnInComplete;
 
@@ -64,8 +65,6 @@ namespace BlueSwitch.Base.Components.Base
 
             ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
             ProcessorCompiler.Finished += ProcessorCompilerOnFinished;
-
-
         }
 
         private void TickerProviderOnTick(object sender, EventArgs e)
@@ -209,27 +208,42 @@ namespace BlueSwitch.Base.Components.Base
             DrawSelectionRectangle(g);
         }
 
+        private PointF SnapToGrid(PointF p, int gridWidth)
+        {
+            int x = (int)Math.Round(p.X / gridWidth) * gridWidth;
+            int y = (int)Math.Round(p.Y / gridWidth) * gridWidth;
+
+            return new PointF(x, y);
+        }
+
         public void DrawGrid(Graphics g, RectangleF viewport)
         {
             float zoom = CurrentProject.Zoom;
             var pen = new Pen(Brushes.Gray, 1 / CurrentProject.Zoom);
             var penBlack = new Pen(Brushes.Black, 1 / CurrentProject.Zoom);
 
-            RectangleF grid = new RectangleF(0, 0, 100, 100);
-            viewport = new RectangleF(-CurrentProject.Translation.X, -CurrentProject.Translation.Y, viewport.Width / zoom, viewport.Height / zoom);
+            int bigGridWidth = 100;
+            int gridWidth = 10;
 
+            RectangleF grid = new RectangleF(0, 0, bigGridWidth, bigGridWidth);
+
+            PointF p = new PointF(CurrentProject.Translation.X, CurrentProject.Translation.Y);
+            p = SnapToGrid(p, bigGridWidth);
+
+            viewport = new RectangleF(-p.X, -p.Y, ( viewport.Width) / zoom, (viewport.Height) / zoom);
+            
             int maxGridX = (int)Math.Floor(viewport.Width / grid.Width) + 1;
             int maxGridY = (int)Math.Floor(viewport.Height / grid.Height) + 1;
 
-            int subGridX = 8 * maxGridX;
-            int subGridY = 8 * maxGridY;
+            int subGridX = gridWidth * maxGridX;
+            int subGridY = gridWidth * maxGridY;
 
             g.FillRectangle(Brushes.DimGray, viewport);
 
             for (int i = -1; i < subGridX; i++)
             {
-                var x = (i * (grid.Width / 8)) + viewport.X;
-                if (i % 8 != 0)
+                var x = (i * (grid.Width / gridWidth)) + viewport.X;
+                if (i % gridWidth != 0)
                 {
                     g.DrawLine(pen, x, viewport.Top, x, viewport.Bottom);
                 }
@@ -237,8 +251,8 @@ namespace BlueSwitch.Base.Components.Base
 
             for (int i = -1; i < subGridY; i++)
             {
-                var y = i * (grid.Height / 8) + viewport.Y;
-                if (i % 8 != 0)
+                var y = i * (grid.Height / gridWidth) + viewport.Y;
+                if (i % gridWidth != 0)
                 {
                     g.DrawLine(pen, viewport.Left, y, viewport.Right, y);
                 }
@@ -286,74 +300,7 @@ namespace BlueSwitch.Base.Components.Base
 
             }
         }
-
-        // Mittelpunkt
-        //public void DrawConnection(Graphics g, Pen pen, Pen pen2, PointF p1, PointF p2)
-        //{
-        //    Vector2 v1 = new Vector2(p1.X, p1.Y);
-        //    Vector2 v2 = new Vector2(p2.X, p2.Y);
-
-        //    var distance = Vector2.Distance(v1, v2) * 0.05;
-
-        //    var mid1 = Vector2.Lerp(v1, v2, 0.25);
-        //    var mid2 = Vector2.Lerp(v1, v2, 0.75);
-
-        //    mid1 = mid1 - Perpendicular(Vector2.Normalize(mid1)) * distance;
-        //    mid2 = mid2 + Perpendicular(Vector2.Normalize(mid2)) * distance;
-
-        //    PointF b1 = new PointF((float)mid1.X, (float)mid1.Y);
-        //    PointF b2 = new PointF((float)mid2.X, (float)mid2.Y);
-
-
-        //    g.DrawCurve(pen2, new PointF[] { p1, b1, b2, p2 });
-        //    g.DrawCurve(pen, new PointF[] { p1, b1, b2, p2 });
-
-        //    if (DebugMode)
-        //    {
-        //        DrawRect(g, p1);
-        //        DrawRect(g, b1);
-        //        DrawRect(g, b2);
-        //        DrawRect(g, p2);
-        //    }
-        //}
-
-        // Abhängig von X Achse
-        //public void DrawConnection(Graphics g, Pen pen, Pen pen2, PointF p1, PointF p2)
-        //{
-        //    Vector2 v1 = new Vector2(p1.X, p1.Y);
-        //    Vector2 v2 = new Vector2(p2.X, p2.Y);
-
-        //    float overhangX = (Math.Max(p1.X, p2.X) - Math.Min(p1.X, p2.X)) * 0.85f;
-
-        //    overhangX = Math.Min(overhangX, 100);
-        //    overhangX = Math.Max(30, overhangX);
-
-        //    float overhangY = (Math.Max(p1.Y, p2.Y) - Math.Min(p1.Y, p2.Y)) * 0.25f;
-
-        //    overhangY = Math.Min(overhangY, 20);
-        //    overhangY = Math.Max(2, overhangY);
-
-        //    PointF b1 = new PointF(p1.X - overhangX, p1.Y - overhangY);
-        //    PointF b2 = new PointF(p2.X + overhangX, p2.Y + overhangY);
-
-        //    GraphicsPath p = new GraphicsPath();
-        //    p.AddBezier(p1, b1, b2, p2);
-        //    GraphicsPath pHit = new GraphicsPath();
-        //    pHit.AddBezier(p1, b1, b2, p2);
-        //    pHit.Widen(new Pen(Color.Black, 8));
-
-        //    if (pHit.IsVisible(TranslatedMousePosition))
-        //    {
-        //        g.DrawPath(pen2, p);
-        //        g.DrawPath(Pens.Lime, p);
-        //    }
-        //    else
-        //    {
-        //        g.DrawPath(pen2, p);
-        //        g.DrawPath(pen, p);
-        //    }
-        //}
-
+        
         public static void DrawRect(Graphics g, PointF p)
         {
             g.FillRectangle(Brushes.Red, new RectangleF(new PointF(p.X - 1f, p.Y - 1f), new SizeF(3, 3)));

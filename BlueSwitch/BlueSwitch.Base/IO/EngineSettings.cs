@@ -8,6 +8,7 @@ namespace BlueSwitch.Base.IO
 {
     public class EngineSettings : JsonSerializable
     {
-
+        public int SnapToGridWidth { get; set; } = 10;
+        public bool SnapToGridEnabled { get; set; } = true;
     }
 }

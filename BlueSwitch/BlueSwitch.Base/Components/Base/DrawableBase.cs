@@ -25,7 +25,7 @@ namespace BlueSwitch.Base.Components.Base
         }
 
         [JsonIgnore]
-        public float ColumnWidth { get; set; } = 110.0f;
+        public float ColumnWidth { get; set; } = 100.0f;
 
         [JsonIgnore]
         public virtual SizeF Size
@@ -137,12 +137,12 @@ namespace BlueSwitch.Base.Components.Base
             
         }
 
-        public virtual void UpdateMouseDown(Engine e, DrawableBase parent, DrawableBase previous)
+        public virtual void UpdateMouseDown(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
 
         }
         
-        public virtual void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public virtual void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
 
         }

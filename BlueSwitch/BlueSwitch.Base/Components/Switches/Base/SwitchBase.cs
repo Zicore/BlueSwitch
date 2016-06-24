@@ -835,7 +835,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
         }
 
-        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             UIComponent lastUiComponent = null;
             foreach (var uiComponent in Components)
@@ -861,10 +861,18 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 _addOutputPin.UpdateMouseUp(e, this, _addInputPin);
             }
 
+            if (e.SelectionService.Input == null && e.SelectionService.Output == null && !e.SelectionService.StartSelectionRectangle)
+            {
+                if (IsSelected && e.MouseService.LeftMouseDown)
+                {
+                    Move(e, parent, previous,true);
+                }
+            }
+
             base.UpdateMouseUp(e, parent, previous);
         }
 
-        public override void UpdateMouseDown(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseDown(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             UIComponent lastUiComponent = null;
             foreach (var uiComponent in Components)
@@ -900,7 +908,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 if (IsSelected && e.MouseService.LeftMouseDown)
                 {
-                    Move(e, parent, previous);
+                    Move(e, parent, previous, false);
                 }
             }
 
@@ -922,15 +930,30 @@ namespace BlueSwitch.Base.Components.Switches.Base
             }
         }
 
-        public void Move(RenderingEngine e, DrawableBase parent, DrawableBase previous)
+        public void Move(RenderingEngine e, DrawableBase parent, DrawableBase previous, bool snapToGrid)
         {
             var p = Position;
             var m = e.TranslatedMousePosition;
 
             PointF shift = new PointF(p.X - e.SelectionService.MouseLeftDownMovePositionLast.X, p.Y - e.SelectionService.MouseLeftDownMovePositionLast.Y);
-            Position = new PointF(m.X + shift.X, m.Y + shift.Y);
+            var newPosition = new PointF(m.X + shift.X, m.Y + shift.Y);
+
+            Position = newPosition;
+
+            if (snapToGrid && e.Settings.SnapToGridEnabled)
+            {
+                Position = SnapToGrid(newPosition, e.Settings.SnapToGridWidth);
+            }
 
             Cursor.Current = Cursors.SizeAll;
+        }
+
+        private PointF SnapToGrid(PointF p, int gridWidth)
+        {
+            int x = (int)Math.Round(p.X / gridWidth) * gridWidth;
+            int y = (int)Math.Round(p.Y / gridWidth) * gridWidth;
+
+            return new PointF(x ,y);
         }
 
         public void DrawSelection(Graphics g, Engine e, DrawableBase parent, Pen pen)

@@ -130,7 +130,7 @@ namespace BlueSwitch.Base.Components.UI
             base.Draw(g, e, parent);
         }
         
-        public override void UpdateMouseUp(Engine e, DrawableBase parent, DrawableBase previous)
+        public override void UpdateMouseUp(RenderingEngine e, DrawableBase parent, DrawableBase previous)
         {
             HasFocus = false;
             if (IsMouseOver)
