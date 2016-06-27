@@ -20,6 +20,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
             AddInput(new ActionSignature());
             AddInput(typeof(int), new TextEdit() { AllowDecimalPoint = false, NumberMode = true});
             AddOutput(new ActionSignature());
+
+            IsCompact = true;
         }
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)

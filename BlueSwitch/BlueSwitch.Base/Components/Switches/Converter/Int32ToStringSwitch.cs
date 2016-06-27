@@ -17,6 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
             DisplayName = "Int32->String";
             AddInput(typeof (int));
             AddOutput(typeof (string));
+            IsCompact = true;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

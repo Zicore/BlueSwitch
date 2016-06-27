@@ -26,8 +26,6 @@ namespace BlueSwitch.Base.Components.Base
 
     public class RenderingEngine : Engine
     {
-        public PerformanceMode PerformanceMode { get; set; } = PerformanceMode.HighPerformance;
-
         public override event EventHandler DebugValueUpdated;
 
         protected Timer _tickerProvider = new Timer { Interval = 100, Enabled = true };
@@ -147,7 +145,10 @@ namespace BlueSwitch.Base.Components.Base
             mat.Scale(CurrentProject.Zoom, CurrentProject.Zoom, MatrixOrder.Append);
             g.Transform = mat;
 
-            DrawGrid(g, viewport);
+            if (Settings.DrawGrid)
+            {
+                DrawGrid(g, viewport);
+            }
 
             if (CurrentProject.Ready)
             {
@@ -218,13 +219,13 @@ namespace BlueSwitch.Base.Components.Base
         public void DrawGrid(Graphics g, RectangleF viewport)
         {
             float zoom = CurrentProject.Zoom;
-            var pen = new Pen(Brushes.Gray, 1 / zoom);
-            var penBlack = new Pen(Brushes.Black, 1 / zoom);
+            var pen = new Pen(Brushes.DarkGray, 2 / zoom);
+            var penBlack = new Pen(Brushes.DimGray, 1.5f / zoom);
 
-            int bigGridWidth = 100;
+            int bigGridWidth = 200;
             float bigGridWithBy2 = bigGridWidth * 0.5f;
-            float gridWidth = bigGridWidth * 0.1f;
-            int subGridWidthDivisor = 10;
+            int subGridWidthDivisor = 20;
+            float gridWidth = bigGridWidth / (float)subGridWidthDivisor;
 
             RectangleF grid = new RectangleF(0, 0, bigGridWidth, bigGridWidth);
 
@@ -234,52 +235,63 @@ namespace BlueSwitch.Base.Components.Base
             float xoff = Math.Abs(p.X - pBeforeSnap.X) + bigGridWithBy2;
             float yoff = Math.Abs(p.Y - pBeforeSnap.Y) + bigGridWithBy2;
             viewport = new RectangleF(-p.X - bigGridWithBy2, -p.Y - bigGridWithBy2, xoff + ( viewport.Width) / zoom, yoff + (viewport.Height+ yoff) / zoom);
-            
+
+
             int maxGridX = (int)Math.Floor(viewport.Width / grid.Width) + 1;
             int maxGridY = (int)Math.Floor(viewport.Height / grid.Height) + 1;
 
             int subGridX = (int)Math.Floor(gridWidth * maxGridX);
             int subGridY = (int)Math.Floor(gridWidth * maxGridY);
 
-            g.FillRectangle(Brushes.DimGray, viewport);
+            GraphicsPath pathSubGrid = new GraphicsPath();
+            GraphicsPath pathGrid = new GraphicsPath();
 
-            for (int i = -1; i < subGridX; i++)
+            if (Settings.DrawSubGrid)
             {
-                var x = (i * (grid.Width / gridWidth)) + viewport.X;
-                if (i % subGridWidthDivisor != 0)
+                for (int i = -1; i < subGridX; i++)
                 {
-                    g.DrawLine(pen, x, viewport.Top, x, viewport.Bottom);
+                    var x = (i*(grid.Width/gridWidth)) + viewport.X;
+                    if (i%subGridWidthDivisor != 0)
+                    {
+                        pathSubGrid.AddLine(x, viewport.Top, x, viewport.Bottom);
+                        pathSubGrid.CloseFigure();
+                    }
                 }
-            }
 
-            for (int i = -1; i < subGridY; i++)
-            {
-                var y = i * (grid.Height / gridWidth) + viewport.Y;
-                if (i % subGridWidthDivisor != 0)
+                for (int i = -1; i < subGridY; i++)
                 {
-                    g.DrawLine(pen, viewport.Left, y, viewport.Right, y);
+                    var y = i*(grid.Height/gridWidth) + viewport.Y;
+                    if (i%subGridWidthDivisor != 0)
+                    {
+                        pathSubGrid.AddLine(viewport.Left, y, viewport.Right, y);
+                        pathSubGrid.CloseFigure();
+                    }
                 }
+
+                g.DrawPath(pen, pathSubGrid);
             }
 
             for (int i = -1; i < maxGridX; i++)
             {
                 var x = i * grid.Width + viewport.X;
-                g.DrawLine(penBlack, x, viewport.Top, x, viewport.Bottom);
+                pathGrid.AddLine(x, viewport.Top, x, viewport.Bottom);
+                pathGrid.CloseFigure();
             }
 
             for (int i = -1; i < maxGridY; i++)
             {
                 var y = i * grid.Height + viewport.Y;
-
-                g.DrawLine(penBlack, viewport.Left, y, viewport.Right, y);
+                pathGrid.AddLine(viewport.Left, y, viewport.Right, y);
+                pathGrid.CloseFigure();
             }
+            g.DrawPath(penBlack, pathGrid);
         }
         
         public void Zoom(RectangleF clientSize,float zoom)
         {
             PointF m = MouseService.Position;
 
-            if (CurrentProject.Zoom + zoom > 0.2)
+            if (CurrentProject.Zoom + zoom > 0.4)
             {
                 Vector2 mausOld = new Vector2(m.X, m.Y) / CurrentProject.Zoom;
                 Vector2 mausNew = new Vector2(m.X, m.Y) / (CurrentProject.Zoom + zoom);

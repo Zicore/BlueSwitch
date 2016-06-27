@@ -32,7 +32,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 AddOutput(Variable.NetValueType);
             }
 
-            NamePrefix = "Get";
+            NamePrefix = "*";
 
             UpdateVariable(Variable);
         }

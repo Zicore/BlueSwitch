@@ -18,6 +18,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
             AddInput(new ActionSignature());
             AddOutput(new ActionSignature());
+
+            IsCompact = true;
         }
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)

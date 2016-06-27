@@ -18,6 +18,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
             DisplayName = "Object->Any";
             AddInput(typeof(object));
             AddOutput(new AnySignature());
+            IsCompact = true;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

@@ -17,6 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
             DisplayName = "String->Object";
             AddInput(typeof (bool));
             AddOutput(typeof (string));
+            IsCompact = true;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

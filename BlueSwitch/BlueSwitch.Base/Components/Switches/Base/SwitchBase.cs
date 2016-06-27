@@ -708,7 +708,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public virtual Brush GetMainBrush(RectangleF rectangle, RenderingEngine e)
         {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            if (e.Settings.PerformanceMode == PerformanceMode.HighQuality)
             {
                 var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
@@ -731,7 +731,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public virtual Brush GetDebugBrush(RectangleF rectangle, RenderingEngine e)
         {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            if (e.Settings.PerformanceMode == PerformanceMode.HighQuality)
             {
                 var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
@@ -750,7 +750,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public virtual Brush GetDebugDataBrush(RectangleF rectangle, RenderingEngine e)
         {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            if (e.Settings.PerformanceMode == PerformanceMode.HighQuality)
             {
                 var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 
@@ -773,7 +773,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public virtual Brush GetMainSelectionBrush(RectangleF rectangle, RenderingEngine e)
         {
-            if (e.PerformanceMode == PerformanceMode.HighQuality)
+            if (e.Settings.PerformanceMode == PerformanceMode.HighQuality)
             {
                 var brush = new LinearGradientBrush(rectangle, Color.Black, Color.Black, 90, true);
 

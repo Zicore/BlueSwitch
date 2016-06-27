@@ -32,14 +32,15 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             if (Variable != null)
             {
-                NameSuffix = $"({Variable.Name})";
+                NameSuffix = $"{Variable.Name}";
             }
             else
             {
                 NameSuffix = "";
             }
 
-            UniqueName = $"{NamePrefix} {NameSuffix}";
+            DisplayName = $"{NamePrefix}{NameSuffix}";
+            UniqueName = "";
 
             if (variable != null)
             {

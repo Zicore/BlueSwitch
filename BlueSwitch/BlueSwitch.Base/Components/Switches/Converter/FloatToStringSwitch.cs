@@ -17,6 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.Converter
             DisplayName = "Float->String";
             AddInput(typeof (float));
             AddOutput(typeof (string));
+            IsCompact = true;
         }
 
         protected override void OnInitializeMetaInformation(Engine engine)

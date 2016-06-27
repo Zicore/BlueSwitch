@@ -35,7 +35,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             
             AddOutput(new ActionSignature());
 
-            NamePrefix = "Set";
+            NamePrefix = "*";
             UpdateVariable(Variable);
         }
 

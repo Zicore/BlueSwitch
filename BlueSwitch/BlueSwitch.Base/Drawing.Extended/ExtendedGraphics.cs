@@ -69,7 +69,7 @@ namespace BlueSwitch.Base.Drawing.Extended
         //#region Fills a Rounded Rectangle with continuous numbers.
         public void FillRoundRectangle(System.Drawing.Brush brush,float x, float y,float width, float height, float radius)
         {
-            if (RenderingEngine.PerformanceMode == PerformanceMode.HighPerformance)
+            if (RenderingEngine.Settings.PerformanceMode == PerformanceMode.HighPerformance)
             {
                 radius = 0;
             }
@@ -84,7 +84,7 @@ namespace BlueSwitch.Base.Drawing.Extended
         //#region Draws a Rounded Rectangle border with continuous numbers. 
         public void DrawRoundRectangle(System.Drawing.Pen pen,float x, float y,float width, float height, float radius)
         {
-            if (RenderingEngine.PerformanceMode == PerformanceMode.HighPerformance)
+            if (RenderingEngine.Settings.PerformanceMode == PerformanceMode.HighPerformance)
             {
                 radius = 0;
             }

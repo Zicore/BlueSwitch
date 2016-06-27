@@ -390,7 +390,7 @@ namespace BlueSwitch
         {
             highPerformanceToolStripMenuItem.Checked = false;
 
-            Renderer.RenderingEngine.PerformanceMode = PerformanceMode.HighQuality;
+            Renderer.RenderingEngine.Settings.PerformanceMode = PerformanceMode.HighQuality;
             Renderer.RenderingEngine.RequestRedraw();
         }
 
@@ -398,14 +398,16 @@ namespace BlueSwitch
         {
             highQualityToolStripMenuItem.Checked = false;
 
-            Renderer.RenderingEngine.PerformanceMode = PerformanceMode.HighPerformance;
+            Renderer.RenderingEngine.Settings.PerformanceMode = PerformanceMode.HighPerformance;
 
             Renderer.RenderingEngine.RequestRedraw();
         }
 
-        private void rendererToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Renderer.RenderingEngine.Settings.DrawGrid = gridToolStripMenuItem.Checked;
 
+            Renderer.RenderingEngine.RequestRedraw();
         }
     }
 }
