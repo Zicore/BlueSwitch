@@ -141,16 +141,13 @@ namespace BlueSwitch.Base.Components.Base
             g.SmoothingMode = SmoothingMode.HighQuality;
             g.CompositingQuality = CompositingQuality.HighQuality;
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            DrawRenderingInfo(g, viewport);
-
-
+            
             var mat = new Matrix();
             mat.Translate(CurrentProject.Translation.X, CurrentProject.Translation.Y);
             mat.Scale(CurrentProject.Zoom, CurrentProject.Zoom, MatrixOrder.Append);
             g.Transform = mat;
 
-            //DrawGrid(g, viewport);
+            DrawGrid(g, viewport);
 
             if (CurrentProject.Ready)
             {
@@ -206,6 +203,8 @@ namespace BlueSwitch.Base.Components.Base
 
             // Selection nach Rückgängig machen der Transformation, so ist die Box wieder an der richtigen Position
             DrawSelectionRectangle(g);
+
+            DrawRenderingInfo(g, viewport);
         }
 
         private PointF SnapToGrid(PointF p, int gridWidth)
@@ -219,31 +218,35 @@ namespace BlueSwitch.Base.Components.Base
         public void DrawGrid(Graphics g, RectangleF viewport)
         {
             float zoom = CurrentProject.Zoom;
-            var pen = new Pen(Brushes.Gray, 1 / CurrentProject.Zoom);
-            var penBlack = new Pen(Brushes.Black, 1 / CurrentProject.Zoom);
+            var pen = new Pen(Brushes.Gray, 1 / zoom);
+            var penBlack = new Pen(Brushes.Black, 1 / zoom);
 
             int bigGridWidth = 100;
-            int gridWidth = 10;
+            float bigGridWithBy2 = bigGridWidth * 0.5f;
+            float gridWidth = bigGridWidth * 0.1f;
+            int subGridWidthDivisor = 10;
 
             RectangleF grid = new RectangleF(0, 0, bigGridWidth, bigGridWidth);
 
-            PointF p = new PointF(CurrentProject.Translation.X, CurrentProject.Translation.Y);
-            p = SnapToGrid(p, bigGridWidth);
+            PointF pBeforeSnap = new PointF(CurrentProject.Translation.X, CurrentProject.Translation.Y);
+            PointF p = SnapToGrid(pBeforeSnap, bigGridWidth);
 
-            viewport = new RectangleF(-p.X, -p.Y, ( viewport.Width) / zoom, (viewport.Height) / zoom);
+            float xoff = Math.Abs(p.X - pBeforeSnap.X) + bigGridWithBy2;
+            float yoff = Math.Abs(p.Y - pBeforeSnap.Y) + bigGridWithBy2;
+            viewport = new RectangleF(-p.X - bigGridWithBy2, -p.Y - bigGridWithBy2, xoff + ( viewport.Width) / zoom, yoff + (viewport.Height+ yoff) / zoom);
             
             int maxGridX = (int)Math.Floor(viewport.Width / grid.Width) + 1;
             int maxGridY = (int)Math.Floor(viewport.Height / grid.Height) + 1;
 
-            int subGridX = gridWidth * maxGridX;
-            int subGridY = gridWidth * maxGridY;
+            int subGridX = (int)Math.Floor(gridWidth * maxGridX);
+            int subGridY = (int)Math.Floor(gridWidth * maxGridY);
 
             g.FillRectangle(Brushes.DimGray, viewport);
 
             for (int i = -1; i < subGridX; i++)
             {
                 var x = (i * (grid.Width / gridWidth)) + viewport.X;
-                if (i % gridWidth != 0)
+                if (i % subGridWidthDivisor != 0)
                 {
                     g.DrawLine(pen, x, viewport.Top, x, viewport.Bottom);
                 }
@@ -252,7 +255,7 @@ namespace BlueSwitch.Base.Components.Base
             for (int i = -1; i < subGridY; i++)
             {
                 var y = i * (grid.Height / gridWidth) + viewport.Y;
-                if (i % gridWidth != 0)
+                if (i % subGridWidthDivisor != 0)
                 {
                     g.DrawLine(pen, viewport.Left, y, viewport.Right, y);
                 }
@@ -270,6 +273,31 @@ namespace BlueSwitch.Base.Components.Base
 
                 g.DrawLine(penBlack, viewport.Left, y, viewport.Right, y);
             }
+        }
+        
+        public void Zoom(RectangleF clientSize,float zoom)
+        {
+            PointF m = MouseService.Position;
+
+            if (CurrentProject.Zoom + zoom > 0.2)
+            {
+                Vector2 mausOld = new Vector2(m.X, m.Y) / CurrentProject.Zoom;
+                Vector2 mausNew = new Vector2(m.X, m.Y) / (CurrentProject.Zoom + zoom);
+
+                Vector2 translation = new Vector2(CurrentProject.Translation.X, CurrentProject.Translation.Y);
+                Vector2 centerOld = new Vector2(clientSize.Width * 0.5f,clientSize.Height * 0.5f) / CurrentProject.Zoom;
+                Vector2 centerNew = new Vector2(clientSize.Width * 0.5f, clientSize.Height * 0.5f) / (CurrentProject.Zoom + zoom);
+
+                Vector2 abweichung = (mausNew - mausOld);
+
+                CurrentProject.Zoom += zoom;
+
+                PointF p = new PointF((float)translation.X + (float)abweichung.X, (float)translation.Y + (float)abweichung.Y);
+
+                CurrentProject.Translation = p;
+            }
+
+            RequestRedraw();
         }
 
         public void DrawRenderingInfo(Graphics g, RectangleF viewport)

@@ -243,26 +243,6 @@ namespace BlueSwitch.Controls.Docking
         }
 
 
-        public void Zoom(float zoom)
-        {
-            PointF m = RenderingEngine.MouseService.Position;
-
-            if (RenderingEngine.CurrentProject.Zoom + zoom > 0.2)
-            {
-                Vector2 center = new Vector2(ClientSize.Width / 2.0f, ClientSize.Height / 2.0f);
-                Vector2 maus = new Vector2(m.X, m.Y);
-                Vector2 abweichung = center - maus;
-                
-                RenderingEngine.CurrentProject.Zoom += zoom;
-
-                abweichung = (abweichung * zoom * 0.4f);
-
-                RenderingEngine.CurrentProject.Translation = new PointF(RenderingEngine.CurrentProject.Translation.X + (float)abweichung.X, RenderingEngine.CurrentProject.Translation.Y + (float)abweichung.Y);
-            }
-            
-            Invalidate();
-        }
-
         void renderView_MouseWheel(object sender, MouseEventArgs e)
         {
             if (oldDelta > e.Delta)
@@ -276,11 +256,11 @@ namespace BlueSwitch.Controls.Docking
 
             if (scrollingUp)
             {
-                Zoom(-0.05f);
+                RenderingEngine.Zoom(ClientRectangle,-0.05f);
             }
             else
             {
-                Zoom(+0.05f);
+                RenderingEngine.Zoom(ClientRectangle,+0.05f);
             }
         }
 
