@@ -45,9 +45,12 @@ namespace BlueSwitch.Base.Components.Base
         
         protected static Pen _linePen = new Pen(Color.FromArgb(200, 30, 30, 30), 4.0f) { LineJoin = LineJoin.Round, EndCap = LineCap.Round, StartCap = LineCap.Round };
 
+        
 
         public RenderingEngine() : base()
         {
+            LoadSettings();
+
             MouseService = new MouseService(this);
             KeyboardService = new KeyboardService(this);
             SelectionService = new SelectionService(this);
@@ -70,6 +73,23 @@ namespace BlueSwitch.Base.Components.Base
             EventManager.Run(EventTypeBase.TimerTick);
         }
 
+        public void LoadSettings()
+        {
+            try
+            {
+                Settings = JsonSerializable.Load<EngineSettings>(EngineSettings.SettingsFilePath);
+            }
+            catch
+            {
+                Settings = new EngineSettings();
+                Settings.Save(EngineSettings.SettingsFilePath);
+            }
+        }
+
+        public void SaveSettings()
+        {
+            Settings.Save(EngineSettings.SettingsFilePath);
+        }
 
         public MouseService MouseService { get; set; }
         public KeyboardService KeyboardService { get; set; }

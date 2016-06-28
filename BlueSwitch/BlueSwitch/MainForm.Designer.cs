@@ -84,6 +84,7 @@
             this.performanceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.highQualityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highPerformanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runtimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProjectInRuntime = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -104,7 +105,6 @@
             this.openFileDialogTags = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogHelp = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogHelp = new System.Windows.Forms.OpenFileDialog();
-            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -403,14 +403,14 @@
             this.helpEnabledToolStripMenuItem.CheckOnClick = true;
             this.helpEnabledToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.helpEnabledToolStripMenuItem.Name = "helpEnabledToolStripMenuItem";
-            this.helpEnabledToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.helpEnabledToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.helpEnabledToolStripMenuItem.Text = "Help Enabled";
             this.helpEnabledToolStripMenuItem.Click += new System.EventHandler(this.helpEnabledToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // performanceToolStripMenuItem1
@@ -419,7 +419,7 @@
             this.highQualityToolStripMenuItem,
             this.highPerformanceToolStripMenuItem});
             this.performanceToolStripMenuItem1.Name = "performanceToolStripMenuItem1";
-            this.performanceToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.performanceToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.performanceToolStripMenuItem1.Text = "Performance";
             // 
             // highQualityToolStripMenuItem
@@ -437,6 +437,16 @@
             this.highPerformanceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.highPerformanceToolStripMenuItem.Text = "High Performance";
             this.highPerformanceToolStripMenuItem.Click += new System.EventHandler(this.highPerformanceToolStripMenuItem_Click);
+            // 
+            // gridToolStripMenuItem
+            // 
+            this.gridToolStripMenuItem.Checked = true;
+            this.gridToolStripMenuItem.CheckOnClick = true;
+            this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.gridToolStripMenuItem.Text = "Grid";
+            this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
             // runtimeToolStripMenuItem
             // 
@@ -518,7 +528,6 @@
             dockPaneStripToolWindowGradient1.InactiveTabGradient = tabGradient7;
             dockPaneStripSkin1.ToolWindowGradient = dockPaneStripToolWindowGradient1;
             dockPanelSkin1.DockPaneStripSkin = dockPaneStripSkin1;
-            this.dockPanel.Skin = dockPanelSkin1;
             this.dockPanel.TabIndex = 2;
             // 
             // statusStrip
@@ -640,16 +649,6 @@
             this.openFileDialogHelp.Filter = "Meta Json Dateien|*.meta.json";
             this.openFileDialogHelp.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogHelp_FileOk);
             // 
-            // gridToolStripMenuItem
-            // 
-            this.gridToolStripMenuItem.Checked = true;
-            this.gridToolStripMenuItem.CheckOnClick = true;
-            this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.gridToolStripMenuItem.Text = "Grid";
-            this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -665,6 +664,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blue Switch - Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

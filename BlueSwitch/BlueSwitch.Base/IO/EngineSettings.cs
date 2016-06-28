@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Base;
+using Newtonsoft.Json;
 
 namespace BlueSwitch.Base.IO
 {
@@ -16,5 +17,8 @@ namespace BlueSwitch.Base.IO
 
         public bool DrawGrid { get; set; } = true;
         public bool DrawSubGrid { get; set; } = true;
+
+        [JsonIgnore]
+        public static string SettingsFilePath = JsonSerializable.GetFilePath("BlueSwitch", "Settings.json");
     }
 }

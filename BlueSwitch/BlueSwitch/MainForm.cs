@@ -119,6 +119,7 @@ namespace BlueSwitch
         private void InitializeDockingControls()
         {
             dockPanel.SuspendLayout();
+            dockPanel.Theme = new VS2012LightTheme();
             dockPanel.BackColor = SystemColors.Control;
             dockPanel.DockBackColor = SystemColors.Control;
 
@@ -408,6 +409,12 @@ namespace BlueSwitch
             Renderer.RenderingEngine.Settings.DrawGrid = gridToolStripMenuItem.Checked;
 
             Renderer.RenderingEngine.RequestRedraw();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Renderer.RenderingEngine.SaveSettings();
+            
         }
     }
 }

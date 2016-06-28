@@ -36,12 +36,15 @@ namespace BlueSwitch.Controls.Docking
             // RendererBase
             // 
             this.AllowDrop = true;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(315, 285);
+            this.ClientSize = new System.Drawing.Size(509, 466);
             this.ContextMenuStrip = this._contextMenuStrip;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
             this.Name = "RendererBase";
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.RendererBase_Scroll);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RendererBase_KeyUp);
             this._contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);

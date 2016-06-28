@@ -24,7 +24,9 @@ namespace BlueSwitch.Controls.Docking
             this.MouseWheel += renderView_MouseWheel;
             GotFocus += OnGotFocus;
             LostFocus += OnLostFocus;
-            AllowDrop = true;
+            //AllowDrop = true;
+
+            UpdateScrollBars();
         }
 
         public void InitializeEngine()
@@ -41,6 +43,8 @@ namespace BlueSwitch.Controls.Docking
         Pen focusPenSimulation = new Pen(Brushes.OrangeRed, 2.0f);
         Boolean scrollingUp = true;
         int oldDelta = 0;
+
+        public static string DockSaveState = JsonSerializable.GetFilePath("BlueSwitch", "DockSaveState.dat");
 
         private void ProcessorCompilerOnFinished(object sender, EventArgs eventArgs)
         {
@@ -134,6 +138,7 @@ namespace BlueSwitch.Controls.Docking
         {
             RenderingEngine.MouseService.UpdateMouseMove(e);
             base.OnMouseMove(e);
+            UpdateScrollBars();
             Invalidate();
         }
 
@@ -208,7 +213,6 @@ namespace BlueSwitch.Controls.Docking
                 e.Effect = DragDropEffects.Move;
             }
             base.OnDragEnter(e);
-
         }
 
         protected override void OnDragDrop(DragEventArgs e)
@@ -262,6 +266,14 @@ namespace BlueSwitch.Controls.Docking
             {
                 RenderingEngine.Zoom(ClientRectangle,+0.05f);
             }
+            UpdateScrollBars();
+        }
+
+        private void UpdateScrollBars()
+        {
+            //AutoScroll = true;
+            //var pt = new Point((int)RenderingEngine.CurrentProject.Translation.X, (int)RenderingEngine.CurrentProject.Translation.Y);
+            //AutoScrollPosition = pt;
         }
 
         public void AddComponent(RenderingEngine engine, SwitchBase sourceComponent)
@@ -271,6 +283,7 @@ namespace BlueSwitch.Controls.Docking
 
         protected override void OnResize(EventArgs e)
         {
+            UpdateScrollBars();
             Invalidate();
         }
 
@@ -290,6 +303,12 @@ namespace BlueSwitch.Controls.Docking
             {
                 RenderingEngine.SelectionService.RemoveSelected();
             }
+        }
+
+        private void RendererBase_Scroll(object sender, ScrollEventArgs e)
+        {
+            RenderingEngine.CurrentProject.Translation = AutoScrollPosition;
+            RenderingEngine.RequestRedraw();
         }
     }
 }
