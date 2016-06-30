@@ -31,6 +31,8 @@ namespace BlueSwitch
         public MainForm()
         {
             InitializeComponent();
+
+
             InitializeDockingControls();
 
             var project = Renderer.RenderingEngine.CurrentProject;
@@ -44,6 +46,39 @@ namespace BlueSwitch
 
             Renderer.RenderingEngine.DebugModeChanged += RenderingEngineOnDebugModeChanged;
             Renderer.RenderingEngine.SelectionService.ContextAction += SelectionServiceOnContextAction;
+
+        }
+
+        private void RenderingEngineOnProjectLoaded(object sender, EventArgs eventArgs)
+        {
+            UpdateTitle();
+        }
+
+        private void UpdateTitle()
+        {
+            var project = Renderer.RenderingEngine.CurrentProject;
+            if (!string.IsNullOrEmpty(project.Name))
+            {
+                if (!string.IsNullOrEmpty(project.FilePath))
+                {
+                    Text = $"Blue Switch Designer - {project.Name} - {project.FilePath}";
+                }
+                else
+                {
+                    Text = $"Blue Switch Designer - {project.Name}";
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(project.FilePath))
+                {
+                    Text = $"Blue Switch Designer - {project.FilePath}";
+                }
+                else
+                {
+                    Text = $"Blue Switch Designer - Unnamed Project";
+                }
+            }
         }
 
         private void SelectionServiceOnContextAction(object sender, ContextActionEventArgs e)
@@ -105,6 +140,8 @@ namespace BlueSwitch
 
         private Logger _log = LogManager.GetCurrentClassLogger();
 
+        private ProcessorCompiler compiler;
+
         private RendererBase Renderer;
         private SwitchesTree _switchesTree;
         private SearchEditor _metaEditor;
@@ -116,16 +153,20 @@ namespace BlueSwitch
 
         private TriggerExample _triggerExample;
 
+        private DeserializeDockContent _deserializeDockContent;
+
         private void InitializeDockingControls()
         {
             dockPanel.SuspendLayout();
+
+
             dockPanel.Theme = new VS2012LightTheme();
             dockPanel.BackColor = SystemColors.Control;
             dockPanel.DockBackColor = SystemColors.Control;
 
             this.Renderer = new RendererBase();
             Renderer.BackColor = SystemColors.ControlDark;
-            Renderer.Show(dockPanel);
+            
             Renderer.AllowDrop = true;
             Renderer.HideOnClose = true;
             
@@ -138,35 +179,49 @@ namespace BlueSwitch
 
 
             _switchesTree.HideOnClose = true;
-            _switchesTree.Show(dockPanel, DockState.DockLeft);
-
             _metaEditor.HideOnClose = true;
             _helpEditor.HideOnClose = true;
-
             _triggerExample.HideOnClose = true;
-            _triggerExample.Show(dockPanel, DockState.DockRight);
-            
             _variableEditor.HideOnClose = true;
-            _variableEditor.Show(dockPanel, DockState.DockRight);
-
             _errorList.HideOnClose = true;
-            _errorList.Show(Renderer.DockPanel, DockState.DockBottomAutoHide);
 
             dockPanel.DockLeftPortion = 220;
             dockPanel.DockRightPortion = 220;
-            
+
+            LoadStateFromXml();
+
+            Renderer.RenderingEngine.ProjectLoaded += RenderingEngineOnProjectLoaded;
+
             Renderer.InitializeEngine();
 
             _switchesTree.UpdateTree();
             _metaEditor.UpdateTree();
             _helpEditor.UpdateTree();
+
+
             dockPanel.ResumeLayout(true,true);
 
             var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             LoadFile(Path.Combine(userprofile,"scenario.bs.json"));
         }
+        
+        private void LoadStateFromXml()
+        {
 
-        private ProcessorCompiler compiler;
+            try
+            {
+                dockPanel.LoadFromXml(RendererBase.DockSaveState, GetContentFromPersistString);
+                Renderer.Show(dockPanel);
+            }
+            catch
+            {
+                Renderer.Show(dockPanel);
+                _switchesTree.Show(dockPanel, DockState.DockLeft);
+                _triggerExample.Show(dockPanel, DockState.DockRight);
+                _variableEditor.Show(dockPanel, DockState.DockRight);
+                _errorList.Show(Renderer.DockPanel, DockState.DockBottomAutoHide);
+            }
+        }
 
         private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
@@ -181,6 +236,7 @@ namespace BlueSwitch
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             LoadFile(openFileDialog.FileName);
+            UpdateTitle();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -200,6 +256,7 @@ namespace BlueSwitch
             {
                 SaveAs();
             }
+            UpdateTitle();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -220,6 +277,7 @@ namespace BlueSwitch
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
             Renderer.RenderingEngine.NewProject();
+            UpdateTitle();
         }
        
 
@@ -300,7 +358,8 @@ namespace BlueSwitch
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Renderer.RenderingEngine.NewProject();
+            UpdateTitle();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -380,6 +439,7 @@ namespace BlueSwitch
         {
             ProjectProperties p = new ProjectProperties(Renderer.RenderingEngine);
             p.ShowDialog();
+            UpdateTitle();
         }
 
         private void toolStripButtonLoad_Click(object sender, EventArgs e)
@@ -411,10 +471,54 @@ namespace BlueSwitch
             Renderer.RenderingEngine.RequestRedraw();
         }
 
+        private IDockContent GetContentFromPersistString(string persistString)
+        {
+            if (persistString == typeof(RendererBase).ToString())
+                return Renderer;
+            else if (persistString == typeof(HelpEditor).ToString())
+                return _helpEditor;
+            else if (persistString == typeof(SearchEditor).ToString())
+                return _metaEditor;
+            else if (persistString == typeof(ErrorList).ToString())
+                return _errorList;
+            else if (persistString == typeof(VariableEditor).ToString())
+                return _variableEditor;
+            else if (persistString == typeof(SwitchesTree).ToString())
+                return _switchesTree;
+            else if (persistString == typeof(TriggerExample).ToString())
+                return _triggerExample;
+            else
+            {
+                
+                return null;
+            }
+        }
+
+        private void CloseAllContents()
+        {
+            // we don't want to create another instance of tool window, set DockPanel to null
+            _helpEditor.DockPanel = null;
+            _metaEditor.DockPanel = null;
+            _variableEditor.DockPanel = null;
+            _errorList.DockPanel = null;
+
+            //CloseAllDocuments();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Renderer.RenderingEngine.SaveSettings();
-            
+            dockPanel.SaveAsXml(RendererBase.DockSaveState);
+        }
+
+        private void errorListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _errorList.Show(dockPanel, DockState.DockBottomAutoHide);
+        }
+
+        private void rendererToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Renderer.Show(dockPanel);
         }
     }
 }

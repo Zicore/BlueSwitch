@@ -12,35 +12,6 @@ using Newtonsoft.Json.Serialization;
 
 namespace BlueSwitch.Base.IO
 {
-    //public class NamespaceMigration
-    //{
-    //    public string FromAssembly { get; set; }
-
-    //    public string FromType { get; set; }
-
-    //    public Type ToType { get; set; }
-    //}
-
-    //public class NamespaceMigrationSerializationBinder : DefaultSerializationBinder
-    //{
-    //    private readonly NamespaceMigration[] _migrations;
-
-    //    public NamespaceMigrationSerializationBinder(params NamespaceMigration[] migrations)
-    //    {
-    //        _migrations = migrations;
-    //    }
-
-    //    public override Type BindToType(string assemblyName, string typeName)
-    //    {
-    //        var migration = _migrations.SingleOrDefault(p => p.FromAssembly == assemblyName && p.FromType == typeName);
-    //        if (migration != null)
-    //        {
-    //            return migration.ToType;
-    //        }
-    //        return base.BindToType(assemblyName, typeName);
-    //    }
-    //}
-
     public class JsonSerializable
     {
         public JsonSerializable()

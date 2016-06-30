@@ -36,12 +36,25 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IntTrader.API.Bitfinex.Exchange">
+      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\IntTrader.API.Bitfinex.Exchange.dll</HintPath>
+    </Reference>
+    <Reference Include="IntTrader.API.ExchangeLoader, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\IntTrader.API.ExchangeLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="IntTrader.API.Gemini.Exchange">
+      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\IntTrader.API.Gemini.Exchange.dll</HintPath>
+    </Reference>
+    <Reference Include="IntTrader.API.Kraken.Exchange">
+      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\IntTrader.API.Kraken.Exchange.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.2.2\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -55,6 +68,14 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Zicore.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\Zicore.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Zicore.Settings.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\Zicore.Settings.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleUtils.cs" />
@@ -246,6 +267,10 @@
     <ProjectReference Include="..\BlueSwitch.Base\BlueSwitch.Base.csproj">
       <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
       <Name>BlueSwitch.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.IntTrader.API\BlueSwitch.IntTrader.API.csproj">
+      <Project>{8c6467cd-1a01-4fa9-86bb-d22fe063208d}</Project>
+      <Name>BlueSwitch.IntTrader.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj">
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>

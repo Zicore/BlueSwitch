@@ -91,6 +91,16 @@ namespace BlueSwitch.Base.Components.Base
             Settings.Save(EngineSettings.SettingsFilePath);
         }
 
+        public List<SwitchBase> AvailableSwitchesForSearch
+        {
+            get
+            {
+                var list = new List<SwitchBase>(AvailableSwitches);
+                //list.AddRange(CurrentProject.Variables);
+                return list;
+            }
+        }
+
         public MouseService MouseService { get; set; }
         public KeyboardService KeyboardService { get; set; }
         public SelectionService SelectionService { get; set; }

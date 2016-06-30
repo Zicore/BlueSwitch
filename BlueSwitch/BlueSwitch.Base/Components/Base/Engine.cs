@@ -63,6 +63,7 @@ namespace BlueSwitch.Base.Components.Base
 
         public List<SwitchBase> AvailableSwitches;
 
+
         [JsonIgnore]
         public bool DebugMode
         {
@@ -122,6 +123,9 @@ namespace BlueSwitch.Base.Components.Base
         public void LoadAddons()
         {
             AvailableSwitches = ReflectionService.LoadAddons(this);
+
+            //AvailableSwitchesForSearch = new List<SwitchBase>(AvailableSwitches);
+            
 
             PopulateResolver();
 

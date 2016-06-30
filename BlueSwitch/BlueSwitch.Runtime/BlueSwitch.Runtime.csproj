@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.2.2\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OPDOPCConnector, Version=1.15.513.0, Culture=neutral, processorArchitecture=x86">
@@ -69,13 +69,25 @@
       <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
       <Name>BlueSwitch.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.IntTrader.API\BlueSwitch.IntTrader.API.csproj">
+      <Project>{8c6467cd-1a01-4fa9-86bb-d22fe063208d}</Project>
+      <Name>BlueSwitch.IntTrader.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj">
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj">
+      <Project>{15129153-19c9-4568-b743-b9c7e3cf0d94}</Project>
+      <Name>BlueSwitch.OpcUa</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
       <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
       <Name>BlueSwitch.Outlook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlueSwitch.Regex\BlueSwitch.Regex.csproj">
+      <Project>{b1b7b203-f73b-479c-84a6-6d68d23d8efb}</Project>
+      <Name>BlueSwitch.Regex</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Twitter\BlueSwitch.Twitter.csproj">
       <Project>{9b1bce96-df71-435d-b8f4-1dcdd38d4d3e}</Project>

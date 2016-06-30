@@ -44,7 +44,7 @@ namespace BlueSwitch.Controls.Docking
         Boolean scrollingUp = true;
         int oldDelta = 0;
 
-        public static string DockSaveState = JsonSerializable.GetFilePath("BlueSwitch", "DockSaveState.dat");
+        public static string DockSaveState = JsonSerializable.GetFilePath("BlueSwitch", "DockSaveState.xml");
 
         private void ProcessorCompilerOnFinished(object sender, EventArgs eventArgs)
         {
