@@ -16,6 +16,8 @@ namespace BlueSwitch.Base.Components.Switches.Logic
             AddInput(new InputBase(new AnySignature()));
             AddInput(new InputBase(new AnySignature()));
             AddOutput(typeof(bool));
+
+            DrawGlyphImage = true;
         }
 
         public override GroupBase OnSetGroup()

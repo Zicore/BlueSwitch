@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Runtime.Serialization;
@@ -67,7 +69,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
 
             }
-        }
+        }   
     }
 
     [JsonConverter(typeof(SwitchJsonConverter))]
@@ -108,6 +110,50 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         [JsonIgnore]
         public bool AutoDiscoverDisabled { get; set; }
+
+        [JsonIgnore]
+        public static Dictionary<string, Image> ImageLookup = new Dictionary<string, Image>();
+
+        [JsonIgnore]
+        public string GlyphImageKey
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_glyphImageKey))
+                {
+                    return _glyphImageKey;
+                }
+                return $"{UniqueName}.png"; // Fallback
+            }
+            set { _glyphImageKey = value; }
+        }
+
+        [JsonIgnore]
+        public bool DrawGlyphImage { get; set; }
+
+        private Image _glyphImage = null;
+        [JsonIgnore]
+        public Image GlyphImage
+        {
+            get
+            {
+                if (_glyphImage == null)
+                {
+                    if (!ImageLookup.ContainsKey(GlyphImageKey))
+                    {
+                        var path = AppDomain.CurrentDomain.BaseDirectory;
+                        path = Path.Combine(path, "Resources", "Images", GlyphImageKey);
+                        _glyphImage = new Bitmap(path);
+                        ImageLookup[GlyphImageKey] = GlyphImage;
+                    }
+                    else
+                    {
+                        _glyphImage = ImageLookup[GlyphImageKey];
+                    }
+                }
+                return _glyphImage;
+            } 
+        }
 
         [JsonIgnore]
         int MinVariableInputs { get; set; } = 0;
@@ -167,6 +213,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         private string _uniqueNameJson;
         private string _uniqueName;
         private string _displayName;
+        private string _glyphImageKey;
 
         [JsonIgnore]
         public string UniqueName
@@ -679,8 +726,22 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
                 float radius = 2;
 
-                var brush = new SolidBrush(Color.FromArgb(30, 0, 0, 0));
+                var brush = new SolidBrush(Color.FromArgb(40, 0, 0, 0));
                 extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
+
+                if (DrawGlyphImage)
+                {
+                    var img = GlyphImage;
+                    float ratio = r.Height / img.Height;
+                    var imageRect = r;
+
+                    imageRect.Width = img.Width * ratio;
+                    imageRect.Height = img.Height * ratio;
+
+                    imageRect.X = r.X + r.Width * 0.5f - imageRect.Width * 0.5f;
+                    imageRect.Y = r.Y + r.Height * 0.5f - imageRect.Height * 0.5f;
+                    g.DrawImage(img, imageRect);
+                }
             }
         }
 

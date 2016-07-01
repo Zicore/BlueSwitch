@@ -260,11 +260,11 @@ namespace BlueSwitch.Controls.Docking
 
             if (scrollingUp)
             {
-                RenderingEngine.Zoom(ClientRectangle,-0.05f);
+                RenderingEngine.Zoom(ClientRectangle,-0.1f);
             }
             else
             {
-                RenderingEngine.Zoom(ClientRectangle,+0.05f);
+                RenderingEngine.Zoom(ClientRectangle,+0.1f);
             }
             UpdateScrollBars();
         }
