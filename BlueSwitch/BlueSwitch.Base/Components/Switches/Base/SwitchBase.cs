@@ -370,7 +370,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public static Brush MouseOverBrush { get; set; } = new SolidBrush(Color.LightGreen);
 
-        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 8, FontStyle.Regular);
+        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
         protected static Font FontSmall2 = new Font(new FontFamily("Calibri"), 9, FontStyle.Regular);
 
         protected static Font FontVerySmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
@@ -518,8 +518,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             int index = OutputsSet.Count;
             output.Index = index;
-            OutputsSet.Add(index,output);
             output.UIComponent = uiComponent;
+            OutputsSet.Add(index,output);
             if (output.Signature is ActionSignature)
             {
                 HasActionOutput = true;
@@ -689,8 +689,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
             var renderingHint = g.TextRenderingHint;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.Black, new PointF(-1, 1));
-            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(-0.5f, 0.5f));
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.Black, new PointF(0, 2));
+            g.DrawString(DisplayName + " " + Extension, FontSmall, Brushes.White, new PointF(0.5f, 1.5f));
 
             g.TextRenderingHint = renderingHint;
 
@@ -722,12 +722,14 @@ namespace BlueSwitch.Base.Components.Switches.Base
             var r = DescriptionBounds;
             if (r.Height > 0)
             {
+                //r.Height -= compactOffset2
+
                 ExtendedGraphics extendedGraphics = new ExtendedGraphics(g, e);
 
                 float radius = 2;
 
                 var brush = new SolidBrush(Color.FromArgb(40, 0, 0, 0));
-                extendedGraphics.FillRoundRectangle(brush, r.X, r.Y, r.Width, r.Height, radius);
+                extendedGraphics.FillRoundRectangle(brush, r.X, r.Y +1, r.Width, r.Height -1, radius);
 
                 if (DrawGlyphImage)
                 {
@@ -910,6 +912,13 @@ namespace BlueSwitch.Base.Components.Switches.Base
             {
                 input.UpdateMouseUp(e, this, lastIo);
                 lastIo = input;
+            }
+
+            lastIo = null;
+            foreach (var output in Outputs)
+            {
+                output.UpdateMouseUp(e, this, lastIo);
+                lastIo = output;
             }
 
             if (HasVariableInputs)

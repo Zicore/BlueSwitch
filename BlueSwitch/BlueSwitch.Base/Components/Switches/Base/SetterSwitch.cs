@@ -24,17 +24,19 @@ namespace BlueSwitch.Base.Components.Switches.Base
             AutoDiscoverDisabled = true;
 
             AddInput(new ActionSignature());
+
+            AddOutput(new ActionSignature());
             if (Variable == null)
             {
                 AddInput(typeof(object));
+                AddOutput(typeof(object));
             }
             else
             {
                 AddInput(Variable.NetValueType, Variable.CreateComponent());
+                AddOutput(Variable.NetValueType);
             }
             
-            AddOutput(new ActionSignature());
-
             NamePrefix = "*";
             UpdateVariable(Variable);
         }
@@ -46,6 +48,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
             if (data != null && Variable != null)
             {
                 Variable.Value = data.Value;
+                SetData(0, new DataContainer(Variable.Value));
             }
         }
     }

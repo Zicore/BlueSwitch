@@ -50,7 +50,7 @@ namespace BlueSwitch.Base.Components.UI
         public static Pen DescriptionPen { get; set; } = new Pen(Color.FromArgb(180, 30, 30, 30), 0.5f);
 
         [JsonIgnore]
-        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 9, FontStyle.Regular);
+        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
        
         private static Pen _checkBoxPen = new Pen(Color.Black,1);
         private static Brush _checkBoxCheckedBrush = new SolidBrush(Color.FromArgb(130, 0, 180, 20));
@@ -76,6 +76,9 @@ namespace BlueSwitch.Base.Components.UI
             ExtendedGraphics extendedGraphics = new ExtendedGraphics(g,e);
 
             var r = DescriptionBounds;
+
+            r.Height -= 1;
+            r.Y += 1;
 
             float radius = 2;
 

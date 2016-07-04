@@ -63,6 +63,7 @@
             this.metaEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.errorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpEnabledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +91,7 @@
             this.openFileDialogTags = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogHelp = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogHelp = new System.Windows.Forms.OpenFileDialog();
-            this.errorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -341,7 +342,8 @@
             this.metaEditorToolStripMenuItem,
             this.hToolStripMenuItem,
             this.rendererToolStripMenuItem,
-            this.errorListToolStripMenuItem});
+            this.errorListToolStripMenuItem,
+            this.variablesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -373,6 +375,13 @@
             this.rendererToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rendererToolStripMenuItem.Text = "Renderer";
             this.rendererToolStripMenuItem.Click += new System.EventHandler(this.rendererToolStripMenuItem_Click_1);
+            // 
+            // errorListToolStripMenuItem
+            // 
+            this.errorListToolStripMenuItem.Name = "errorListToolStripMenuItem";
+            this.errorListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.errorListToolStripMenuItem.Text = "Error List";
+            this.errorListToolStripMenuItem.Click += new System.EventHandler(this.errorListToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -592,12 +601,12 @@
             this.openFileDialogHelp.Filter = "Meta Json Dateien|*.meta.json";
             this.openFileDialogHelp.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogHelp_FileOk);
             // 
-            // errorListToolStripMenuItem
+            // variablesToolStripMenuItem
             // 
-            this.errorListToolStripMenuItem.Name = "errorListToolStripMenuItem";
-            this.errorListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.errorListToolStripMenuItem.Text = "Error List";
-            this.errorListToolStripMenuItem.Click += new System.EventHandler(this.errorListToolStripMenuItem_Click);
+            this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
+            this.variablesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.variablesToolStripMenuItem.Text = "Variables";
+            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.variablesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -691,6 +700,7 @@
         private System.Windows.Forms.ToolStripMenuItem rendererToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem errorListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem variablesToolStripMenuItem;
     }
 }
 

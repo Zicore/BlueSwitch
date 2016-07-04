@@ -520,5 +520,10 @@ namespace BlueSwitch
         {
             Renderer.Show(dockPanel);
         }
+
+        private void variablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _variableEditor.Show(dockPanel, DockState.DockRight);
+        }
     }
 }

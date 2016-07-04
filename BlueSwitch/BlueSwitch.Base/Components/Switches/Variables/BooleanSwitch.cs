@@ -10,11 +10,13 @@ namespace BlueSwitch.Base.Components.Switches.Variables
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            base.OnInitialize(renderingEngine); // Wichtig
+            
             _checkBox = new CheckBox();
-            AddOutput(typeof(bool));
-            Components.Add(_checkBox);
+            AddOutput(typeof(bool), _checkBox);
+            
+            //Components.Add(_checkBox);
             UniqueName = "Boolean";
+            base.OnInitialize(renderingEngine); // Wichtig
         }
 
         public override GroupBase OnSetGroup()
