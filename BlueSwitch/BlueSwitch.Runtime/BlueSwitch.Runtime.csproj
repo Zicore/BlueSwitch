@@ -69,10 +69,6 @@
       <Project>{cf9ad3f2-6b7b-43aa-84e2-e0d53db7f2d7}</Project>
       <Name>BlueSwitch.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.IntTrader.API\BlueSwitch.IntTrader.API.csproj">
-      <Project>{8c6467cd-1a01-4fa9-86bb-d22fe063208d}</Project>
-      <Name>BlueSwitch.IntTrader.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj">
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>

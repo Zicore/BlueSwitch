@@ -28,13 +28,27 @@ namespace BlueSwitch
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private Logger Log = LogManager.GetCurrentClassLogger();
+
+
+        public MainForm(string[] args)
         {
             InitializeComponent();
 
+           
 
             InitializeDockingControls();
-
+            Log.Warn(args.Length);
+            //var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            if (args.Length >= 1)
+            {
+                String filePath = args[0];
+                Log.Warn(filePath);
+                if (File.Exists(filePath))
+                {
+                    LoadFile(filePath);
+                }
+            }
             var project = Renderer.RenderingEngine.CurrentProject;
             compiler = Renderer.RenderingEngine.ProcessorCompiler;
 
@@ -200,9 +214,6 @@ namespace BlueSwitch
 
 
             dockPanel.ResumeLayout(true,true);
-
-            var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            LoadFile(Path.Combine(userprofile,"scenario.bs.json"));
         }
         
         private void LoadStateFromXml()
@@ -524,6 +535,11 @@ namespace BlueSwitch
         private void variablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _variableEditor.Show(dockPanel, DockState.DockRight);
+        }
+
+        private void registerExtensionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Win32.FileExtensionHelper.SetAssociation(".bs", "BlueSwitchFile", Application.ExecutablePath, "BlueSwitch Script");
         }
     }
 }

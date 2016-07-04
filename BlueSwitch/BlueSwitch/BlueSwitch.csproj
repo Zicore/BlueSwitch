@@ -155,6 +155,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win32\FileExtensionHelper.cs" />
     <EmbeddedResource Include="Controls\Docking\ErrorList.resx">
       <DependentUpon>ErrorList.cs</DependentUpon>
     </EmbeddedResource>

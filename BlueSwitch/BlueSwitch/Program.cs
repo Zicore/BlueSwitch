@@ -13,13 +13,13 @@ namespace BlueSwitch
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             ConsoleUtils.InitConsole();
             ConsoleUtils.HideConsole();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(args));
         }
     }
 }
