@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueSwitch.Base.Components.UI;
+using Newtonsoft.Json;
 
 namespace BlueSwitch.Base.IO
 {
@@ -33,7 +34,10 @@ namespace BlueSwitch.Base.IO
         public String Name { get; set; }
         public ValueType ValueType { get; set; }
         public StructureType StructureType { get; set; }
+
+        //[JsonIgnore]
         public object Value { get; set; }
+
         public bool IsReadOnly { get; set; }
 
         public static bool IsNumber(ValueType type)

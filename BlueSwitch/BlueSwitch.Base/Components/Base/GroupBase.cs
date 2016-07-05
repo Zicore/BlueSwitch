@@ -8,6 +8,7 @@ namespace BlueSwitch.Base.Components.Base
         public static readonly GroupBase CodeFlow = new GroupBase { Name = "CodeFlow", DisplayName = "CodeFlow" };
         public static readonly GroupBase LogicInt32 = new GroupBase { Name = "Logic.Int32", DisplayName = "Logic.Int32" };
         public static readonly GroupBase LogicDouble = new GroupBase { Name = "Logic.Double", DisplayName = "Logic.Double" };
+        public static readonly GroupBase LogicDecimal = new GroupBase { Name = "Logic.Decimal", DisplayName = "Logic.Decimal" };
         public static readonly GroupBase Base = new GroupBase { Name = "Base", DisplayName = "Base" };
         public static readonly GroupBase Math = new GroupBase { Name = "Math", DisplayName = "Math" };
         public static readonly GroupBase Debug = new GroupBase { Name = "Debug", DisplayName = "Debug" };

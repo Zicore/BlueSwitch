@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25402.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch", "BlueSwitch\BlueSwitch.csproj", "{6E73821E-6E16-417B-B6E0-6362B9A88A01}"
 EndProject
@@ -20,8 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Monitoring", "BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj", "{65ECA8E4-F9D4-48C2-83FE-6B4090167069}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Regex", "BlueSwitch.Regex\BlueSwitch.Regex.csproj", "{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.OpcUa", "BlueSwitch.OpcUa\BlueSwitch.OpcUa.csproj", "{15129153-19C9-4568-B743-B9C7E3CF0D94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.IntTrader.API", "BlueSwitch.IntTrader.API\BlueSwitch.IntTrader.API.csproj", "{8C6467CD-1A01-4FA9-86BB-D22FE063208D}"
 EndProject
@@ -73,10 +71,6 @@ Global
 		{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15129153-19C9-4568-B743-B9C7E3CF0D94}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Release|Any CPU.ActiveCfg = Release|Any CPU
