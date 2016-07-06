@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,32 +25,54 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
 
             AddInput(new ActionSignature());
 
-            AddInput(typeof(FileHandle));
+            AddInput(typeof(string));
 
             AddOutput(new ActionSignature());
-            AddOutput(typeof(bool));
+            //AddOutput(typeof(bool));
             AddOutput(typeof(string));
+            AddOutput(new ActionSignature());
 
             IsCompact = true;
         }
+        
+        private StreamReader _reader;
 
-        FileReader reader = new FileReader();
-
-        protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)
+        protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)
         {
-            var handle = GetDataValueOrDefault<FileHandle>(1);
-            string line = null;
-            if (!reader.EndOfFile(handle))
+            if (_reader == null)
             {
-                line = reader.ReadLine(handle);
+                string filePath = GetDataValueOrDefault<string>(1);
+                _reader = new StreamReader(filePath);
             }
 
-            var eof = reader.EndOfFile(handle);
-            
-            SetData(1, eof);
-            SetData(2, line);
+            if (_reader != null)
+            {
+                if (!_reader.EndOfStream)
+                {
+                    SetData(1, new DataContainer(_reader.ReadLine()));
+                    node.Repeat = true;
+                    node.Skip = new SkipNode(2);
+                }
+                else
+                {
+                    node.Skip = new SkipNode(0);
+                    _reader.Close();
+                    _reader = null;
+                }
+            }
 
             base.OnProcess(p, node);
+        }
+
+        protected override void OnCleanUp<T>(Processor p, ProcessingNode<T> node)
+        {
+            if (_reader != null)
+            {
+                _reader.Close();
+                _reader = null;
+            }
+
+            base.OnCleanUp(p, node);
         }
     }
 }

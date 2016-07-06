@@ -14,8 +14,6 @@ namespace BlueSwitch.Base.Components.Switches.Variables
 
             TextEdit = new TextEdit();
             TextEdit.AutoResize = true;
-
-            Components.Add(TextEdit);
         }
 
         protected TextEdit TextEdit;

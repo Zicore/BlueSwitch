@@ -370,10 +370,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public static Brush MouseOverBrush { get; set; } = new SolidBrush(Color.LightGreen);
 
-        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
-        protected static Font FontSmall2 = new Font(new FontFamily("Calibri"), 9, FontStyle.Regular);
+        protected static Font FontSmall = new Font(new FontFamily("Segoe UI"), 5, FontStyle.Regular);
 
-        protected static Font FontVerySmall = new Font(new FontFamily("Calibri"), 7, FontStyle.Regular);
+        protected static Font FontVerySmall = new Font(new FontFamily("Segoe UI"), 6, FontStyle.Regular);
 
         [JsonIgnore]
         public Dictionary<int,InputBase> InputsSet { get; set; } = new Dictionary<int, InputBase>();
@@ -1076,6 +1075,13 @@ namespace BlueSwitch.Base.Components.Switches.Base
         protected virtual void OnProcess<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase { }
         protected virtual void OnProcessData<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase { }
         protected virtual void OnInitializeMetaInformation(Engine engine) { }
+
+        protected virtual void OnCleanUp<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase { }
+
+        public void CleanUp<T>(Processor p, ProcessingNode<T> node) where T : SwitchBase
+        {
+            OnCleanUp(p,node);   
+        }
 
         public void InitializeMetaInformation(Engine engine)
         {

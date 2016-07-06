@@ -90,12 +90,8 @@
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\CombinePathSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\CopyFileSwitch.cs" />
-    <Compile Include="Components\Switches\FileSystem\FileHandle.cs" />
-    <Compile Include="Components\Switches\FileSystem\FileReader.cs" />
-    <Compile Include="Components\Switches\FileSystem\OpenFileSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\FileInfoSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\GetFilesSwitch.cs" />
-    <Compile Include="Components\Switches\FileSystem\CloseFileSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\ReadLineSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
     <Compile Include="Components\Switches\Logic\Decimal\GreaterThanSwitch.cs" />

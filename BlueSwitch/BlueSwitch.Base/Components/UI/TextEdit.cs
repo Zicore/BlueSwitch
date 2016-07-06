@@ -59,7 +59,7 @@ namespace BlueSwitch.Base.Components.UI
         public static Pen DescriptionPen { get; set; } = new Pen(Color.FromArgb(180, 30, 30, 30), 0.5f);
 
         [JsonIgnore]
-        protected static Font FontSmall = new Font(new FontFamily("Calibri"), 9, FontStyle.Regular);
+        protected static Font FontSmall = new Font(new FontFamily("Segoe UI"), 5, FontStyle.Regular);
 
         [JsonIgnore]
         public static Pen CaretPen { get; set; } = new Pen(Color.FromArgb(255, 30, 30, 30), 0.5f);
@@ -337,6 +337,10 @@ namespace BlueSwitch.Base.Components.UI
             ExtendedGraphics extendedGraphics = new ExtendedGraphics(g,e);
 
             var r = DescriptionBounds;
+
+            r.Height -= 1;
+            r.Y += 1;
+
 
             float radius = 2;
 

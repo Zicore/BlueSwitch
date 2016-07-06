@@ -15,12 +15,16 @@ namespace BlueSwitch.Base.Components.Switches.IO
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "ConsoleWriteLine";
+            UniqueName = "BlueSwitch.Base.Components.Switches.IO.ConsoleWriteLine";
+            DisplayName = "Console.WriteLine";
+
             AddInput(new ActionSignature());
 
             AddInput(typeof(string));
 
             AddOutput(new ActionSignature());
+
+            IsCompact = true;
         }
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)

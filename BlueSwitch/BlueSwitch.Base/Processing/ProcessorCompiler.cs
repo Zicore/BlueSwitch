@@ -187,6 +187,7 @@ namespace BlueSwitch.Base.Processing
                     if (processor != null)
                     {
                         ExceptionEntry entry = new ExceptionEntry { Exception = ex, Step = processor.Step, Node = processor.CurrentNode, Tree = processingTree};
+                        processor.CurrentNode.Value.CleanUp(processor, processor.CurrentNode);
                         Errors.Add(entry);
                         OnErrorAdded(new ExceptionEntryEventArgs { ExceptionEntry = entry});
                     }
