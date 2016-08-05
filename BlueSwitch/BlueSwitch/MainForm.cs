@@ -38,7 +38,7 @@ namespace BlueSwitch
            
 
             InitializeDockingControls();
-            Log.Warn(args.Length);
+            //Log.Warn(args.Length);
             //var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             if (args.Length >= 1)
             {
