@@ -40,6 +40,8 @@ namespace BlueSwitch
             InitializeDockingControls();
             //Log.Warn(args.Length);
             //var userprofile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            Renderer.RenderingEngine.NewProject();
+
             if (args.Length >= 1)
             {
                 String filePath = args[0];
