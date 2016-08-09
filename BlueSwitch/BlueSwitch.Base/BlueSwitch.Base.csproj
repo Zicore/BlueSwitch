@@ -96,8 +96,11 @@
     <Compile Include="Components\Switches\FileSystem\MergeFilesSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\ReadLineSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\DateTimeType\GreaterThanSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\DateTimeType\LessThanSwitch.cs" />
     <Compile Include="Components\Switches\Logic\Decimal\GreaterThanSwitch.cs" />
     <Compile Include="Components\Switches\Logic\Decimal\LessThanSwitch.cs" />
+    <Compile Include="Components\Switches\Logic\Double\GreaterThanSwitch.cs" />
     <Compile Include="Components\Switches\Logic\NotSwitch.cs" />
     <Compile Include="Components\Switches\Logic\EitherSwitch.cs" />
     <Compile Include="Components\Switches\Logic\Int32\GreaterThanSwitch.cs" />

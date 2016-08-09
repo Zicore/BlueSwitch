@@ -9,7 +9,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine); // Wichtig
-            AddOutput(typeof(int));
+            AddOutput(typeof(int), TextEdit);
             UniqueName = "Int32";
             TextEdit.AllowDecimalPoint = false;
             TextEdit.NumberMode = true;
