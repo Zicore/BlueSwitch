@@ -139,7 +139,7 @@ namespace BlueSwitch.Base.Services
 
         public Dictionary<string, SearchEntry> Search(string queryString)
         {
-            return Search(queryString, Engine.AvailableSwitches);
+            return Search(queryString, Engine.AvailableSwitches.Where(x => !x.AutoDiscoverDisabled).ToList());
         }
 
         public Dictionary<string, SearchEntry> Search(string queryString, IList<SwitchBase> datasource)
