@@ -13,8 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Float.ToString";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Float.ToString";
             DisplayName = "Float->String";
+            Description = "Converts a float-element into a string.";
             AddInput(typeof (float));
             AddOutput(typeof (string));
             IsCompact = true;

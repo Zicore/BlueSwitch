@@ -14,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.SwitchMath.Int32
 
             AddOutput(typeof(int));
             UniqueName = "Int32.Add";
-            Description = "Int32.Add";
+            Description = "Calculates the sum of all integer inputs";
             DisplayName = "Int32.Add";
         }
 

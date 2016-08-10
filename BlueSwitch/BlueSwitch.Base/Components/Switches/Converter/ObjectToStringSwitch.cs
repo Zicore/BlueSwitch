@@ -14,8 +14,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Object.ToString";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Object.ToString";
             DisplayName = "Object->String";
+            Description = "Converts an object into a string.";
            
             AddInput(typeof(object));
             AddOutput(typeof(string));

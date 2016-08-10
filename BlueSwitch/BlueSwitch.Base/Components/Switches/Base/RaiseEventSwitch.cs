@@ -22,8 +22,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "Execute Event";
-
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.Execute Event";
+            DisplayName = "Execute Event";
             Description = "Executes Event by given name";
 
             AddInput(new ActionSignature());

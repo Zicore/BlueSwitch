@@ -13,8 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Boolean.ToObject";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Boolean.ToObject";
             DisplayName = "Bool->Object";
+            Description = "Converts a boolean-element into an Object.";
             AddInput(typeof (bool));
             AddOutput(typeof (object));
             IsCompact = true;

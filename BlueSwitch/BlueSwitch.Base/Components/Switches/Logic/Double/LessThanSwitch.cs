@@ -17,7 +17,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Double
             AddInput(typeof(double));
             AddOutput(typeof(bool));
 
-            UniqueName = "Double.LessThan";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Double.Double.LessThan";
+            DisplayName = "Double.LessThan";
+            Description = "Checks if Double(x) is less than Double(y)";
         }
 
         public override GroupBase OnSetGroup()

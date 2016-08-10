@@ -16,8 +16,10 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Foreach";
-
+            UniqueName = "BlueSwitch.Base.Components.Switches.CodeFlow.Foreach";
+            DisplayName = "Foreach";
+            Description = "A foreach-Loop";
+                
             AddInput(new ActionSignature());
             AddInput(typeof(IEnumerable));
 

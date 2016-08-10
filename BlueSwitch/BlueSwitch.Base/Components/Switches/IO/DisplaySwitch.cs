@@ -22,7 +22,9 @@ namespace BlueSwitch.Base.Components.Switches.IO
 
             AddOutput(new ActionSignature());
             AddOutput(new OutputBase(new AnySignature()));
-            UniqueName = "Display";
+            UniqueName = "BlueSwitch.Base.Components.Switches.IO.Display";
+            DisplayName = "Display";
+            Description = "Display";
         }
 
         public override GroupBase OnSetGroup()

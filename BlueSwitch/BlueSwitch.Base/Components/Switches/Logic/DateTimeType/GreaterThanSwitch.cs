@@ -1,7 +1,6 @@
 ﻿using BlueSwitch.Base.Components.Switches.Base;
 using System;
 using BlueSwitch.Base.Components.Base;
-using BlueSwitch.Base.Components.UI;
 using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Base.Components.Switches.Logic.DateTimeType
@@ -15,7 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic.DateTimeType
             AddOutput(typeof(bool));
 
             DisplayName = "DateTimeType.GreaterThan";
-            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.DateTimeType";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.DateTimeType.DateTimeType.GreaterThan";
             Description = "Checks if DateTime(x) is greater than DateTime(y).";
         }
 

@@ -14,8 +14,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "DateTime.ToString";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.DateTime.ToString";
             DisplayName = "DateTime->String";
+            Description = "Converts a DateTime-element into a string.";
             AddInput(typeof (DateTime));
             AddInput(typeof(string));
             AddOutput(typeof (string));

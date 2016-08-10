@@ -13,7 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Variables
             base.OnInitialize(renderingEngine);
             
             AddOutput(typeof(DateTime));
-            UniqueName = "DateTime";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Variables.DateTime";
+            DisplayName = "DateTime";
+            Description = "A DateTime variable";
         }
 
         public override GroupBase OnSetGroup()

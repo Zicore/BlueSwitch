@@ -15,7 +15,9 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Branch";
+            UniqueName = "BlueSwitch.Base.Components.Switches.CodeFlow.Branch";
+            DisplayName = "Branch";
+            Description = "Branch";
 
             AddInput(new ActionSignature());
             AddInput(typeof(bool), new CheckBox { AutoStoreValue = false} );

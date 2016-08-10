@@ -17,7 +17,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Decimal
             AddInput(typeof(decimal));
             AddOutput(typeof(bool));
 
-            UniqueName = "Decimal.GreaterThan";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Decimal.Decimal.GreaterThan";
+            DisplayName = "Decimal.GreaterThan";
+            Description = "Checks if Decimal(x) is greater than Decimal(y)";
         }
 
         public override GroupBase OnSetGroup()

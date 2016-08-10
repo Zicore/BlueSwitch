@@ -11,7 +11,9 @@ namespace BlueSwitch.Base.Components.Switches.Description
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine); // Wichtig
-            UniqueName = "Description";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Description.Description";
+            DisplayName = "Description";
+            Description = "Can be used to describe the program or an element";
             MinRows = 1;
             DescriptionHeight = 0;
             ColumnWidth = 160;

@@ -14,8 +14,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Any.ToObject";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Any.ToObject";
             DisplayName = "Any->Object";
+            Description = "Converts any-element into an object.";
             AddInput(new AnySignature());
             AddOutput(typeof (object));
             IsCompact = true;

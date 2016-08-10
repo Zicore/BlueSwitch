@@ -16,7 +16,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Start";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.Start";
+            DisplayName = "Start";
             Description = "Start";
             AddOutput(new OutputBase(new ActionSignature()));
             IsStart = true;

@@ -17,6 +17,7 @@ namespace BlueSwitch.Base.Components.Switches.IO
         {
             UniqueName = "BlueSwitch.Base.Components.Switches.IO.ConsoleWriteLine";
             DisplayName = "Console.WriteLine";
+            Description = "Writes a line into the console.";
 
             AddInput(new ActionSignature());
 

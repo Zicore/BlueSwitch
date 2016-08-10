@@ -21,7 +21,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic
 
             ActivateInputAdd(new PinDescription(typeof(bool), UIType.CheckBox), 2);
 
-            UniqueName = "And";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.And";
+            DisplayName = "And";
+            Description = "Returns true if all inputs are true else returns false";
         }
 
         public override GroupBase OnSetGroup()

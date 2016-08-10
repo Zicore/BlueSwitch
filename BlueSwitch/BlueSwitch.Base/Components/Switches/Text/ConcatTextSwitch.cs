@@ -13,8 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Text
             ActivateInputAdd(new PinDescription(typeof(string), UIType.TextEdit) {}, 2);
 
             AddOutput(typeof(string));
-            UniqueName = "Concat";
-            Description = "Concat";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Text.Concat";
+            DisplayName = "Concat";
+            Description = "Concatenate strings together";
         }
 
         public override GroupBase OnSetGroup()

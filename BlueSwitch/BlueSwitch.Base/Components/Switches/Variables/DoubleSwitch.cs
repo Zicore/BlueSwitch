@@ -10,7 +10,9 @@ namespace BlueSwitch.Base.Components.Switches.Variables
         {
             base.OnInitialize(renderingEngine); // Wichtig
             AddOutput(typeof(double), TextEdit);
-            UniqueName = "Double";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Variables.Double";
+            DisplayName = "Double";
+            Description = "A double variable";
             TextEdit.AllowDecimalPoint = true;
             TextEdit.NumberMode = true;
         }

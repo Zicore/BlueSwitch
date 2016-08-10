@@ -13,8 +13,8 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Double
             AddOutput(typeof(bool));
 
             DisplayName = "Double.GreaterThan";
-            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Double.GreaterThan";
-            Description = "Greater Than";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Double.Double.GreaterThan";
+            Description = "Checks if Double(x) is greater than Double(y)";
         }
 
         public override GroupBase OnSetGroup()

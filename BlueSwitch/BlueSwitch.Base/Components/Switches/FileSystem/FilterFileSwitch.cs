@@ -23,6 +23,7 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
         {
             UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.FilterFileSwitch";
             DisplayName = "Filter File";
+            Description = "Filter File";
 
             AddInput(new ActionSignature());
 

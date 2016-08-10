@@ -15,7 +15,9 @@ namespace BlueSwitch.Base.Components.Switches.Variables
             AddOutput(typeof(bool), _checkBox);
             
             //Components.Add(_checkBox);
-            UniqueName = "Boolean";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Variables.Boolean";
+            DisplayName = "Boolean";
+            Description = "A boolean variable";
             base.OnInitialize(renderingEngine); // Wichtig
         }
 

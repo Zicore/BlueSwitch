@@ -16,8 +16,9 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "FileInfo";
+            UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.FileInfo";
             DisplayName = "File Info";
+            Description = "Shows the details of a file.";
 
             AddInput(typeof (string));
             AddOutput(typeof(string));

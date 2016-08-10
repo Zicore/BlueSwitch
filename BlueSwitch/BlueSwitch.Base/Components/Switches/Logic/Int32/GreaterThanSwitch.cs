@@ -13,7 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Int32
             AddInput(typeof(int), new TextEdit { NumberMode = true, AllowDecimalPoint = false });
             AddOutput(typeof(bool));
 
-            UniqueName = "Int32.GreaterThan";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Int32.Int32.GreaterThan";
+            DisplayName = "Int32.GreaterThan";
+            Description = "Checks if Int32(x) is greater than Int32(y)";
         }
 
         public override GroupBase OnSetGroup()

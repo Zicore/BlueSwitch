@@ -1,9 +1,5 @@
 ﻿using BlueSwitch.Base.Components.Switches.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Processing;
 
@@ -20,7 +16,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic.DateTimeType
             AddOutput(typeof(bool));
 
             DisplayName = "DateTimeType.LessThan";
-            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.DateTimeType";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.DateTimeType.DateTimeType.LessThan";
             Description = "Checks if DateTime(x) is less than DateTime(y).";
         }
 

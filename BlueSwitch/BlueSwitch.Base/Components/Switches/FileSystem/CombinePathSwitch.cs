@@ -15,8 +15,9 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
             ActivateInputAdd(new PinDescription(typeof(string), UIType.TextEdit) {}, 2);
 
             AddOutput(typeof(string));
-            UniqueName = "CombinePath.Base";
+            UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.CombinePath.Base";
             DisplayName = "Combine Path";
+            Description = "Combine Path";
         }
 
         public override GroupBase OnSetGroup()

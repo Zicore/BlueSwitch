@@ -32,7 +32,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
         protected override void OnInitialize(Engine renderingEngine)
         {
             this.AutoDiscoverDisabled = true;
-            UniqueName = "UnknownSwitch";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.UnknownSwitch";
+            DisplayName = "UnknownSwitch";
             Description = "UnknownSwitch";
 
 

@@ -13,8 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Double.ToString";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Double.ToString";
             DisplayName = "Double->String";
+            Description = "Converts a double-element into a string.";
             AddInput(typeof (double));
             AddOutput(typeof (string));
             IsCompact = true;

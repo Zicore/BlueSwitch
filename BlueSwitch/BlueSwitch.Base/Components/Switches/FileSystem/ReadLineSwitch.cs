@@ -22,6 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
         {
             UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.ReadLine";
             DisplayName = "Read Line";
+            Description = "Read a line from a file.";
 
             AddInput(new ActionSignature());
 

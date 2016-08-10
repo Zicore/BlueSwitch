@@ -22,7 +22,9 @@ namespace BlueSwitch.Base.Components.Switches.Debug
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "DownloadTest";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Debug.DownloadTest";
+            DisplayName = "Download Test";
+            Description = "Download Test";
 
             AddInput(new ActionSignature());
             AddInput(new ActionSignature());

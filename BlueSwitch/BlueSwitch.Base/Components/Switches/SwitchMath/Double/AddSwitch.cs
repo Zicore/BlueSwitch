@@ -12,14 +12,19 @@ namespace BlueSwitch.Base.Components.Switches.SwitchMath.Double
             ActivateInputAdd(new PinDescription(typeof(double), UIType.TextEdit) { IsNumeric = true, IsDecimalNumber = true}, 2);
 
             AddOutput(typeof(double));
-            UniqueName = "Double.Add";
-            Description = "Double.Add";
-            DisplayName = "Add";
+            UniqueName = "BlueSwitch.Base.Components.Switches.SwitchMath.Double.Add";
+            Description = "Calculates the sum of all decimal inputs";
+            DisplayName = "Double.Add";
         }
 
         public override GroupBase OnSetGroup()
         {
             return Groups.Math;
+        }
+
+        protected override void OnInitializeMetaInformation(Engine engine)
+        {
+            engine.SearchService.AddTags(this, new string[] { "Math", "Calculation", "Double", "Decimal", "Add" });
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

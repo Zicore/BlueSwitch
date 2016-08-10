@@ -22,6 +22,7 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
         {
             UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.MergeFilesSwitch";
             DisplayName = "Merge Files";
+            Description = "Merge files into one.";
 
             AddInput(new ActionSignature());
 

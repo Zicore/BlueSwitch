@@ -20,7 +20,9 @@ namespace BlueSwitch.Base.Components.Switches.SwitchMath
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine);
-            UniqueName = "Calculation";
+            UniqueName = "BlueSwitch.Base.Components.Switches.SwitchMath.Calculation";
+            DisplayName = "Calculation";
+            Description = "Calculation";
 
             AddInput(new ActionSignature());
             AddOutput(new ActionSignature());

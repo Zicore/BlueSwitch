@@ -14,6 +14,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
 
             UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Not";
             DisplayName = "Not";
+            Description = "Negates a boolean-value";
             ColumnWidth = 60;
             IsCompact = true;
         }

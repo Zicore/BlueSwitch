@@ -17,7 +17,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Decimal
             AddInput(typeof(decimal));
             AddOutput(typeof(bool));
 
-            UniqueName = "Decimal.LessThan";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Decimal.Decimal.LessThan";
+            DisplayName = "Decimal.LessThan";
+            Description = "Checks if Decimal(x) is less than Decimal(y)";
         }
 
         public override GroupBase OnSetGroup()

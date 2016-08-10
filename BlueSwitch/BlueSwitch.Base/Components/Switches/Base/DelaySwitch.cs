@@ -15,7 +15,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Delay";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.Delay";
+            DisplayName = "Delay";
             Description = "Waits a given time";
             AddInput(new ActionSignature());
             AddInput(typeof(int), new TextEdit() { AllowDecimalPoint = false, NumberMode = true});

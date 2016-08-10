@@ -16,8 +16,9 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "CopyFile";
+            UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.CopyFile";
             DisplayName = "Copy File";
+            Description = "Make a copy of a given file.";
 
             AddInput(new ActionSignature());
             AddOutput(new ActionSignature());

@@ -107,8 +107,11 @@
     <Compile Include="Components\Switches\Logic\OrSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Double\AddSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\CalculationSwitch.cs" />
+    <Compile Include="Components\Switches\SwitchMath\Double\MaxSwitch.cs" />
+    <Compile Include="Components\Switches\SwitchMath\Double\MinSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Int32\AddSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Int32\MaxSwitch.cs" />
+    <Compile Include="Components\Switches\SwitchMath\Int32\MinSwitch.cs" />
     <Compile Include="Components\Switches\Text\RandomTextSwitch.cs" />
     <Compile Include="Components\Switches\Text\ConcatTextSwitch.cs" />
     <Compile Include="Components\Switches\Variables\BooleanSwitch.cs" />

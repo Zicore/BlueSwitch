@@ -10,8 +10,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Equals.Base";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Equals.Base";
             DisplayName = "Equals";
+            Description = "Returns true if both input elements are equal else returns false";
 
             AddInput(new InputBase(new AnySignature()));
             AddInput(new InputBase(new AnySignature()));

@@ -12,7 +12,8 @@ namespace BlueSwitch.Base.Components.Switches.IO
         {
             AddOutput(typeof (bool));
             SetData(0,new DataContainer(true));
-            UniqueName = "Toggle";
+            UniqueName = "BlueSwitch.Base.Components.Switches.IO.Toggle";
+            DisplayName = "Toggle";
             Description = "Schalter";
         }
 

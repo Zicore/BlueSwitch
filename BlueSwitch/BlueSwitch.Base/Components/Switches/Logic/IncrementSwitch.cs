@@ -20,7 +20,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic
             AddInput(typeof(bool), new CheckBox());
             AddOutput(new ActionSignature());
             AddOutput(typeof(int));
-            UniqueName = "Increment";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Increment";
+            DisplayName = "Increment";
+            Description = "Increments a value for a given number as long the condition is false";
             edit.Text = Value.ToString();
         }
 

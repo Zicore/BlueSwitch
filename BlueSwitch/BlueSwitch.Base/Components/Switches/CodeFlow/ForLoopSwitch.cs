@@ -15,7 +15,9 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "For";
+            UniqueName = "BlueSwitch.Base.Components.Switches.CodeFlow.For";
+            DisplayName = "For";
+            Description = "A for-Loop";
 
             AddInput(new ActionSignature());
             AddInput(typeof(int), TextEdit.CreateNumeric());

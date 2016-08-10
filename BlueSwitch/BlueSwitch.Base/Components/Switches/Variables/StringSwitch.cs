@@ -16,6 +16,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
             AddOutput(typeof(string), TextEdit);
             UniqueName = "BlueSwitch.Base.Components.Switches.Variables.String";
             DisplayName = "String";
+            Description = "A string variable";
             ColumnWidth = 120;
         }
 

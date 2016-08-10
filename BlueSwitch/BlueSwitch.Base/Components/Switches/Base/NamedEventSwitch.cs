@@ -16,7 +16,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Named Start";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.Named Start";
+            DisplayName = "Named Start";
             Description = "Named Start";
 
             AddInput(typeof (string), new TextEdit());

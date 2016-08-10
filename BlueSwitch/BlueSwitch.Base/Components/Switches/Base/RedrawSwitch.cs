@@ -15,7 +15,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         {
             AddInput(new ActionSignature());
             AddOutput(new ActionSignature());
-            UniqueName = "Redraw";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.Redraw";
+            DisplayName = "Redraw";
+            Description = "Redraw";
         }
 
         protected override void OnProcess<T>(Processor p, ProcessingNode<T> node)

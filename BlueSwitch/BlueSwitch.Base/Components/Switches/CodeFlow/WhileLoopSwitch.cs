@@ -15,7 +15,9 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "While";
+            UniqueName = "BlueSwitch.Base.Components.Switches.CodeFlow.While";
+            DisplayName = "While";
+            Description = "A while-Loop";
 
             AddInput(new ActionSignature());
             AddInput(typeof(bool), new CheckBox { AutoStoreValue = false });

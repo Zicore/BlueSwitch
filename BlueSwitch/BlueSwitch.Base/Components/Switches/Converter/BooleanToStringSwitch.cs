@@ -13,8 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Boolean.ToString";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Boolean.ToString";
             DisplayName = "Boolean->String";
+            Description = "Converts a boolean-element into a string";
             AddInput(typeof (bool));
             AddOutput(typeof (string));
             IsCompact = true;

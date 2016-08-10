@@ -15,7 +15,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "MouseClickSwitch";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.MouseClickSwitch";
+            DisplayName = "MouseClick";
             Description = "MouseClickSwitch";
             AddOutput(new OutputBase(new ActionSignature()));
             IsStart = true;

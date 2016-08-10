@@ -16,7 +16,9 @@ namespace BlueSwitch.Base.Components.Switches.FileSystem
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "GetFiles";
+            UniqueName = "BlueSwitch.Base.Components.Switches.FileSystem.GetFiles";
+            DisplayName = "GetFiles";
+            Description = "Get files from a given path/direction.";
             
             AddInput(typeof (string), new TextEdit());
             AddOutput(typeof(IEnumerable));

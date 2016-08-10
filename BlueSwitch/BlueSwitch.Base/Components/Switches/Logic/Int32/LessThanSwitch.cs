@@ -13,7 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Logic.Int32
             AddInput(typeof(int), new TextEdit { NumberMode = true, AllowDecimalPoint = false });
             AddOutput(typeof(bool));
 
-            UniqueName = "Int32.LessThan";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Int32.Int32.LessThan";
+            DisplayName = "Int32.LessThan";
+            Description = "Checks if Int32(x) is less than Int32(y)";
         }
 
         public override GroupBase OnSetGroup()

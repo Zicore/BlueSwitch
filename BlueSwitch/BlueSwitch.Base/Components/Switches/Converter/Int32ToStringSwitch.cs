@@ -13,8 +13,9 @@ namespace BlueSwitch.Base.Components.Switches.Converter
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Int32.ToString";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Converter.Int32.ToString";
             DisplayName = "Int32->String";
+            Description = "Converts an int32-element into an object.";
             AddInput(typeof (int));
             AddOutput(typeof (string));
             IsCompact = true;

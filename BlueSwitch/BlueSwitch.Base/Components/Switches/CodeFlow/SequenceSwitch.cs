@@ -10,7 +10,9 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Sequence";
+            UniqueName = "BlueSwitch.Base.Components.Switches.CodeFlow.Sequence";
+            DisplayName = "Sequence";
+            Description = "Sequence";
 
             AddInput(new ActionSignature());
 

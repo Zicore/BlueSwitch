@@ -13,7 +13,8 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "Restart";
+            UniqueName = "BlueSwitch.Base.Components.Switches.Base.Restart";
+            DisplayName = "Restart";
             Description = "Marks for restart";
 
             AddInput(new ActionSignature());
