@@ -23,7 +23,7 @@ namespace BlueSwitch.Monitoring.Components.Switches
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "Monitoring.Process.Guard";
+            UniqueName = "BlueSwitch.Monitoring.Components.Switches.Process.Guard";
             DisplayName = "Process Guard";
             Description = "Checks if process is running and starts it new if it's not";
 

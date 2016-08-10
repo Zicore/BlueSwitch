@@ -13,7 +13,7 @@ namespace BlueSwitch.Base.Components.Switches.SwitchMath.Int32
             ActivateInputAdd(new PinDescription(typeof(int), UIType.TextEdit) { IsNumeric = true, IsDecimalNumber = false, IsAutoStoreValue = true}, 2);
 
             AddOutput(typeof(int));
-            UniqueName = "Int32.Add";
+            UniqueName = "BlueSwitch.Base.Components.Switches.SwitchMath.Int32.Int32.Add";
             Description = "Calculates the sum of all integer inputs";
             DisplayName = "Int32.Add";
         }

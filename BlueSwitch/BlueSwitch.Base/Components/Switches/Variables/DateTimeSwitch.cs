@@ -20,7 +20,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
 
         public override GroupBase OnSetGroup()
         {
-            return Groups.IO;
+            return Groups.Variable;
         }
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)

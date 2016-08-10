@@ -23,7 +23,7 @@ namespace BlueSwitch.Monitoring.Components.Switches
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "Monitoring.Process.Start";
+            UniqueName = "BlueSwitch.Monitoring.Components.Switches.Process.Start";
             DisplayName = "Start Process";
             Description = "Starts the process";
 

@@ -18,7 +18,7 @@ namespace BlueSwitch.Regex.Components.Switches
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            UniqueName = "BlueSwitch.RegexMatch.Base";
+            UniqueName = "BlueSwitch.Regex.Components.Switches.RegexMatch";
             DisplayName = "Regex Match";
 
             AddInput(typeof(string));

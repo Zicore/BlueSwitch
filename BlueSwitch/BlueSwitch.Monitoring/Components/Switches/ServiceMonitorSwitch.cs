@@ -23,7 +23,7 @@ namespace BlueSwitch.Monitoring.Components.Switches
         {
             base.OnInitialize(renderingEngine);
 
-            UniqueName = "Monitoring.Service.Status";
+            UniqueName = "BlueSwitch.Monitoring.Components.Switches.Service.Status";
             DisplayName = "Service Status";
             Description = "Checks if service is running";
 
