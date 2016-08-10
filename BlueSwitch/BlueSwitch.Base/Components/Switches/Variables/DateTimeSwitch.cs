@@ -16,6 +16,8 @@ namespace BlueSwitch.Base.Components.Switches.Variables
             UniqueName = "BlueSwitch.Base.Components.Switches.Variables.DateTime";
             DisplayName = "DateTime";
             Description = "A DateTime variable";
+
+            IsCompact = true;
         }
 
         public override GroupBase OnSetGroup()
