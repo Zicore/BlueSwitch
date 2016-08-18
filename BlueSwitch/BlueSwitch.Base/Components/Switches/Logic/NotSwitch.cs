@@ -9,7 +9,7 @@ namespace BlueSwitch.Base.Components.Switches.Logic
     {
         protected override void OnInitialize(Engine renderingEngine)
         {
-            AddInput(typeof (bool), new CheckBox());
+            AddInput(typeof (bool));
             AddOutput(typeof(bool));
 
             UniqueName = "BlueSwitch.Base.Components.Switches.Logic.Not";

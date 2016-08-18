@@ -15,7 +15,7 @@ namespace BlueSwitch.Base.Components.Switches.Description
             DisplayName = "Description";
             Description = "Can be used to describe the program or an element";
             MinRows = 1;
-            DescriptionHeight = 0;
+            DescriptionHeight = -1;
             ColumnWidth = 160;
             TextEdit.AutoResize = true;
         }

@@ -11,8 +11,6 @@ namespace BlueSwitch.Base.Components.Switches.Variables
         {
             TextEdit = new TextEdit();
             TextEdit.AutoResize = true;
-            //TextEdit.AutoStoreValue = true;
-
             AddOutput(typeof(string), TextEdit);
             UniqueName = "BlueSwitch.Base.Components.Switches.Variables.String";
             DisplayName = "String";

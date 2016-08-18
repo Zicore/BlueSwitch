@@ -6,20 +6,20 @@ using BlueSwitch.Base.Processing;
 
 namespace BlueSwitch.Base.Components.Switches.Variables
 {
-    public class Int32Switch : SwitchBase
+    public class FloatSwitch : SwitchBase
     {
-        protected TextEdit TextEdit;
-
         protected override void OnInitialize(Engine renderingEngine)
         {
             TextEdit = new TextEdit();
-            AddOutput(typeof(int), TextEdit);
-            UniqueName = "BlueSwitch.Base.Components.Switches.Variables.Int32";
-            DisplayName = "Int32";
-            Description = "A Int32 variable";
-            TextEdit.AllowDecimalPoint = false;
+            AddOutput(typeof(float), TextEdit);
+            UniqueName = "BlueSwitch.Base.Components.Switches.Variables.FloatSwitch";
+            DisplayName = "Float";
+            Description = "A float variable";
+            TextEdit.AllowDecimalPoint = true;
             TextEdit.NumberMode = true;
         }
+
+        protected TextEdit TextEdit;
 
         public override GroupBase OnSetGroup()
         {
@@ -28,7 +28,7 @@ namespace BlueSwitch.Base.Components.Switches.Variables
 
         protected override void OnProcessData<T>(Processor p, ProcessingNode<T> node)
         {
-            SetData(0, new DataContainer(Convert.ToInt32(TextEdit.NumberValue)));
+            SetData(0, new DataContainer(Convert.ToSingle(TextEdit.NumberValue)));
             base.OnProcessData(p, node);
         }
     }

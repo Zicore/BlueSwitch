@@ -41,7 +41,7 @@
             this.treeView.Location = new System.Drawing.Point(0, 22);
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(170, 447);
-            this.treeView.TabIndex = 0;
+            this.treeView.TabIndex = 1;
             this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView_ItemDrag);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             this.treeView.DoubleClick += new System.EventHandler(this.treeView_DoubleClick);
@@ -54,7 +54,7 @@
             this.tbSearch.Location = new System.Drawing.Point(0, 1);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(170, 20);
-            this.tbSearch.TabIndex = 6;
+            this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
             this.tbSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyUp);

@@ -85,7 +85,6 @@
     <Compile Include="Components\Switches\Converter\BooleanToObjectSwitch.cs" />
     <Compile Include="Components\Switches\Debug\DownloadInfo.cs" />
     <Compile Include="Components\Switches\Debug\DownloadSimulatorSwitch.cs" />
-    <Compile Include="Components\Switches\Debug\DebugThreadSwitch.cs" />
     <Compile Include="Components\Switches\Debug\ExceptionSwitch.cs" />
     <Compile Include="Components\Switches\Description\DescriptionSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\CombinePathSwitch.cs" />
@@ -115,6 +114,7 @@
     <Compile Include="Components\Switches\Text\RandomTextSwitch.cs" />
     <Compile Include="Components\Switches\Text\ConcatTextSwitch.cs" />
     <Compile Include="Components\Switches\Variables\BooleanSwitch.cs" />
+    <Compile Include="Components\Switches\Variables\FloatSwitch.cs" />
     <Compile Include="Components\Switches\Variables\Int32Switch.cs" />
     <Compile Include="Components\Switches\Variables\TextEditBaseSwitch.cs" />
     <Compile Include="Components\Switches\Variables\DoubleSwitch.cs" />
