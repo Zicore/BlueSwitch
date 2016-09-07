@@ -23,6 +23,7 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
             AddInput(typeof(int), TextEdit.CreateNumeric());
 
             AddOutput(new ActionSignature());
+            AddOutput(typeof(int));
             AddOutput(new ActionSignature());
             IsCompact = true;
         }
@@ -42,13 +43,15 @@ namespace BlueSwitch.Base.Components.Switches.CodeFlow
             {
                 index++;
                 node.Repeat = true;
-                node.Skip = new SkipNode(1);
+                node.Skip = new SkipNode(2);
             }
             else
             {
                 index = 0;
                 node.Skip = new SkipNode(0);
             }
+
+            SetData(1, new DataContainer(index-1));
 
             //if (RenderingEngine.DebugMode)
             //{

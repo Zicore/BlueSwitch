@@ -93,6 +93,7 @@
     <Compile Include="Components\Switches\FileSystem\FilterFileSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\GetFilesSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\MergeFilesSwitch.cs" />
+    <Compile Include="Components\Switches\FileSystem\WriteLineSwitch.cs" />
     <Compile Include="Components\Switches\FileSystem\ReadLineSwitch.cs" />
     <Compile Include="Components\Switches\IO\ValueStoreSwitch.cs" />
     <Compile Include="Components\Switches\Logic\DateTimeType\GreaterThanSwitch.cs" />
@@ -111,6 +112,8 @@
     <Compile Include="Components\Switches\SwitchMath\Int32\AddSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Int32\MaxSwitch.cs" />
     <Compile Include="Components\Switches\SwitchMath\Int32\MinSwitch.cs" />
+    <Compile Include="Components\Switches\Base\GetFromArraySwitch.cs" />
+    <Compile Include="Components\Switches\Text\SplitTextSwitch.cs" />
     <Compile Include="Components\Switches\Text\RandomTextSwitch.cs" />
     <Compile Include="Components\Switches\Text\ConcatTextSwitch.cs" />
     <Compile Include="Components\Switches\Variables\BooleanSwitch.cs" />
