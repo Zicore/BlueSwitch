@@ -47,7 +47,7 @@ namespace BlueSwitch.Base.Components.Base
 
         
 
-        public RenderingEngine() : base()
+        public RenderingEngine() 
         {
             LoadSettings();
 
