@@ -143,8 +143,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
                     {
                         var path = AppDomain.CurrentDomain.BaseDirectory;
                         path = Path.Combine(path, "Resources", "Images", GlyphImageKey);
-                        _glyphImage = new Bitmap(path);
-                        ImageLookup[GlyphImageKey] = GlyphImage;
+                        if (File.Exists(path))
+                        {
+                            _glyphImage = new Bitmap(path);
+                            ImageLookup[GlyphImageKey] = GlyphImage;
+                        }
                     }
                     else
                     {
@@ -730,9 +733,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
                 var brush = new SolidBrush(Color.FromArgb(40, 0, 0, 0));
                 extendedGraphics.FillRoundRectangle(brush, r.X, r.Y +1, r.Width, r.Height -1, radius);
 
-                if (DrawGlyphImage)
+                var img = GlyphImage;
+                if (DrawGlyphImage && img != null)
                 {
-                    var img = GlyphImage;
                     float ratio = r.Height / img.Height;
                     var imageRect = r;
 

@@ -72,6 +72,7 @@
             this.highQualityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highPerformanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerExtensionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runtimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProjectInRuntime = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -92,7 +93,6 @@
             this.openFileDialogTags = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogHelp = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogHelp = new System.Windows.Forms.OpenFileDialog();
-            this.registerExtensionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -454,6 +454,13 @@
             this.gridToolStripMenuItem.Text = "Grid";
             this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
+            // registerExtensionToolStripMenuItem
+            // 
+            this.registerExtensionToolStripMenuItem.Name = "registerExtensionToolStripMenuItem";
+            this.registerExtensionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.registerExtensionToolStripMenuItem.Text = "Register Extension";
+            this.registerExtensionToolStripMenuItem.Click += new System.EventHandler(this.registerExtensionToolStripMenuItem_Click);
+            // 
             // runtimeToolStripMenuItem
             // 
             this.runtimeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -609,13 +616,6 @@
             // 
             this.openFileDialogHelp.Filter = "Meta Json Dateien|*.meta.json";
             this.openFileDialogHelp.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogHelp_FileOk);
-            // 
-            // registerExtensionToolStripMenuItem
-            // 
-            this.registerExtensionToolStripMenuItem.Name = "registerExtensionToolStripMenuItem";
-            this.registerExtensionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.registerExtensionToolStripMenuItem.Text = "Register Extension";
-            this.registerExtensionToolStripMenuItem.Click += new System.EventHandler(this.registerExtensionToolStripMenuItem_Click);
             // 
             // MainForm
             // 
