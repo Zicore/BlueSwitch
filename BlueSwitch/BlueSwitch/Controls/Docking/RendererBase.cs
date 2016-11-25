@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,7 +29,7 @@ namespace BlueSwitch.Controls.Docking
 
             UpdateScrollBars();
         }
-
+        
         public void InitializeEngine()
         {
             RenderingEngine.ProcessorCompiler.CompileStart += ProcessorCompilerOnCompileStart;
@@ -36,6 +37,8 @@ namespace BlueSwitch.Controls.Docking
             RenderingEngine.LoadAddons();
         }
 
+        public event EventHandler DrawFinished;
+        public TimeSpan DrawTime { get; private set; }
         private ContextMenuStrip _contextMenuStrip;
         private IContainer components;
         private ToolStripMenuItem removeToolStripMenuItem;
@@ -110,6 +113,7 @@ namespace BlueSwitch.Controls.Docking
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             RenderingEngine.Draw(e.Graphics, ClientRectangle);
             
             RectangleF bounds = new RectangleF(2, 2, Bounds.Width - 4, Bounds.Height - 4);
@@ -124,7 +128,9 @@ namespace BlueSwitch.Controls.Docking
             {
                 e.Graphics.DrawRectangle(focusPenSimulation, bounds.X, bounds.Y, bounds.Width, bounds.Height);
             }
-            
+            sw.Stop();
+            DrawTime = sw.Elapsed;
+            OnDrawFinished();
             base.OnPaint(e);
         }
 
@@ -309,6 +315,11 @@ namespace BlueSwitch.Controls.Docking
         {
             RenderingEngine.CurrentProject.Translation = AutoScrollPosition;
             RenderingEngine.RequestRedraw();
+        }
+
+        protected virtual void OnDrawFinished()
+        {
+            DrawFinished?.Invoke(this, EventArgs.Empty);
         }
     }
 }

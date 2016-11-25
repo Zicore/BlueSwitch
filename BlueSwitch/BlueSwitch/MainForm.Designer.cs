@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +94,8 @@
             this.openFileDialogTags = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogHelp = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogHelp = new System.Windows.Forms.OpenFileDialog();
+            this.lbPerformance = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timerDrawCheck = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -502,7 +505,8 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelBuildProgress,
-            this.lbStatus});
+            this.lbStatus,
+            this.lbPerformance});
             this.statusStrip.Location = new System.Drawing.Point(0, 649);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1230, 22);
@@ -617,6 +621,17 @@
             this.openFileDialogHelp.Filter = "Meta Json Dateien|*.meta.json";
             this.openFileDialogHelp.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogHelp_FileOk);
             // 
+            // lbPerformance
+            // 
+            this.lbPerformance.Name = "lbPerformance";
+            this.lbPerformance.Size = new System.Drawing.Size(0, 17);
+            // 
+            // timerDrawCheck
+            // 
+            this.timerDrawCheck.Enabled = true;
+            this.timerDrawCheck.Interval = 1000;
+            this.timerDrawCheck.Tick += new System.EventHandler(this.timerDrawCheck_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,6 +726,8 @@
         private System.Windows.Forms.ToolStripMenuItem errorListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem variablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registerExtensionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel lbPerformance;
+        private System.Windows.Forms.Timer timerDrawCheck;
     }
 }
 

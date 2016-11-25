@@ -543,5 +543,10 @@ namespace BlueSwitch
         {
             //Win32.FileExtensionHelper.SetAssociation(".bs", "BlueSwitchFile", Application.ExecutablePath, "BlueSwitch Script");
         }
+
+        private void timerDrawCheck_Tick(object sender, EventArgs e)
+        {
+            lbPerformance.Text = $"Draw: {Renderer.DrawTime.TotalMilliseconds} FPS: {(1000.0 / Renderer.DrawTime.TotalMilliseconds):0.00eigen}";
+        }
     }
 }
