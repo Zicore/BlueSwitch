@@ -176,7 +176,7 @@ namespace BlueSwitch
             dockPanel.SuspendLayout();
 
 
-            dockPanel.Theme = new VS2012LightTheme();
+            dockPanel.Theme = new VS2015LightTheme();
             dockPanel.BackColor = SystemColors.Control;
             dockPanel.DockBackColor = SystemColors.Control;
 
@@ -546,7 +546,7 @@ namespace BlueSwitch
 
         private void timerDrawCheck_Tick(object sender, EventArgs e)
         {
-            lbPerformance.Text = $"Draw: {Renderer.DrawTime.TotalMilliseconds} FPS: {(1000.0 / Renderer.DrawTime.TotalMilliseconds):0.00eigen}";
+            lbPerformance.Text = $"Draw: {Renderer.DrawTime.TotalMilliseconds} FPS: {(1000.0 / Renderer.DrawTime.TotalMilliseconds):0.00}";
         }
     }
 }
