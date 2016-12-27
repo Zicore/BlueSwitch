@@ -118,6 +118,11 @@ namespace BlueSwitch.Base.Services
 
         public void ExportHelpDescription(String filePath)
         {
+            var directoryName = Path.GetDirectoryName(filePath);
+            if (directoryName != null && !Directory.Exists(directoryName))
+            {
+                Directory.CreateDirectory(directoryName);
+            }
             using (StreamWriter sw = new StreamWriter(filePath))
             {
                 sw.Write(JsonConvert.SerializeObject(this.Items));
