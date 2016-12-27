@@ -1174,7 +1174,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         private void AddInputPinOnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Delete)
+            if (e.KeyData == Keys.Subtract)
             {
                 if (ExtraVariableInputs > 0)
                 {
@@ -1189,7 +1189,7 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         private void AddOutputPinOnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Delete)
+            if (e.KeyData == Keys.Subtract)
             {
                 if (ExtraVariableOutputs > 0)
                 {
@@ -1204,8 +1204,11 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         private void AddOutputPinOnClick(object sender, MouseEventArgs e)
         {
-            AddOutput(_addOutputPin.Description);
-            ExtraVariableOutputs++;
+            if (e.Button == MouseButtons.Left)
+            {
+                AddOutput(_addOutputPin.Description);
+                ExtraVariableOutputs++;
+            }
         }
     }
 }
