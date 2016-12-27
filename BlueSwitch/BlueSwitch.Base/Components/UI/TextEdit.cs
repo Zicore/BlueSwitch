@@ -49,8 +49,6 @@ namespace BlueSwitch.Base.Components.UI
 
         private static readonly StringFormat StringFormat = new StringFormat(StringFormat.GenericDefault.FormatFlags | StringFormatFlags.MeasureTrailingSpaces | StringFormatFlags.NoClip);
 
-        [JsonIgnore]
-        public bool HasFocus { get; set; }
 
         [JsonIgnore]
         public bool AutoResize { get; set; }

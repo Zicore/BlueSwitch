@@ -17,6 +17,9 @@ namespace BlueSwitch.Base.Components.UI
     public abstract class UIComponent : DrawableBase
     {
         [JsonIgnore]
+        public bool HasFocus { get; set; }
+
+        [JsonIgnore]
         protected float ParentWidth = 0;
 
         [JsonIgnore]

@@ -455,6 +455,16 @@ namespace BlueSwitch.Base.Services
             }
         }
 
+        public bool ItemWithFocusExists()
+        {
+            var selected = RenderingEngine.CurrentProject.Items.Where(x => x.IsSelected).ToList();
+            var componentWithFocusExists = selected.Any(t => t.Components.Any(x => x.HasFocus));
+            var inputWithFocusExists = selected.Any(x => x.Inputs.Any(y => y.UIComponent.HasFocus));
+            var outputWithFocusExists = selected.Any(x => x.Outputs.Any(y => y.UIComponent.HasFocus));
+
+            return componentWithFocusExists || inputWithFocusExists || outputWithFocusExists;
+        }
+
         protected virtual void OnContextAction(ContextActionEventArgs e)
         {
             ContextAction?.Invoke(this, e);
