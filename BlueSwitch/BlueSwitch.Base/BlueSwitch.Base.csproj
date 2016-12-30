@@ -67,6 +67,8 @@
     <Compile Include="Components\Base\Engine.cs" />
     <Compile Include="Components\Base\RuntimeEngine.cs" />
     <Compile Include="Components\Switches\Base\GetterSwitch.cs" />
+    <Compile Include="Components\Switches\Meta\InputDefinitionSwitch.cs" />
+    <Compile Include="Components\Switches\Meta\OutputDefinitionSwitch.cs" />
     <Compile Include="Components\Switches\Base\RaiseEventSwitch.cs" />
     <Compile Include="Components\Switches\Base\SetterSwitch.cs" />
     <Compile Include="Components\Switches\Base\NamedEventSwitch.cs" />
