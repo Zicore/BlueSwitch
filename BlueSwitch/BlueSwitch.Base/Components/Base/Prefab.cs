@@ -15,5 +15,9 @@ namespace BlueSwitch.Base.Components.Base
 
         [JsonProperty("Connections")]
         public List<Connection> Connections { get; set; } = new List<Connection>();
+
+        public String FilePath { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
     }
 }

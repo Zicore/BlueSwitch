@@ -106,10 +106,22 @@ namespace BlueSwitch.Base.IO
             IsLoaded = true;
         }
 
-        public static String GetFilePath(String applicationName, String fileName)
+        public static String GetDirectoryPath(String applicationName)
         {
             String appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             String folderPath = Path.Combine(appDataPath, applicationName);
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            return folderPath;
+        }
+
+        public static String GetFilePath(String applicationName, String fileName)
+        {
+            String folderPath = GetDirectoryPath(applicationName);
             String filePath = Path.Combine(folderPath, fileName);
 
             if (!Directory.Exists(folderPath))

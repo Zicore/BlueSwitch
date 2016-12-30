@@ -13,10 +13,16 @@ namespace BlueSwitch.Base.Components.Switches.Meta
             base.OnInitialize(renderingEngine);
             AutoDiscoverDisabled = true;
 
-            LoadPrefab();
+            LoadInputOutputs();
         }
 
-        private void LoadPrefab()
+        private void LoadPrefabDetails()
+        {
+            DisplayName = Prefab.Name;
+            Description = Prefab.Description;
+        }
+        
+        private void LoadInputOutputs()
         {
             var outputDefinition = Prefab.Items.FirstOrDefault(x => x is OutputDefinitionSwitch);
 

@@ -65,8 +65,10 @@
     <Compile Include="Attributes\DataAttribute.cs" />
     <Compile Include="Components\Base\DataContainer.cs" />
     <Compile Include="Components\Base\Engine.cs" />
+    <Compile Include="Components\Base\Prefab.cs" />
     <Compile Include="Components\Base\RuntimeEngine.cs" />
     <Compile Include="Components\Switches\Base\GetterSwitch.cs" />
+    <Compile Include="Components\Switches\Meta\PrefabSwitch.cs" />
     <Compile Include="Components\Switches\Meta\InputDefinitionSwitch.cs" />
     <Compile Include="Components\Switches\Meta\OutputDefinitionSwitch.cs" />
     <Compile Include="Components\Switches\Base\RaiseEventSwitch.cs" />

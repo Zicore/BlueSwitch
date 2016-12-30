@@ -222,6 +222,11 @@ namespace BlueSwitch.Base.Components.Base
             OnProjectLoaded();
         }
 
+        public void LoadPrefabs()
+        {
+            EngineSettings.GetDirectoryPath()
+        }
+
         public void Stop()
         {
             ProcessorCompiler.Stop(CurrentProject);
