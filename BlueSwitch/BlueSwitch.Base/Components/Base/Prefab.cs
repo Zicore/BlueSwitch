@@ -4,18 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.IO;
 using Newtonsoft.Json;
 
 namespace BlueSwitch.Base.Components.Base
 {
     public class Prefab
     {
-        [JsonProperty("Items")]
-        public List<SwitchBase> Items { get; set; } = new List<SwitchBase>();
-
-        [JsonProperty("Connections")]
-        public List<Connection> Connections { get; set; } = new List<Connection>();
-
+        public BlueSwitchProject Project { get; set; }
+        
         public String FilePath { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }

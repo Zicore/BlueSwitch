@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueSwitch.Base.Components.Switches.Base;
+using BlueSwitch.Base.Components.Switches.Meta;
 using BlueSwitch.Base.Diagnostics;
 using BlueSwitch.Base.IO;
 using BlueSwitch.Base.Processing;
@@ -218,13 +219,29 @@ namespace BlueSwitch.Base.Components.Base
             {
                 _log.Error(ex);
             }
+            LoadPrefabs();
             CurrentProject.Initialize(this);
             OnProjectLoaded();
         }
 
         public void LoadPrefabs()
         {
-            EngineSettings.GetDirectoryPath()
+            var directory = EngineSettings.GetSettingsSubDirectory("Prefabs");
+            var files = Directory.GetFiles(directory, "*.bspref");
+
+            foreach (var file in files)
+            {
+                var prefab = JsonSerializable.Load<BlueSwitchProject>(file);
+                CurrentProject.Prefabs.Add(new Prefab {Project = prefab, Name = prefab.Name, Description = prefab.Description, FilePath = prefab.FilePath});
+            }
+
+            foreach (var p in CurrentProject.Prefabs)
+            {
+                PrefabSwitch sw = new PrefabSwitch();
+                sw.Prefab = p;
+                sw.InitializeMetaInformation(this);
+                sw.Initialize(this);
+            }
         }
 
         public void Stop()
