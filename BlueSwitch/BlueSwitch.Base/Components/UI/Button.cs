@@ -26,10 +26,7 @@ namespace BlueSwitch.Base.Components.UI
         public event EventHandler Click;
 
         private static readonly StringFormat StringFormat = new StringFormat(StringFormat.GenericDefault.FormatFlags | StringFormatFlags.MeasureTrailingSpaces | StringFormatFlags.NoClip);
-
-        [JsonIgnore]
-        public bool HasFocus { get; set; }
-
+        
         [JsonIgnore]
         public bool AutoResize { get; set; }
 
