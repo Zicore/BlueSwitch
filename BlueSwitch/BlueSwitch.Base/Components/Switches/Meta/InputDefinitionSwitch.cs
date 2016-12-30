@@ -19,7 +19,7 @@ namespace BlueSwitch.Base.Components.Switches.Meta
 
         protected override void OnInitialize(Engine renderingEngine)
         {
-            HasVariableInputs = true;
+            HasVariableOutputs = true;
             ExtraRows = 1;
 
             AddOutput(new ActionSignature());
