@@ -103,6 +103,13 @@ namespace BlueSwitch.Base.Components.Base
                 variableComponent.VariableKey = ((VariableSwitch)sourceComponent).VariableKey;
             }
 
+            var sourcePrefabSwitch = sourceComponent as PrefabSwitch;
+            if (sourcePrefabSwitch != null && switchBase is PrefabSwitch)
+            {
+                var prefabSwitch = switchBase as PrefabSwitch;
+                prefabSwitch.Prefab = sourcePrefabSwitch.Prefab;
+            }
+
             if (switchBase != null)
             {
                 switchBase.Position = pt;
@@ -203,6 +210,7 @@ namespace BlueSwitch.Base.Components.Base
         {
             OnBeforeLoading();
             CurrentProject = new BlueSwitchProject();
+            LoadPrefabs();
             CurrentProject.Initialize(this);
             OnProjectLoaded();
         }
@@ -233,6 +241,8 @@ namespace BlueSwitch.Base.Components.Base
             {
                 var prefab = JsonSerializable.Load<BlueSwitchProject>(file);
                 CurrentProject.Prefabs.Add(new Prefab {Project = prefab, Name = prefab.Name, Description = prefab.Description, FilePath = prefab.FilePath});
+                prefab.UpdateSwitches(this);
+                prefab.UpdateConnections();
             }
 
             foreach (var p in CurrentProject.Prefabs)
@@ -241,6 +251,8 @@ namespace BlueSwitch.Base.Components.Base
                 sw.Prefab = p;
                 sw.InitializeMetaInformation(this);
                 sw.Initialize(this);
+
+                AvailableSwitches.Add(sw);
             }
         }
 

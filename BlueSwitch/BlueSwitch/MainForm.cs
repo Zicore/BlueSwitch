@@ -68,6 +68,7 @@ namespace BlueSwitch
         private void RenderingEngineOnProjectLoaded(object sender, EventArgs eventArgs)
         {
             UpdateTitle();
+            _switchesTree.UpdateTree();
         }
 
         private void UpdateTitle()

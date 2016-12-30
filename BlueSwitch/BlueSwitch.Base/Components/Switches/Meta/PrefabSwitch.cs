@@ -11,15 +11,19 @@ namespace BlueSwitch.Base.Components.Switches.Meta
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine);
-            AutoDiscoverDisabled = true;
+            //AutoDiscoverDisabled = true;
 
             LoadInputOutputs();
+            LoadPrefabDetails();
         }
 
         private void LoadPrefabDetails()
         {
-            DisplayName = Prefab.Name;
-            Description = Prefab.Description;
+            if (Prefab != null)
+            {
+                DisplayName = Prefab.Name;
+                Description = Prefab.Description;
+            }
         }
         
         private void LoadInputOutputs()
@@ -42,7 +46,7 @@ namespace BlueSwitch.Base.Components.Switches.Meta
                 {
                     foreach (var item in inputDefinition.Outputs)
                     {
-                        AddOutput(item.Signature, item.UIComponent);
+                        AddInput(item.Signature, item.UIComponent);
                     }
                 }
             }
@@ -50,7 +54,7 @@ namespace BlueSwitch.Base.Components.Switches.Meta
 
         public override GroupBase OnSetGroup()
         {
-            return Groups.Meta;
+            return Groups.Prefabs;
         }
     }
 }

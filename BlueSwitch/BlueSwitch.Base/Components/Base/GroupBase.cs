@@ -12,6 +12,7 @@ namespace BlueSwitch.Base.Components.Base
         public static readonly GroupBase LogicDecimal = new GroupBase { Name = "Logic.Decimal", DisplayName = "Logic.Decimal" };
         public static readonly GroupBase Base = new GroupBase { Name = "Base", DisplayName = "Base" };
         public static readonly GroupBase Meta = new GroupBase { Name = "Meta", DisplayName = "Meta" };
+        public static readonly GroupBase Prefabs = new GroupBase { Name = "Prefabs", DisplayName = "Prefabs" };
         public static readonly GroupBase Math = new GroupBase { Name = "Math", DisplayName = "Math" };
         public static readonly GroupBase Debug = new GroupBase { Name = "Debug", DisplayName = "Debug" };
         public static readonly GroupBase IO = new GroupBase { Name = "IO", DisplayName = "IO" };

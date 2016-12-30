@@ -241,7 +241,7 @@ namespace BlueSwitch.Base.IO
             renderingEngine.RequestRedraw();
         }
 
-        private void UpdateSwitches(Engine renderingEngine)
+        public void UpdateSwitches(Engine renderingEngine)
         {
             foreach (var switchBase in Items)
             {
@@ -254,7 +254,7 @@ namespace BlueSwitch.Base.IO
             }
         }
 
-        private void UpdateConnections()
+        public void UpdateConnections()
         {
             foreach (var connection in Connections)
             {
