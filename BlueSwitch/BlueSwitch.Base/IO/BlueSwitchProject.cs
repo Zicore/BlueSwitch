@@ -36,7 +36,7 @@ namespace BlueSwitch.Base.IO
         [JsonProperty("Variables")]
         public Dictionary<string, Variable> Variables { get; } = new Dictionary<string, Variable>();
 
-        [JsonProperty("Prefabs")]
+        [JsonIgnore]
         public List<Prefab> Prefabs { get; } = new List<Prefab>();
 
         public Variable GetVariable(string key)

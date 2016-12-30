@@ -186,6 +186,9 @@ namespace BlueSwitch.Base.Components.Switches.Base
         [JsonIgnore]
         public bool HasVariableOutputs { get; set; } = false;
 
+        [JsonIgnore]
+        public bool IsInitialized { get; set; } = false;
+
         readonly AddPinComponent _addInputPin = new AddPinComponent(true);
         readonly AddPinComponent _addOutputPin = new AddPinComponent(false);
 
@@ -1094,55 +1097,59 @@ namespace BlueSwitch.Base.Components.Switches.Base
 
         public void Initialize(Engine renderingEngine)
         {
-            RenderingEngine = renderingEngine;
-            OnInitialize(renderingEngine);
-
-            if (HasVariableInputs)
+            if (!IsInitialized)
             {
-                int inputs = ExtraVariableInputs + MinVariableInputs;
-                for (int i = 0; i < inputs; i++)
+                RenderingEngine = renderingEngine;
+                OnInitialize(renderingEngine);
+
+                if (HasVariableInputs)
                 {
-                    AddInput(_addInputPin.Description);
+                    int inputs = ExtraVariableInputs + MinVariableInputs;
+                    for (int i = 0; i < inputs; i++)
+                    {
+                        AddInput(_addInputPin.Description);
+                    }
                 }
-            }
 
-            if (HasVariableOutputs)
-            {
-                int outputs = ExtraVariableOutputs + MinVariableOutputs;
-                for (int i = 0; i < outputs; i++)
+                if (HasVariableOutputs)
                 {
-                    AddOutput(_addOutputPin.Description);
+                    int outputs = ExtraVariableOutputs + MinVariableOutputs;
+                    for (int i = 0; i < outputs; i++)
+                    {
+                        AddOutput(_addOutputPin.Description);
+                    }
                 }
-            }
 
-            foreach (var inputBase in Inputs)
-            {
-                inputBase.Initialize(renderingEngine, this);
-            }
-            foreach (var outputBase in Outputs)
-            {
-                outputBase.Initialize(renderingEngine, this);
-            }
-            foreach (var component in Components)
-            {
-                component.Initialize(renderingEngine, this);
-            }
+                foreach (var inputBase in Inputs)
+                {
+                    inputBase.Initialize(renderingEngine, this);
+                }
+                foreach (var outputBase in Outputs)
+                {
+                    outputBase.Initialize(renderingEngine, this);
+                }
+                foreach (var component in Components)
+                {
+                    component.Initialize(renderingEngine, this);
+                }
 
-            if (HasVariableInputs)
-            {
-                _addInputPin.Initialize(renderingEngine, this);
-                _addInputPin.Click += AddInputPinOnClick;
-                _addInputPin.KeyUp += AddInputPinOnKeyUp;
-            }
+                if (HasVariableInputs)
+                {
+                    _addInputPin.Initialize(renderingEngine, this);
+                    _addInputPin.Click += AddInputPinOnClick;
+                    _addInputPin.KeyUp += AddInputPinOnKeyUp;
+                }
 
-            if (HasVariableOutputs)
-            {
-                _addOutputPin.Initialize(renderingEngine, this);
-                _addOutputPin.Click += AddOutputPinOnClick;
-                _addOutputPin.KeyUp += AddOutputPinOnKeyUp;
-            }
+                if (HasVariableOutputs)
+                {
+                    _addOutputPin.Initialize(renderingEngine, this);
+                    _addOutputPin.Click += AddOutputPinOnClick;
+                    _addOutputPin.KeyUp += AddOutputPinOnKeyUp;
+                }
 
-            Group = OnSetGroup();
+                Group = OnSetGroup();
+                IsInitialized = true;
+            }
         }
 
         /// <summary>

@@ -237,12 +237,12 @@ namespace BlueSwitch.Base.Components.Base
             var directory = EngineSettings.GetSettingsSubDirectory("Prefabs");
             var files = Directory.GetFiles(directory, "*.bspref");
 
+            CurrentProject.Prefabs.Clear();
+
             foreach (var file in files)
             {
                 var prefab = JsonSerializable.Load<BlueSwitchProject>(file);
                 CurrentProject.Prefabs.Add(new Prefab {Project = prefab, Name = prefab.Name, Description = prefab.Description, FilePath = prefab.FilePath});
-                prefab.UpdateSwitches(this);
-                prefab.UpdateConnections();
             }
 
             foreach (var p in CurrentProject.Prefabs)
@@ -251,6 +251,15 @@ namespace BlueSwitch.Base.Components.Base
                 sw.Prefab = p;
                 sw.InitializeMetaInformation(this);
                 sw.Initialize(this);
+                sw.AutoDiscoverDisabled = false;
+
+                var available = AvailableSwitches.FirstOrDefault(x => x.GetType() == sw.GetType());
+
+                // This should probably be refactored to a central spot for AvailableSwitches
+                if (available != null)
+                {
+                    AvailableSwitches.Remove(available); // Refresh prefab switches from list
+                }
 
                 AvailableSwitches.Add(sw);
             }

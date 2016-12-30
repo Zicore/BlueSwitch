@@ -1,20 +1,24 @@
 ﻿using System.Linq;
 using BlueSwitch.Base.Components.Base;
 using BlueSwitch.Base.Components.Switches.Base;
+using Newtonsoft.Json;
 
 namespace BlueSwitch.Base.Components.Switches.Meta
 {
     public class PrefabSwitch : SwitchBase
     {
+        [JsonIgnore]
         public Prefab Prefab { get; set; }
 
         protected override void OnInitialize(Engine renderingEngine)
         {
             base.OnInitialize(renderingEngine);
-            //AutoDiscoverDisabled = true;
+            AutoDiscoverDisabled = true;
 
             LoadInputOutputs();
             LoadPrefabDetails();
+
+            UniqueName = "BlueSwitch.Base.Components.Switches.Meta.Prefab";
         }
 
         private void LoadPrefabDetails()
@@ -34,6 +38,7 @@ namespace BlueSwitch.Base.Components.Switches.Meta
 
                 if (outputDefinition != null)
                 {
+                    outputDefinition.Initialize(RenderingEngine);
                     foreach (var item in outputDefinition.Inputs)
                     {
                         AddOutput(item.Signature, item.UIComponent);
@@ -44,6 +49,7 @@ namespace BlueSwitch.Base.Components.Switches.Meta
 
                 if (inputDefinition != null)
                 {
+                    inputDefinition.Initialize(RenderingEngine);
                     foreach (var item in inputDefinition.Outputs)
                     {
                         AddInput(item.Signature, item.UIComponent);
