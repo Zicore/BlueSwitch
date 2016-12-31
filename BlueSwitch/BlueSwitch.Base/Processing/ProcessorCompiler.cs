@@ -63,10 +63,11 @@ namespace BlueSwitch.Base.Processing
                     Root = new ProcessingNode<SwitchBase>(connection.ToInputOutput.Origin, connection)
                 };
 
+                tree.UpdateConnections(project.ConnectionsForCompilation);
                 tree.Root.Value.OnRegisterEvents(tree, RenderingEngine);
                 
                 var current = tree.Root;
-                ResolveTree(current, current, project);
+                ResolveTree(tree,current, current);
 
                 tree.Started -= ProcessingTreeOnStarted;
                 tree.Started += ProcessingTreeOnStarted;
@@ -78,16 +79,14 @@ namespace BlueSwitch.Base.Processing
 
             OnCompileFinished();
         }
-
-        public List<Connection> ConnectionsForCompilation { get; private set; } = new List<Connection>();
-
-        private void ResolveTree(ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node, BlueSwitchProject project)
+        
+        private void ResolveTree(ProcessingTree<SwitchBase> root,ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node)
         {
-            ResolveData(node, node, project);
+            ResolveData(root,node, node);
             BacktrackData(node,node,RenderingEngine,0);
 
             var items =
-                project.Connections.Where(x => x.ToInputOutput.InputOutput.Signature is ActionSignature)
+                root.ConnectionsForCompilation.Where(x => x.ToInputOutput.InputOutput.Signature is ActionSignature)
                     .OrderBy(x => x.ToInputOutput.InputOutputId);
 
             foreach (var c in items) // sorgt für korrekte reihenfolge
@@ -98,15 +97,15 @@ namespace BlueSwitch.Base.Processing
                     nextNode.Previous.Add( node );
                     node.Next.Add(nextNode);
                     node.OutputIndex = c.ToInputOutput.InputOutputId;
-                    ResolveTree(start,nextNode, project);
+                    ResolveTree(root,start,nextNode);
                 }
             }
         }
 
-        private void ResolveData(ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node, BlueSwitchProject project)
+        private void ResolveData(ProcessingTree<SwitchBase> root,ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node)
         {
             var items =
-                project.Connections.Where(x => !(x.ToInputOutput.InputOutput.Signature is ActionSignature))
+                root.ConnectionsForCompilation.Where(x => !(x.ToInputOutput.InputOutput.Signature is ActionSignature))
                     .OrderBy(x => x.ToInputOutput.InputOutputId);
             
             foreach (var c in items) // sorgt für korrekte reihenfolge
@@ -125,7 +124,7 @@ namespace BlueSwitch.Base.Processing
                     if (!start.ChainedNodes.Contains(nextNode.Value.Id) && c.ToInputOutput.Origin != start.Value)
                     {
                         start.ChainedNodes.Add(nextNode.Value.Id);
-                        ResolveData(start, nextNode, project);
+                        ResolveData(root,start, nextNode);
                     }
                 }
             }

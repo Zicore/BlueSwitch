@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BlueSwitch.Base.Components.Base;
@@ -48,6 +49,13 @@ namespace BlueSwitch.Base.Processing
         }
 
         public Processor Processor { protected set; get; }
+
+        public List<Connection> ConnectionsForCompilation { get; private set; } = new List<Connection>();
+
+        public void UpdateConnections(List<Connection> connections)
+        {
+            ConnectionsForCompilation = new List<Connection>(connections);
+        }
 
         private void Process(ProcessingNode<T> node, Engine renderingEngine)
         {
@@ -109,7 +117,7 @@ namespace BlueSwitch.Base.Processing
 
         private void RelayOutput(Processor p, ProcessingNode<T> node, Engine renderingEngine)
         {
-            var connections = renderingEngine.CurrentProject.Connections.Where(x => x.ToInputOutput.Origin == node.Value);
+            var connections = ConnectionsForCompilation.Where(x => x.ToInputOutput.Origin == node.Value);
 
             foreach (var c in connections)
             {
