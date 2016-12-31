@@ -78,13 +78,19 @@ namespace BlueSwitch.Base.Processing
 
             OnCompileFinished();
         }
-        
+
+        public List<Connection> ConnectionsForCompilation { get; private set; } = new List<Connection>();
+
         private void ResolveTree(ProcessingNode<SwitchBase> start, ProcessingNode<SwitchBase> node, BlueSwitchProject project)
         {
             ResolveData(node, node, project);
             BacktrackData(node,node,RenderingEngine,0);
 
-            foreach (var c in project.Connections.Where(x=>x.ToInputOutput.InputOutput.Signature is ActionSignature).OrderBy(x=>x.ToInputOutput.InputOutputId)) // sorgt für korrekte reihenfolge
+            var items =
+                project.Connections.Where(x => x.ToInputOutput.InputOutput.Signature is ActionSignature)
+                    .OrderBy(x => x.ToInputOutput.InputOutputId);
+
+            foreach (var c in items) // sorgt für korrekte reihenfolge
             {
                 if (node.Value == c.ToInputOutput.Origin)
                 {

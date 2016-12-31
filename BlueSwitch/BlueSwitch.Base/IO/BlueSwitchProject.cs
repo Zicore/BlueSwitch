@@ -39,6 +39,17 @@ namespace BlueSwitch.Base.IO
         [JsonIgnore]
         public List<Prefab> Prefabs { get; } = new List<Prefab>();
 
+        [JsonIgnore]
+        public List<Connection> ConnectionsForCompilation
+        {
+            get
+            {
+                var list = new List<Connection>(Connections);
+
+                return list;
+            }
+        }
+
         public Variable GetVariable(string key)
         {
             if (!String.IsNullOrEmpty(key) && Variables.ContainsKey(key))
