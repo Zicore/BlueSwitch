@@ -352,11 +352,6 @@ namespace BlueSwitch
             }
         }
 
-        private void tradeFairModeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _switchesTree.TradeFairMode = tradeFairModeToolStripMenuItem.Checked;
-        }
-
         private void performanceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var sw = new ReplicatorSwitch();
