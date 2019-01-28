@@ -1,4 +1,6 @@
-﻿namespace BlueSwitch
+﻿using WeifenLuo.WinFormsUI.Docking;
+
+namespace BlueSwitch
 {
     partial class MainForm
     {
@@ -488,6 +490,8 @@
             this.dockPanel.Name = "dockPanel";
             this.dockPanel.Size = new System.Drawing.Size(1230, 594);
             this.dockPanel.TabIndex = 2;
+            this.dockPanel.Theme = new VS2015LightTheme();
+            this.dockPanel.DocumentStyle = DocumentStyle.DockingWindow;
             // 
             // statusStrip
             // 
