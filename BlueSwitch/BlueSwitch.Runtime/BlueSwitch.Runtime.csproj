@@ -39,14 +39,6 @@
       <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OPDOPCConnector, Version=1.15.513.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompiledAssemblies\OPDOPCConnector.dll</HintPath>
-    </Reference>
-    <Reference Include="Softing.Opc.Ua.Toolkit, Version=1.26.0.4101, Culture=neutral, PublicKeyToken=19132d4dfa11b90e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompiledAssemblies\Softing.OpcUaNetToolkit\1.26\Net40\Softing.Opc.Ua.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -73,17 +65,9 @@
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
-      <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
-      <Name>BlueSwitch.Outlook</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Regex\BlueSwitch.Regex.csproj">
       <Project>{b1b7b203-f73b-479c-84a6-6d68d23d8efb}</Project>
       <Name>BlueSwitch.Regex</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.Twitter\BlueSwitch.Twitter.csproj">
-      <Project>{9b1bce96-df71-435d-b8f4-1dcdd38d4d3e}</Project>
-      <Name>BlueSwitch.Twitter</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

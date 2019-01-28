@@ -55,14 +55,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Zicore.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\Zicore.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Zicore.Settings.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BlueSwitch.IntTrader.API\Dependencies\Zicore.Settings.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleUtils.cs" />
@@ -256,10 +248,6 @@
       <Project>{65eca8e4-f9d4-48c2-83fe-6b4090167069}</Project>
       <Name>BlueSwitch.Monitoring</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.Outlook\BlueSwitch.Outlook.csproj">
-      <Project>{62c34e85-f9f5-4388-a879-4ef19563a24a}</Project>
-      <Name>BlueSwitch.Outlook</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BlueSwitch.Regex\BlueSwitch.Regex.csproj">
       <Project>{b1b7b203-f73b-479c-84a6-6d68d23d8efb}</Project>
       <Name>BlueSwitch.Regex</Name>
@@ -267,10 +255,6 @@
     <ProjectReference Include="..\BlueSwitch.Runtime\BlueSwitch.Runtime.csproj">
       <Project>{1a660075-42d4-453c-a302-d54ed17ac62a}</Project>
       <Name>BlueSwitch.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlueSwitch.Twitter\BlueSwitch.Twitter.csproj">
-      <Project>{9b1bce96-df71-435d-b8f4-1dcdd38d4d3e}</Project>
-      <Name>BlueSwitch.Twitter</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

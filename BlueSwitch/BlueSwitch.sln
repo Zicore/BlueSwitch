@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch", "BlueSwitch\BlueSwitch.csproj", "{6E73821E-6E16-417B-B6E0-6362B9A88A01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XnaGeometry", "..\XnaGeometry\XnaGeometry.csproj", "{A4398650-10F4-450F-8E4F-FB3F30A39683}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Twitter", "BlueSwitch.Twitter\BlueSwitch.Twitter.csproj", "{9B1BCE96-DF71-435D-B8F4-1DCDD38D4D3E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Outlook", "BlueSwitch.Outlook\BlueSwitch.Outlook.csproj", "{62C34E85-F9F5-4388-A879-4EF19563A24A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Addons", "BlueSwitch.Addons\BlueSwitch.Addons.csproj", "{23B23940-30FA-4992-8CE6-7DF22E6C2139}"
 EndProject
@@ -20,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Monitoring", "BlueSwitch.Monitoring\BlueSwitch.Monitoring.csproj", "{65ECA8E4-F9D4-48C2-83FE-6B4090167069}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.Regex", "BlueSwitch.Regex\BlueSwitch.Regex.csproj", "{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueSwitch.IntTrader.API", "BlueSwitch.IntTrader.API\BlueSwitch.IntTrader.API.csproj", "{8C6467CD-1A01-4FA9-86BB-D22FE063208D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsUI", "..\..\dockpanelsuite\WinFormsUI\WinFormsUI.csproj", "{C75532C4-765B-418E-B09B-46D36B2ABDB1}"
 EndProject
@@ -41,14 +35,6 @@ Global
 		{A4398650-10F4-450F-8E4F-FB3F30A39683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4398650-10F4-450F-8E4F-FB3F30A39683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4398650-10F4-450F-8E4F-FB3F30A39683}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B1BCE96-DF71-435D-B8F4-1DCDD38D4D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B1BCE96-DF71-435D-B8F4-1DCDD38D4D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B1BCE96-DF71-435D-B8F4-1DCDD38D4D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B1BCE96-DF71-435D-B8F4-1DCDD38D4D3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62C34E85-F9F5-4388-A879-4EF19563A24A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62C34E85-F9F5-4388-A879-4EF19563A24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62C34E85-F9F5-4388-A879-4EF19563A24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62C34E85-F9F5-4388-A879-4EF19563A24A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23B23940-30FA-4992-8CE6-7DF22E6C2139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23B23940-30FA-4992-8CE6-7DF22E6C2139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23B23940-30FA-4992-8CE6-7DF22E6C2139}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,10 +55,6 @@ Global
 		{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1B7B203-F73B-479C-84A6-6D68D23D8EFB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C6467CD-1A01-4FA9-86BB-D22FE063208D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -84,5 +66,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E2F05F7-051B-4302-B197-A084E309FEBA}
 	EndGlobalSection
 EndGlobal
